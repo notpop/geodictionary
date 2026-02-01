@@ -116,7 +116,7 @@
           "images": [
             {"url": "https://www.plonkit.net/images/japan/35.png", "caption": "沖縄の電柱設備（T字型バー変圧器）", "source": "Plonkit"},
             {"url": "https://www.plonkit.net/images/japan/78.png", "caption": "沖縄の建築様式（白いコンクリート建物）", "source": "Plonkit"},
-            {"url": "https://www.plonkit.net/images/japan/79.png", "caption": "沖縄のシーサー（獅子の像）", "source": "Plonkit"}
+            {"url": "https://www.plonkit.net/images/japan/78.png", "caption": "沖縄のシーサー（獅子の像）", "source": "Plonkit"}
           ],
           "quiz": ["okinawa-building", "okinawa-shisa", "okinawa-red-soil"]
         },

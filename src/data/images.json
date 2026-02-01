@@ -131,11 +131,11 @@
       "title": "電力会社別電柱",
       "images": [
         {
-          "id": "power-map",
-          "title": "電力会社管轄マップ",
-          "url": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Electric_power_distribution_sector_in_Japan.svg",
-          "description": "日本の10電力会社の管轄地域。電柱のプレートで地域を特定できる。",
-          "source": "Wikimedia Commons"
+          "id": "power-plates-overview",
+          "title": "電力会社別プレート一覧",
+          "url": "https://www.plonkit.net/images/japan/21.png",
+          "description": "各電力会社の電柱プレートの違い。プレートを見れば地域を特定できる。",
+          "source": "Plonkit"
         },
         {
           "id": "power-hokkaido",
@@ -295,7 +295,7 @@
         {
           "id": "okinawa-shisa",
           "title": "シーサー",
-          "url": "https://www.plonkit.net/images/japan/79.png",
+          "url": "https://www.plonkit.net/images/japan/78.png",
           "description": "沖縄のシーサー（獅子像）。門や屋根に置かれる守護獣。",
           "source": "Plonkit"
         }
@@ -321,7 +321,7 @@
         {
           "id": "yamaguchi-guardrail",
           "title": "山口県の黄色いガードレール",
-          "url": "https://www.plonkit.net/images/japan/14.png",
+          "url": "https://www.plonkit.net/images/japan/57.png",
           "description": "山口県だけ黄色いガードレール。見つけたら山口県確定。夏みかんの色。",
           "source": "Plonkit"
         }
@@ -428,9 +428,9 @@
         {
           "id": "fuji",
           "title": "富士山",
-          "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Mt_Fuji_from_Yamanaka_Lake.jpg/1200px-Mt_Fuji_from_Yamanaka_Lake.jpg",
+          "url": "https://www.plonkit.net/images/japan/80.png",
           "description": "日本最高峰の富士山。静岡・山梨から見える。見えれば関東甲信地方の可能性大。",
-          "source": "Wikimedia Commons"
+          "source": "Plonkit"
         }
       ]
     },

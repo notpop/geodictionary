@@ -14,7 +14,19 @@
       "WebFetch(domain:geotips.net)",
       "Bash(pkill:*)",
       "Bash(lsof:*)",
-      "WebFetch(domain:commons.wikimedia.org)"
+      "WebFetch(domain:commons.wikimedia.org)",
+      "Bash(git rm:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nAdd .gitignore and remove node_modules/.next from tracking\n\nThese directories should not be committed to git:\n- node_modules/ \\(dependencies, installed via npm install\\)\n- .next/ \\(build output\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git push:*)",
+      "Bash(git reset:*)",
+      "Bash(git filter-branch:*)",
+      "Bash(git stash:*)",
+      "Bash(FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch:*)",
+      "Bash(npm ls:*)",
+      "Bash(npm view:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nFix Cloudflare deploy and Next.js version mismatch\n\n- Add wrangler.jsonc for Cloudflare Pages deployment\n- Downgrade Next.js to 15.5.7 to match @next/swc version\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git commit:*)"
     ]
   }
 }
