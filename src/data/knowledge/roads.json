@@ -1,0 +1,183 @@
+{
+  "category": "道路・国道・県道",
+  "description": "道路番号や標識から場所を特定する。主要国道のルートを覚えておくと、どの地域かを素早く判断できる。",
+  "sections": [
+    {
+      "id": "road-signs",
+      "title": "道路標識の見分け方",
+      "items": [
+        {
+          "id": "national-route",
+          "name": "国道標識",
+          "shape": "逆三角形（丸みのある）",
+          "color": "青地に白文字",
+          "description": "国道番号を示す。1〜507号まで存在（48路線が欠番）。"
+        },
+        {
+          "id": "prefectural-route",
+          "name": "都道府県道標識",
+          "shape": "六角形",
+          "color": "青地に白文字",
+          "description": "都道府県道番号を示す。1〜100号は主要地方道、101号〜は一般県道。"
+        },
+        {
+          "id": "guide-sign-color",
+          "name": "案内標識の帯の色",
+          "description": "交差道路の案内標識は道路種別で色分け",
+          "details": [
+            "国道：赤帯",
+            "主要地方道：緑帯",
+            "一般都道府県道：黄帯"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "major-national-routes",
+      "title": "主要国道とルート",
+      "description": "主要国道のルートを覚えておくと地域特定に役立つ",
+      "routes": [
+        {
+          "number": 1,
+          "name": "国道1号",
+          "route": "東京（日本橋）→ 横浜 → 静岡 → 名古屋 → 京都 → 大阪",
+          "length": "約750km",
+          "features": ["東海道ルート", "日本の大動脈", "箱根峠を通過"],
+          "importance": "high"
+        },
+        {
+          "number": 2,
+          "name": "国道2号",
+          "route": "大阪 → 神戸 → 姫路 → 岡山 → 広島 → 下関 → 北九州",
+          "length": "約670km",
+          "features": ["山陽道ルート", "瀬戸内海沿い"],
+          "importance": "high"
+        },
+        {
+          "number": 3,
+          "name": "国道3号",
+          "route": "北九州 → 福岡 → 熊本 → 鹿児島",
+          "length": "約390km",
+          "features": ["九州縦断", "西回りルート"],
+          "importance": "medium"
+        },
+        {
+          "number": 4,
+          "name": "国道4号",
+          "route": "東京（日本橋）→ 宇都宮 → 仙台 → 盛岡 → 青森",
+          "length": "約836km（日本最長）",
+          "features": ["奥州街道ルート", "東北縦断", "日本最長の国道"],
+          "importance": "high"
+        },
+        {
+          "number": 5,
+          "name": "国道5号",
+          "route": "函館 → 小樽 → 札幌",
+          "features": ["北海道の主要国道"],
+          "importance": "medium"
+        },
+        {
+          "number": 6,
+          "name": "国道6号",
+          "route": "東京 → 水戸 → いわき → 仙台",
+          "features": ["常磐道ルート", "太平洋沿い"],
+          "importance": "medium"
+        },
+        {
+          "number": 7,
+          "name": "国道7号",
+          "route": "新潟 → 秋田 → 青森",
+          "features": ["日本海沿い", "羽州街道"],
+          "importance": "medium"
+        },
+        {
+          "number": 8,
+          "name": "国道8号",
+          "route": "新潟 → 富山 → 金沢 → 福井 → 滋賀（京都）",
+          "features": ["北陸道ルート"],
+          "importance": "medium"
+        },
+        {
+          "number": 9,
+          "name": "国道9号",
+          "route": "京都 → 鳥取 → 島根 → 下関",
+          "features": ["山陰道ルート", "日本海沿い"],
+          "importance": "medium"
+        },
+        {
+          "number": 10,
+          "name": "国道10号",
+          "route": "北九州 → 大分 → 宮崎 → 鹿児島",
+          "features": ["九州東回り"],
+          "importance": "medium"
+        },
+        {
+          "number": 12,
+          "name": "国道12号",
+          "route": "札幌 → 旭川",
+          "features": ["日本最長の直線道路（29.2km）"],
+          "importance": "high"
+        },
+        {
+          "number": 58,
+          "name": "国道58号",
+          "route": "鹿児島 → 種子島 → 奄美大島 → 沖縄（那覇）",
+          "features": ["日本で唯一海上を通る国道", "沖縄のメインストリート"],
+          "importance": "high"
+        }
+      ]
+    },
+    {
+      "id": "road-number-rules",
+      "title": "道路番号の法則",
+      "rules": [
+        {
+          "rule": "国道1〜58号（旧一級国道）",
+          "description": "主要幹線道路。歴史的に重要なルート。"
+        },
+        {
+          "rule": "国道101号以降",
+          "description": "一般国道。地域の主要道路。"
+        },
+        {
+          "rule": "県道1〜100号",
+          "description": "主要地方道。都道府県の幹線道路。"
+        },
+        {
+          "rule": "県道101号以降",
+          "description": "一般都道府県道。"
+        },
+        {
+          "rule": "北海道の道道",
+          "description": "151号まで主要道道。1号は札幌小樽線。"
+        }
+      ]
+    },
+    {
+      "id": "scenic-roads",
+      "title": "景色で特定できる道路",
+      "routes": [
+        {
+          "name": "奥入瀬渓流（国道102号）",
+          "region": "青森県",
+          "feature": "渓流と紅葉"
+        },
+        {
+          "name": "碓氷峠（国道18号旧道）",
+          "region": "群馬・長野県境",
+          "feature": "めがね橋（レンガ造りアーチ橋）、184のカーブ"
+        },
+        {
+          "name": "日光杉並木街道（国道119号・例幣使街道）",
+          "region": "栃木県",
+          "feature": "世界最長の並木道"
+        },
+        {
+          "name": "しまなみ海道（国道317号等）",
+          "region": "広島・愛媛県",
+          "feature": "瀬戸内海の島々を結ぶ橋"
+        }
+      ]
+    }
+  ]
+}

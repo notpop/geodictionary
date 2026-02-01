@@ -1,0 +1,216 @@
+{
+  "category": "インフラストラクチャ",
+  "description": "電柱・道路・標識など日本のインフラの特徴",
+  "tips": [
+    {
+      "id": "infra-1",
+      "title": "電柱の形状",
+      "description": "丸いコンクリート製の電柱が主流。左右にネジ状の突起がある。木製電柱は古い地域に残存。",
+      "importance": "high",
+      "tags": ["電柱"],
+      "image": "https://www.plonkit.net/images/japan/9.png",
+      "source": "Plonkit",
+      "details": [
+        "コンクリート電柱はネジ状の拡張部分が特徴",
+        "地中化が進んでいる都市部では電柱が少ない",
+        "電力会社によってプレートのデザインが異なる",
+        "台湾・フィリピンは四角い電柱が多い"
+      ]
+    },
+    {
+      "id": "infra-2",
+      "title": "電柱リフレクター",
+      "description": "黄色と黒の縦縞、または斜め縞のリフレクターが電柱に付いている。台湾の斜め縞とは異なり、日本は縦縞が多い。",
+      "importance": "high",
+      "tags": ["電柱", "リフレクター"],
+      "image": "https://www.plonkit.net/images/japan/10.png",
+      "source": "Plonkit",
+      "details": [
+        "縦縞パターンが最も一般的",
+        "地面まで届かない短いタイプが多い",
+        "白色の縞模様もある",
+        "台湾は斜め縞なので区別可能"
+      ]
+    },
+    {
+      "id": "infra-2b",
+      "title": "電柱プレート",
+      "description": "電力会社ごとにデザインが異なるプレートが電柱に付いている。地域特定の重要な手がかり。",
+      "importance": "high",
+      "tags": ["電柱"],
+      "image": "https://www.plonkit.net/images/japan/21.png",
+      "source": "Plonkit",
+      "details": [
+        "北海道電力：縦型、区/画/図の順",
+        "東京電力：縦長白地に漢字横書き",
+        "関西電力：縦長白地に縦書き",
+        "沖縄電力：罫線入り、プレート3枚"
+      ]
+    },
+    {
+      "id": "infra-3",
+      "title": "カーブミラー",
+      "description": "曲がりくねった道路には丸い凸面鏡が設置されている。日本特有の密度で設置。",
+      "importance": "medium",
+      "tags": ["道路", "安全設備"],
+      "image": "https://www.plonkit.net/images/japan/16.png",
+      "source": "Plonkit",
+      "details": [
+        "オレンジ色の縁が多い",
+        "止まれ標識とセットで設置されることが多い",
+        "丸型が標準"
+      ]
+    },
+    {
+      "id": "infra-4",
+      "title": "ガードレール",
+      "description": "シンプルな白いガードレールが標準。山口県のみ黄色いガードレールを使用。",
+      "importance": "high",
+      "tags": ["道路", "ガードレール"],
+      "image": "https://www.plonkit.net/images/japan/14.png",
+      "source": "Plonkit",
+      "details": [
+        "白い波板状のガードレールが一般的",
+        "山口県は夏みかんの色にちなんで黄色",
+        "端に赤と黄色の縞模様がある地域もある（中国地方）",
+        "黄色いガードレール＝山口県確定"
+      ]
+    },
+    {
+      "id": "infra-5",
+      "title": "道路の線",
+      "description": "白い外側線と白い破線の中央線が最も一般的。黄色い外側線は日本では使われない。",
+      "importance": "medium",
+      "tags": ["道路"],
+      "image": "https://www.plonkit.net/images/japan/12.png",
+      "source": "Plonkit",
+      "details": [
+        "黄色い中央線は追い越し禁止",
+        "白い破線の中央線は追い越し可能",
+        "外側線は常に白色"
+      ]
+    },
+    {
+      "id": "infra-6",
+      "title": "ボラード（道路杭）",
+      "description": "白いボラードに円形リフレクターが標準。前面が白、後面が黄色。都道府県名が書かれていることもある。",
+      "importance": "medium",
+      "tags": ["道路", "安全設備"],
+      "image": "https://geotips.net/wp-content/uploads/2020/11/u4GjS9X.jpg",
+      "source": "GeoTips",
+      "details": [
+        "雪国では背が高いボラードを使用",
+        "北海道は赤白ストライプのスノーポールも多い",
+        "地域によってリフレクターの形状が異なる",
+        "四国は黒い縞模様のボラード"
+      ]
+    },
+    {
+      "id": "infra-6b",
+      "title": "地域別ボラードの特徴",
+      "description": "地域によってボラードのデザインや色が異なる。九州・山口ではリフレクターがオレンジと白で分離している。",
+      "importance": "medium",
+      "tags": ["道路", "上級"],
+      "image": "https://www.plonkit.net/images/japan/40.png",
+      "source": "Plonkit",
+      "details": [
+        "九州・山口：オレンジと白のリフレクターが分離",
+        "四国：リフレクター下に黒い縞模様",
+        "東北：八角形リフレクター",
+        "北海道：縦型信号機も雪国の目印"
+      ]
+    },
+    {
+      "id": "infra-7",
+      "title": "青い道路案内標識",
+      "description": "交差点付近に設置される青い案内標識。地名、距離、道路番号が表示される。",
+      "importance": "high",
+      "tags": ["標識"],
+      "image": "https://geotips.net/wp-content/uploads/2020/11/oeNJc3K.jpg",
+      "source": "GeoTips",
+      "details": [
+        "高速道路は緑色の案内標識",
+        "一般道は青色の案内標識",
+        "地名は漢字とローマ字の併記が多い",
+        "ピンポイント特定に非常に有用"
+      ]
+    },
+    {
+      "id": "infra-7b",
+      "title": "道路番号標識",
+      "description": "国道は逆三角形、都道府県道は六角形の形状。番号で地域を推測可能。",
+      "importance": "high",
+      "tags": ["標識"],
+      "image": "https://www.plonkit.net/images/japan/15.png",
+      "source": "Plonkit",
+      "details": [
+        "国道1〜58号：主要幹線（旧一級国道）",
+        "国道101号〜：一般国道",
+        "県道1〜100号：主要地方道",
+        "県道101号〜：一般県道"
+      ]
+    },
+    {
+      "id": "infra-8",
+      "title": "止まれ標識",
+      "description": "「止まれ」と書かれた逆三角形の赤い標識。STOPではなく日本語表記。道路上にも「止まれ」と書かれる。",
+      "importance": "medium",
+      "tags": ["標識"],
+      "image": "https://www.plonkit.net/images/japan/16.png",
+      "source": "Plonkit",
+      "details": [
+        "逆三角形の形状は世界的に珍しい",
+        "アメリカは八角形のSTOP標識",
+        "道路面にも白で「止まれ」と書かれる"
+      ]
+    },
+    {
+      "id": "infra-9",
+      "title": "信号機",
+      "description": "縦型信号機は雪国（北海道・東北・北陸）に多い。積雪で見えなくなるのを防ぐため。",
+      "importance": "medium",
+      "tags": ["信号", "雪国"],
+      "details": [
+        "横型信号機は暖かい地域に多い",
+        "LED信号機の普及が進んでいる",
+        "縦型信号機＝雪国の可能性"
+      ]
+    },
+    {
+      "id": "infra-10",
+      "title": "マンホール蓋",
+      "description": "自治体ごとにデザインが異なるカラーマンホールがある。地域の名所や特産品がデザインされていることが多い。",
+      "importance": "low",
+      "tags": ["街並み", "上級"],
+      "details": [
+        "東京都は5枚の花びらと小さな円のデザイン",
+        "全国的にご当地マンホールが普及",
+        "読めれば市町村が特定できる"
+      ]
+    },
+    {
+      "id": "infra-11",
+      "title": "支線ガード（電柱の支え）",
+      "description": "電柱を支えるワイヤーのカバー。地域によって色や形状が異なる。",
+      "importance": "medium",
+      "tags": ["電柱", "上級"],
+      "details": [
+        "北海道：非常に長い支線ガード",
+        "中部・沖縄：黒と黄色の縦縞",
+        "関西・北陸・四国：ボトル型で黒いテープが螺旋状"
+      ]
+    },
+    {
+      "id": "infra-12",
+      "title": "横断歩道のひし形マーク",
+      "description": "横断歩道手前の30m・50m地点にひし形の路面標示がある。都道府県によって形状が微妙に異なる。",
+      "importance": "low",
+      "tags": ["道路", "上級"],
+      "details": [
+        "愛知県は特徴的な切り込み",
+        "ひし形の角度や大きさで地域を推測可能",
+        "上級者向けの識別ポイント"
+      ]
+    }
+  ]
+}

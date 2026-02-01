@@ -1,0 +1,196 @@
+{
+  "category": "植生・森林",
+  "description": "日本の植生は南北に約3,000kmに渡り、亜熱帯から亜寒帯まで多様。植物を見れば地域を絞り込める。",
+  "headerImage": "https://www.plonkit.net/images/japan/66-76.png",
+  "sections": [
+    {
+      "id": "forest-zones",
+      "title": "森林帯の分布",
+      "description": "日本の森林は緯度と標高によって大きく4つに分かれる",
+      "image": "https://www.plonkit.net/images/japan/66-76.png",
+      "items": [
+        {
+          "id": "subtropical",
+          "name": "亜熱帯多雨林",
+          "region": "沖縄・奄美",
+          "features": ["マングローブ林", "ガジュマル", "ソテツ", "ヤシ類", "ハイビスカス"],
+          "description": "沖縄・奄美の低地に分布。マングローブ林は沖縄本島や西表島で見られる。熱帯・亜熱帯の植物が多い。",
+          "confidence": "very-high",
+          "tips": "ヤシの木やソテツが見えたら沖縄・奄美ほぼ確定"
+        },
+        {
+          "id": "warm-temperate",
+          "name": "暖温帯照葉樹林",
+          "region": "本州南部〜九州",
+          "features": ["シイ", "カシ", "クスノキ", "ツバキ", "サザンカ"],
+          "description": "関東以西の標高700〜800m以下。常緑の広葉樹が優占。照葉樹の光沢のある葉が特徴。",
+          "confidence": "medium",
+          "tips": "常緑の広葉樹が多ければ西日本・九州の可能性"
+        },
+        {
+          "id": "cool-temperate",
+          "name": "冷温帯落葉広葉樹林",
+          "region": "本州中北部・北海道南部",
+          "features": ["ブナ", "ミズナラ", "カエデ類", "シラカバ"],
+          "description": "秋に紅葉し、冬に落葉する。ブナ林は白神山地が有名。落葉樹が優占する地域。",
+          "confidence": "medium",
+          "tips": "秋の紅葉時期は落葉広葉樹が多いエリア"
+        },
+        {
+          "id": "subarctic",
+          "name": "亜寒帯針葉樹林",
+          "region": "北海道東部・高山",
+          "features": ["エゾマツ", "トドマツ", "シラビソ", "オオシラビソ"],
+          "description": "北海道東部の低地や本州の高山帯。常緑の針葉樹が優占。クリスマスツリーのような形の木が多い。",
+          "confidence": "high",
+          "tips": "針葉樹林が平地に多ければ北海道東部の可能性"
+        }
+      ]
+    },
+    {
+      "id": "regional-plants",
+      "title": "地域別の特徴的な植物",
+      "image": "https://geotips.net/wp-content/uploads/2020/11/cH9PeYe.jpg",
+      "items": [
+        {
+          "id": "hokkaido-fuki",
+          "name": "巨大フキ（ラワンブキ）",
+          "region": "北海道",
+          "importance": "high",
+          "description": "道路脇に生える巨大な葉の植物。葉の直径1m以上になることも。北海道ほぼ確定。北東北やロシアにも分布。",
+          "image": "https://geotips.net/wp-content/uploads/2020/11/cH9PeYe.jpg",
+          "confidence": "very-high",
+          "tips": "巨大な丸い葉が見えたら北海道確定"
+        },
+        {
+          "id": "birch",
+          "name": "シラカバ（白樺）",
+          "region": "北海道・長野・岐阜",
+          "importance": "high",
+          "description": "白い幹が特徴。北海道では平地でも多い。本州では高地に限られる。樹皮が白く剥がれやすい。",
+          "image": "https://geotips.net/wp-content/uploads/2020/11/cH9PeYe.jpg",
+          "confidence": "high",
+          "tips": "白い幹の木が平地に多ければ北海道の可能性大"
+        },
+        {
+          "id": "bamboo",
+          "name": "竹林",
+          "region": "九州・西日本",
+          "importance": "high",
+          "description": "九州で特に多い。北海道には自生しない。竹林が見えたら西日本、特に九州の可能性。緑の細長い葉が特徴。",
+          "confidence": "high",
+          "tips": "竹林があれば西日本・九州、なければ北日本の可能性"
+        },
+        {
+          "id": "sugarcane",
+          "name": "サトウキビ",
+          "region": "沖縄・鹿児島南部",
+          "importance": "high",
+          "description": "背の高い草のような植物。沖縄・奄美・種子島・屋久島などで栽培。見つけたら南西諸島確定。",
+          "confidence": "very-high",
+          "tips": "背の高い草のような作物＝沖縄・鹿児島南部"
+        },
+        {
+          "id": "tea",
+          "name": "茶畑",
+          "region": "静岡・鹿児島・京都",
+          "importance": "medium",
+          "description": "段々に刈り込まれた低木が並ぶ。静岡県が36%、鹿児島県が34%。整然とした緑の畝が特徴。",
+          "confidence": "medium",
+          "tips": "整然とした緑の低木畑＝茶畑＝静岡・鹿児島・京都の可能性"
+        },
+        {
+          "id": "pampas-grass",
+          "name": "ススキ",
+          "region": "九州（多い）",
+          "importance": "low",
+          "description": "秋に穂が目立つ。全国にあるが九州で特に多い。銀色の穂が風になびく。",
+          "confidence": "low",
+          "tips": "ススキだけでは地域特定は難しい"
+        },
+        {
+          "id": "windbreak",
+          "name": "防風林（格子状）",
+          "region": "北海道（釧路・十勝）",
+          "importance": "medium",
+          "description": "農地を守る格子状の防風林。釧路平野や十勝平野で見られる。北海道の農業地帯。",
+          "confidence": "high",
+          "tips": "格子状の防風林＝北海道の農業地帯"
+        },
+        {
+          "id": "cedar-row",
+          "name": "杉並木",
+          "region": "日光（栃木）",
+          "importance": "medium",
+          "description": "日光杉並木街道は世界最長の並木道。栃木県の日光周辺で見られる。巨大な杉が道路沿いに並ぶ。",
+          "confidence": "high",
+          "tips": "巨大な杉並木＝日光（栃木）の可能性大"
+        },
+        {
+          "id": "palm",
+          "name": "ヤシの木",
+          "region": "沖縄・九州南部・高知",
+          "importance": "high",
+          "description": "熱帯・亜熱帯の象徴的な植物。沖縄が最も多いが、九州南部や高知の海岸沿いにもある。",
+          "confidence": "high",
+          "tips": "ヤシの木＝沖縄・九州南部・高知の可能性"
+        },
+        {
+          "id": "mangrove",
+          "name": "マングローブ",
+          "region": "沖縄",
+          "importance": "high",
+          "description": "河口や干潟に生える熱帯植物。沖縄本島や西表島で見られる。日本最北限は沖縄本島。",
+          "confidence": "very-high",
+          "tips": "マングローブ＝沖縄確定"
+        }
+      ]
+    },
+    {
+      "id": "vegetation-clues",
+      "title": "植生から推測する地域",
+      "rules": [
+        {
+          "condition": "竹林がない",
+          "inference": "北海道または東北北部の可能性",
+          "confidence": "medium"
+        },
+        {
+          "condition": "白樺が平地に多い",
+          "inference": "北海道の可能性が高い",
+          "confidence": "high"
+        },
+        {
+          "condition": "ヤシの木やソテツがある",
+          "inference": "沖縄・奄美・九州南部",
+          "confidence": "high"
+        },
+        {
+          "condition": "針葉樹林が優占",
+          "inference": "北海道東部または高山地帯",
+          "confidence": "medium"
+        },
+        {
+          "condition": "巨大フキがある",
+          "inference": "北海道ほぼ確定",
+          "confidence": "very-high"
+        },
+        {
+          "condition": "茶畑が広がる",
+          "inference": "静岡・鹿児島・京都の可能性",
+          "confidence": "medium"
+        },
+        {
+          "condition": "サトウキビ畑がある",
+          "inference": "沖縄・鹿児島南部確定",
+          "confidence": "very-high"
+        },
+        {
+          "condition": "マングローブがある",
+          "inference": "沖縄確定",
+          "confidence": "very-high"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,185 @@
+{
+  "category": "電力会社別電柱",
+  "description": "10電力会社の電柱の見分け方。プレートのデザインや電柱設備の形状で地域を絞り込める。",
+  "headerImages": [
+    {
+      "url": "https://www.plonkit.net/images/japan/21.png",
+      "title": "電力会社別プレート一覧",
+      "description": "各電力会社で電柱プレートのデザインが異なる（プレートで地域特定可能）",
+      "source": "Plonkit"
+    }
+  ],
+  "companies": [
+    {
+      "id": "hokkaido-epco",
+      "name": "北海道電力",
+      "area": "北海道",
+      "plateFeatures": "縦型の長方形プレート。上から「区」「画」「図」の順に数字が並ぶ。",
+      "importance": "high",
+      "image": "https://www.plonkit.net/images/japan/26.png",
+      "imageCaption": "北海道電力の電柱設備（十字型バーの変圧器が特徴）",
+      "source": "Plonkit",
+      "details": [
+        "【プレート】縦長の白い長方形、数字配置が独特",
+        "【設備】十字型バーに変圧器がマウントされている",
+        "札幌市内では黄色い街灯番号プレートも使用",
+        "見れば一目で北海道とわかる"
+      ],
+      "tips": "プレートの数字配置パターンと十字型バーで識別"
+    },
+    {
+      "id": "tohoku-epco",
+      "name": "東北電力",
+      "area": "青森県、岩手県、宮城県、秋田県、山形県、福島県、新潟県",
+      "plateFeatures": "やや縦に幅広い横長プレート。左上にロゴマークと幹線名が表示される。",
+      "importance": "high",
+      "image": "https://www.plonkit.net/images/japan/27.png",
+      "imageCaption": "東北電力の電柱設備（横型バーに変圧器がマウント）",
+      "source": "Plonkit",
+      "details": [
+        "【プレート】横長のプレート、左上に東北電力のロゴ",
+        "【設備】横型バーに変圧器が設置されている",
+        "幹線名（路線名）が記載される",
+        "新潟県ではNTTプレートが横長になる特徴も"
+      ],
+      "tips": "横長プレートと横型バー設備が東北電力の目印"
+    },
+    {
+      "id": "tokyo-epco",
+      "name": "東京電力",
+      "area": "茨城県、栃木県、群馬県、埼玉県、千葉県、東京都、神奈川県、山梨県、静岡県（一部）",
+      "plateFeatures": "縦長の白いプレートで漢字が横書き。灰色のブリキ製手書きプレートも古い地域に残存。",
+      "importance": "high",
+      "image": "https://www.plonkit.net/images/japan/28.png",
+      "imageCaption": "東京電力の電柱設備（木製プレート変圧器も残存）",
+      "source": "Plonkit",
+      "details": [
+        "【プレート】縦長の白いプレート、漢字で地名が横書き",
+        "【設備】古い地域には木製プレート変圧器も残る",
+        "関東一円をカバーする最大の電力会社",
+        "灰色の手書きプレートは古い地域に残存"
+      ],
+      "tips": "漢字横書きの縦長プレート"
+    },
+    {
+      "id": "chubu-epco",
+      "name": "中部電力",
+      "area": "愛知県、岐阜県、三重県、長野県、静岡県（一部）",
+      "plateFeatures": "縦型で角が丸みを帯びている。上部に中部電力のロゴが刻印されている。",
+      "importance": "high",
+      "image": "https://www.plonkit.net/images/japan/30.png",
+      "imageCaption": "中部電力の電柱設備（黄色い数字と黒いタップコネクタが特徴）",
+      "source": "Plonkit",
+      "details": [
+        "【プレート】角が丸い縦型、上部に「中部電力」のロゴ",
+        "【設備】黄色い数字表示、黒いタップコネクタ付きの変圧器",
+        "支線ガードは黒と黄色の縦縞",
+        "角丸プレートと上部のロゴで識別"
+      ],
+      "tips": "黄色い数字表示の設備が中部電力の目印"
+    },
+    {
+      "id": "hokuriku-epco",
+      "name": "北陸電力",
+      "area": "富山県、石川県、福井県",
+      "plateFeatures": "幅がやや狭い横長プレート。電柱番号の最初の桁で市を特定可能。",
+      "importance": "medium",
+      "image": "https://www.plonkit.net/images/japan/29.png",
+      "imageCaption": "北陸電力の電柱設備（ランプ型絶縁体が特徴）",
+      "source": "Plonkit",
+      "details": [
+        "【プレート】横長でやや狭いプレート",
+        "【設備】ランプ型の絶縁体が特徴的",
+        "電柱番号の最初の桁で地域判定可能：",
+        "0=富山市、1=高岡市、4=金沢市、8=福井市など",
+        "黄色い街灯番号プレートは富山県に多い"
+      ],
+      "tips": "電柱番号の最初の桁が地域を示す"
+    },
+    {
+      "id": "kansai-epco",
+      "name": "関西電力",
+      "area": "滋賀県、京都府、大阪府、兵庫県、奈良県、和歌山県",
+      "plateFeatures": "縦長の白いプレートで漢字またはカタカナが縦書き。",
+      "importance": "high",
+      "image": "https://www.plonkit.net/images/japan/31.png",
+      "imageCaption": "関西電力の電柱設備（約120°の角度で伸びたアタッチメント）",
+      "source": "Plonkit",
+      "details": [
+        "【プレート】縦長の白いプレート、漢字またはカタカナの縦書き",
+        "【設備】約120°の角度で伸びたアタッチメントが特徴",
+        "東京電力との違いは縦書きであること",
+        "アタッチメントの角度で上級者は識別可能"
+      ],
+      "tips": "縦書きプレートと120°アタッチメントが関西電力"
+    },
+    {
+      "id": "chugoku-epco",
+      "name": "中国電力",
+      "area": "広島県、岡山県、山口県、鳥取県、島根県",
+      "plateFeatures": "縦型で漢字・カタカナの横書き。上部に「energia」と表記。大きいサイズのプレートも使用。",
+      "importance": "medium",
+      "image": "https://www.plonkit.net/images/japan/32.png",
+      "imageCaption": "中国電力の電柱設備（energiaの表記も見える）",
+      "source": "Plonkit",
+      "details": [
+        "【プレート】縦型、上部に「energia」の表記",
+        "【設備】漢字またはカタカナの横書き",
+        "大きいサイズのプレートもある",
+        "ガードレール端に赤と黄色の縞ステッカー"
+      ],
+      "tips": "「energia」の表記が目印"
+    },
+    {
+      "id": "shikoku-epco",
+      "name": "四国電力",
+      "area": "香川県、徳島県、愛媛県、高知県",
+      "plateFeatures": "標識名はカタカナで横書き。上部に四国電力のロゴ。プレート間隙が狭い。",
+      "importance": "medium",
+      "image": "https://www.plonkit.net/images/japan/33.png",
+      "imageCaption": "四国電力の電柱設備（十字型バー＋半三角マウント）",
+      "source": "Plonkit",
+      "details": [
+        "【プレート】カタカナ横書きの標識名、上部にロゴ",
+        "【設備】十字型バーに半三角形のマウント",
+        "プレート間の隙間が狭い",
+        "電柱にオレンジと黒の帯が巻かれていることが多い"
+      ],
+      "tips": "カタカナ横書きプレート＋オレンジ黒の帯"
+    },
+    {
+      "id": "kyushu-epco",
+      "name": "九州電力",
+      "area": "福岡県、佐賀県、長崎県、熊本県、大分県、宮崎県、鹿児島県",
+      "plateFeatures": "縦型でやや厚みがある。カタカナ1文字＋数字の組み合わせ。上部に九州電力ロゴ。",
+      "importance": "medium",
+      "image": "https://www.plonkit.net/images/japan/34.png",
+      "imageCaption": "九州電力の電柱設備（碍子キャップが三角形っぽい）",
+      "source": "Plonkit",
+      "details": [
+        "【プレート】縦型で厚みあり、カタカナ1文字＋数字（例：イ-123）",
+        "【設備】碍子（がいし）のキャップが三角形っぽい形状",
+        "上部に九州電力のロゴ",
+        "設備の形状でも識別可能"
+      ],
+      "tips": "カタカナ1文字＋数字のパターンと三角形碍子キャップ"
+    },
+    {
+      "id": "okinawa-epco",
+      "name": "沖縄電力",
+      "area": "沖縄県",
+      "plateFeatures": "プレートに罫線が引いてある。プレートが3枚ある。",
+      "importance": "high",
+      "image": "https://www.plonkit.net/images/japan/35.png",
+      "imageCaption": "沖縄電力の電柱設備（T字型バーの変圧器）",
+      "source": "Plonkit",
+      "details": [
+        "【プレート】プレートに罫線（線）が入っている、3枚並び",
+        "【設備】T字型バーに変圧器がマウントされている",
+        "他の電力会社とは明らかに異なる",
+        "沖縄だと確定できる重要な手がかり"
+      ],
+      "tips": "罫線入りプレート3枚とT字型バーで沖縄確定"
+    }
+  ]
+}

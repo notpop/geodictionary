@@ -1,0 +1,120 @@
+{
+  "category": "気候・天候",
+  "description": "日本の気候は地域によって大きく異なる。気候の違いはインフラや建物に反映されており、地域特定の手がかりになる。",
+  "sections": [
+    {
+      "id": "climate-zones",
+      "title": "日本の気候区分",
+      "items": [
+        {
+          "id": "hokkaido",
+          "name": "北海道の気候",
+          "features": ["冬の積雪が多い", "梅雨がない", "夏は比較的涼しい"],
+          "infrastructure": ["赤白矢印（スノーポール）", "縦型信号機", "広い道路（除雪用）"]
+        },
+        {
+          "id": "sea-of-japan",
+          "name": "日本海側気候",
+          "region": "東北日本海側・北陸・山陰",
+          "features": ["冬に雪が多い（豪雪地帯）", "夏はフェーン現象で猛暑", "冬は曇りの日が多い"],
+          "infrastructure": ["縦型信号機", "消雪パイプ", "高い屋根勾配"]
+        },
+        {
+          "id": "pacific",
+          "name": "太平洋側気候",
+          "region": "東北太平洋側・関東・東海・近畿・四国・九州太平洋側",
+          "features": ["冬は晴れて乾燥", "夏に雨が多い", "関東は「からっ風」"],
+          "infrastructure": ["横型信号機が多い", "通常の屋根勾配"]
+        },
+        {
+          "id": "seto-inland",
+          "name": "瀬戸内気候",
+          "region": "瀬戸内海沿岸",
+          "features": ["年間通じて降水量が少ない", "温暖で安定", "四国山地と中国山地に挟まれる"],
+          "infrastructure": ["溜池が多い（水不足対策）"]
+        },
+        {
+          "id": "central-highland",
+          "name": "中央高地気候（内陸性）",
+          "region": "長野・山梨・岐阜の山間部",
+          "features": ["昼夜の気温差が大きい", "降水量が少ない", "冬は冷え込む"],
+          "infrastructure": []
+        },
+        {
+          "id": "nansei-islands",
+          "name": "南西諸島気候",
+          "region": "沖縄・奄美",
+          "features": ["亜熱帯", "年中温暖", "台風が多い"],
+          "infrastructure": ["平らなコンクリート屋根", "防風林"]
+        }
+      ]
+    },
+    {
+      "id": "snow-country-features",
+      "title": "雪国の特徴（インフラから見る）",
+      "items": [
+        {
+          "id": "vertical-traffic-light",
+          "name": "縦型信号機",
+          "region": "北海道・東北・北陸",
+          "importance": "high",
+          "description": "積雪で見えなくなるのを防ぐため縦型。雪国の証拠。"
+        },
+        {
+          "id": "snow-pole",
+          "name": "スノーポール（赤白矢印）",
+          "region": "北海道",
+          "importance": "high",
+          "description": "積雪時に道路の端を示す。北海道ほぼ確定。"
+        },
+        {
+          "id": "snowmelt-pipe",
+          "name": "消雪パイプ",
+          "region": "新潟・北陸",
+          "importance": "medium",
+          "description": "道路に埋め込まれたパイプから水を噴射して雪を溶かす。北陸に多い。"
+        },
+        {
+          "id": "tall-bollard",
+          "name": "背の高いボラード",
+          "region": "豪雪地帯",
+          "importance": "medium",
+          "description": "積雪時でも見えるように高くしてある。"
+        },
+        {
+          "id": "snow-shelter",
+          "name": "雪囲い・雁木",
+          "region": "北陸・東北",
+          "importance": "low",
+          "description": "歩道を覆うアーケード状の構造物。新潟県に多い。"
+        }
+      ]
+    },
+    {
+      "id": "climate-clues",
+      "title": "気候から推測する地域",
+      "rules": [
+        {
+          "condition": "縦型信号機がある",
+          "inference": "雪国（北海道・東北・北陸）",
+          "confidence": "high"
+        },
+        {
+          "condition": "赤白矢印がある",
+          "inference": "北海道",
+          "confidence": "very-high"
+        },
+        {
+          "condition": "平らなコンクリート屋根ばかり",
+          "inference": "沖縄",
+          "confidence": "very-high"
+        },
+        {
+          "condition": "消雪パイプがある",
+          "inference": "北陸（特に新潟）",
+          "confidence": "high"
+        }
+      ]
+    }
+  ]
+}

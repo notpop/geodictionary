@@ -1,0 +1,258 @@
+{
+  "title": "GeoGuessr 日本完全攻略カリキュラム",
+  "description": "このカリキュラムを順番に完了すれば、日本マップで高得点を取るための完全な知識が身につきます。",
+  "levels": [
+    {
+      "id": "level-1",
+      "name": "入門",
+      "title": "レベル1: 日本を見分ける",
+      "description": "まずは「ここは日本だ」と確信できるようになる。世界マップで日本を見分ける基礎力。",
+      "estimatedTime": "30分",
+      "modules": [
+        {
+          "id": "mod-1-1",
+          "title": "左側通行と低いカメラ",
+          "description": "日本識別の最も基本的な2つの特徴",
+          "points": ["左側通行は日本・香港・マカオ・インドネシアの一部のみ", "日本のGoogle Carはカメラが低い（ロウカム）", "スイスも同様にロウカムだが、言語が異なる"],
+          "images": [
+            {"url": "https://www.plonkit.net/images/japan/4.png", "caption": "左側通行：車は道路の左側を走る", "source": "Plonkit"},
+            {"url": "https://www.plonkit.net/images/japan/3.png", "caption": "低いカメラ位置（ロウカム）", "source": "Plonkit"}
+          ],
+          "quiz": ["driving-side", "camera-height"]
+        },
+        {
+          "id": "mod-1-2",
+          "title": "日本語の識別",
+          "description": "ひらがな・カタカナ・漢字を見分ける",
+          "points": ["ひらがな：丸みのある曲線（あいうえお）", "カタカナ：直線的で角張った（アイウエオ）", "漢字：中国語と共通だが、簡体字ではない", "韓国語（ハングル）との違い：○が多いのは韓国"],
+          "images": [
+            {"url": "https://www.plonkit.net/images/japan/5.png", "caption": "ひらがな・カタカナ・漢字の3種類が混在", "source": "Plonkit"},
+            {"url": "https://www.plonkit.net/images/japan/6.png", "caption": "カタカナは直線的で角張った文字", "source": "Plonkit"}
+          ],
+          "quiz": ["hiragana", "katakana", "kanji-vs-chinese"]
+        },
+        {
+          "id": "mod-1-3",
+          "title": "日本の車とナンバープレート",
+          "description": "車両から日本を識別する",
+          "points": ["普通車：白地に緑文字", "軽自動車：黄色地に黒文字（日本独特）", "小型のボックス型軽自動車が多い", "トヨタ・ホンダ・日産などの国産車が大半"],
+          "images": [
+            {"url": "https://www.plonkit.net/images/japan/11.png", "caption": "日本のナンバープレート", "source": "Plonkit"},
+            {"url": "https://geotips.net/wp-content/uploads/2020/11/u7rGjE9.png", "caption": "白地/緑文字（普通車）、黄色地/黒文字（軽）", "source": "GeoTips"}
+          ],
+          "quiz": ["license-plate-color", "kei-car"]
+        }
+      ]
+    },
+    {
+      "id": "level-2",
+      "name": "基礎",
+      "title": "レベル2: 地域を大まかに絞る",
+      "description": "電柱と道路標識から、日本のどの地方かを絞り込む。",
+      "estimatedTime": "1時間",
+      "prerequisite": "level-1",
+      "modules": [
+        {
+          "id": "mod-2-1",
+          "title": "電力会社で地域を特定",
+          "description": "電柱のプレートを見れば地域がわかる",
+          "points": ["日本には10の電力会社がある", "各社で電柱プレートのデザインが異なる", "北海道電力：縦型、区/画/図の順", "沖縄電力：罫線入り、プレート3枚"],
+          "images": [
+            {"url": "https://www.plonkit.net/images/japan/21.png", "caption": "電力会社別のプレート一覧（各社でデザインが異なる）", "source": "Plonkit"},
+            {"url": "https://www.plonkit.net/images/japan/26.png", "caption": "北海道の電柱設備（十字型バーの変圧器）", "source": "Plonkit"},
+            {"url": "https://www.plonkit.net/images/japan/35.png", "caption": "沖縄の電柱設備（T字型バーの変圧器）", "source": "Plonkit"}
+          ],
+          "quiz": ["power-company-hokkaido", "power-company-okinawa", "power-company-tokyo", "power-company-kansai"]
+        },
+        {
+          "id": "mod-2-2",
+          "title": "道路標識の基本",
+          "description": "国道・県道の見分け方",
+          "points": ["国道：丸みのある三角形（逆三角形）", "都道府県道：六角形", "青い案内標識：地名と道路番号", "主要地方道は緑帯、一般県道は黄帯"],
+          "images": [
+            {"url": "https://www.plonkit.net/images/japan/15.png", "caption": "国道は逆三角形、県道は六角形", "source": "Plonkit"},
+            {"url": "https://geotips.net/wp-content/uploads/2020/11/oeNJc3K.jpg", "caption": "青い案内標識に道路番号", "source": "GeoTips"}
+          ],
+          "quiz": ["road-sign-shape", "road-number"]
+        },
+        {
+          "id": "mod-2-3",
+          "title": "市外局番の法則",
+          "description": "電話番号から地域を推測",
+          "points": ["北から南へ番号が大きくなる傾向", "011：札幌、03：東京、06：大阪、092：福岡", "広告看板で確認できる", "0120や0570は地域番号ではない"],
+          "images": [
+            {"url": "https://www.plonkit.net/images/japan/jp_areacodes_darkmode.png", "caption": "日本の市外局番マップ", "source": "Plonkit"},
+            {"url": "https://geotips.net/wp-content/uploads/2020/11/acuxmLs.jpg", "caption": "市外局番から地域を特定", "source": "GeoTips"}
+          ],
+          "quiz": ["area-code-sapporo", "area-code-tokyo", "area-code-osaka"]
+        }
+      ]
+    },
+    {
+      "id": "level-3",
+      "name": "中級",
+      "title": "レベル3: 地方を確定する",
+      "description": "各地方の特徴を覚えて、地方レベルで正確に特定できるようになる。",
+      "estimatedTime": "2時間",
+      "prerequisite": "level-2",
+      "modules": [
+        {
+          "id": "mod-3-1",
+          "title": "北海道の決め手",
+          "description": "北海道ほぼ確定の特徴",
+          "points": ["赤白矢印（スノーポール）：ほぼ北海道限定", "巨大フキ（ラワンブキ）：北海道・北東北", "白樺の木：平地でも見られる", "広い直線道路：国道12号は29.2km直線"],
+          "images": [
+            {"url": "https://geotips.net/wp-content/uploads/2020/11/ex7q1Mv.jpg", "caption": "赤白矢印（スノーポール）：北海道ほぼ確定", "source": "GeoTips"},
+            {"url": "https://geotips.net/wp-content/uploads/2020/11/cH9PeYe.jpg", "caption": "巨大フキと白樺", "source": "GeoTips"},
+            {"url": "https://www.plonkit.net/images/japan/26.png", "caption": "北海道の電柱設備（十字型バー変圧器が特徴）", "source": "Plonkit"}
+          ],
+          "quiz": ["hokkaido-arrow", "hokkaido-fuki", "hokkaido-birch"]
+        },
+        {
+          "id": "mod-3-2",
+          "title": "沖縄の決め手",
+          "description": "沖縄ほぼ確定の特徴",
+          "points": ["白いコンクリート建物・平らな屋根", "シーサー（獅子の像）", "赤土（南部）", "サトウキビ畑", "熱帯植物（ヤシ、ハイビスカス）"],
+          "images": [
+            {"url": "https://www.plonkit.net/images/japan/35.png", "caption": "沖縄の電柱設備（T字型バー変圧器）", "source": "Plonkit"},
+            {"url": "https://www.plonkit.net/images/japan/78.png", "caption": "沖縄の建築様式（白いコンクリート建物）", "source": "Plonkit"},
+            {"url": "https://www.plonkit.net/images/japan/79.png", "caption": "沖縄のシーサー（獅子の像）", "source": "Plonkit"}
+          ],
+          "quiz": ["okinawa-building", "okinawa-shisa", "okinawa-red-soil"]
+        },
+        {
+          "id": "mod-3-3",
+          "title": "中国地方の決め手",
+          "description": "山口県・広島県・島根県の特徴",
+          "points": ["山口県のみ黄色いガードレール", "石州瓦（赤い屋根）：広島・島根", "energiaプレート：中国電力", "ガードレール端に赤黄縞ステッカー"],
+          "images": [
+            {"url": "https://www.plonkit.net/images/japan/57.png", "caption": "山口県の黄色いガードレール（山口県限定）", "source": "Plonkit"},
+            {"url": "https://www.plonkit.net/images/japan/66.png", "caption": "石州瓦（赤い屋根）：広島・島根に多い", "source": "Plonkit"},
+            {"url": "https://www.plonkit.net/images/japan/59.png", "caption": "中国地方のガードレール端の赤黄縞ステッカー", "source": "Plonkit"}
+          ],
+          "quiz": ["yamaguchi-guardrail", "sekishu-tile", "energia-plate"]
+        },
+        {
+          "id": "mod-3-4",
+          "title": "四国の決め手",
+          "description": "四国4県の特徴",
+          "points": ["電柱にオレンジと黒の帯", "ボラードに黒い縞模様", "四国電力：カタカナ横書きプレート", "愛媛のみかん畑"],
+          "images": [
+            {"url": "https://www.plonkit.net/images/japan/33.png", "caption": "四国の変圧器（十字型バー＋半三角マウント）", "source": "Plonkit"},
+            {"url": "https://www.plonkit.net/images/japan/23.png", "caption": "四国の電柱に巻かれたオレンジと黒の帯", "source": "Plonkit"},
+            {"url": "https://www.plonkit.net/images/japan/41.png", "caption": "四国のボラード（リフレクター下に黒い縞）", "source": "Plonkit"}
+          ],
+          "quiz": ["shikoku-pole-band", "shikoku-bollard"]
+        }
+      ]
+    },
+    {
+      "id": "level-4",
+      "name": "上級",
+      "title": "レベル4: 自然環境から読み解く",
+      "description": "植生、気候、地形から地域を特定する高度なテクニック。",
+      "estimatedTime": "2時間",
+      "prerequisite": "level-3",
+      "modules": [
+        {
+          "id": "mod-4-1",
+          "title": "植生と森林帯",
+          "description": "植物から地域を推測",
+          "points": ["亜熱帯（沖縄）：多雨林、マングローブ", "暖温帯（本州南部〜九州）：照葉樹林（シイ・カシ）", "冷温帯（本州中北部）：落葉広葉樹林", "亜寒帯（北海道東部）：針葉樹林（エゾマツ・トドマツ）", "竹林：九州に多い", "白樺：北海道・長野・岐阜"],
+          "images": [
+            {"url": "https://www.plonkit.net/images/japan/72.png", "caption": "竹林（九州・西日本に多い、北海道には自生しない）", "source": "Plonkit"},
+            {"url": "https://www.plonkit.net/images/japan/71.png", "caption": "白樺（北海道・中部の高地に多い）", "source": "Plonkit"},
+            {"url": "https://www.plonkit.net/images/japan/68.png", "caption": "巨大フキ（北海道の道端に多い）", "source": "Plonkit"},
+            {"url": "https://www.plonkit.net/images/japan/73.png", "caption": "ススキ（九州に多い）", "source": "Plonkit"}
+          ],
+          "quiz": ["vegetation-bamboo", "vegetation-birch", "vegetation-conifer"]
+        },
+        {
+          "id": "mod-4-2",
+          "title": "気候の違いを見る",
+          "description": "太平洋側と日本海側の違い",
+          "points": ["日本海側：冬に雪が多い（縦型信号機）", "太平洋側：冬は晴れて乾燥", "瀬戸内：通年で降水量が少ない", "中央高地：気温差が大きい"],
+          "quiz": ["climate-traffic-light", "climate-snow"]
+        },
+        {
+          "id": "mod-4-3",
+          "title": "農作物と産地",
+          "description": "農地から地域を推測",
+          "points": ["水田：東北・北陸・関東", "茶畑：静岡・鹿児島", "サトウキビ：沖縄・鹿児島南部", "りんご：青森・長野", "みかん：愛媛・和歌山・静岡"],
+          "quiz": ["agriculture-tea", "agriculture-sugarcane", "agriculture-apple"]
+        }
+      ]
+    },
+    {
+      "id": "level-5",
+      "name": "エキスパート",
+      "title": "レベル5: 都道府県を特定する",
+      "description": "47都道府県それぞれの特徴を覚え、県レベルで特定できるようになる。",
+      "estimatedTime": "3時間",
+      "prerequisite": "level-4",
+      "modules": [
+        {
+          "id": "mod-5-1",
+          "title": "北海道・東北の都道府県",
+          "description": "北海道と東北6県の詳細",
+          "points": ["北海道：赤白矢印、巨大フキ、広い道路", "青森：りんご畑、ねぶた関連看板", "岩手：南部鉄器関連、盛岡冷麺看板", "宮城：仙台平野、牛タン看板", "秋田：なまはげ関連、きりたんぽ", "山形：さくらんぼ畑、将棋駒（天童）", "福島：大内宿（茅葺き）、会津若松"],
+          "quiz": ["pref-aomori", "pref-yamagata", "pref-fukushima"]
+        },
+        {
+          "id": "mod-5-2",
+          "title": "関東の都道府県",
+          "description": "関東7都県の詳細",
+          "points": ["東京：高層ビル、5枚花びらマンホール", "神奈川：横浜の港、箱根の山道", "埼玉：秩父の山、川越の蔵造り", "千葉：成田空港、落花生看板", "茨城：筑波山、納豆看板", "栃木：日光杉並木、餃子看板", "群馬：高崎だるま、温泉地"],
+          "quiz": ["pref-tokyo", "pref-kanagawa", "pref-tochigi"]
+        },
+        {
+          "id": "mod-5-3",
+          "title": "中部・北陸の都道府県",
+          "description": "中部・北陸9県の詳細",
+          "points": ["新潟：コシヒカリ田んぼ、佐渡汽船", "富山：黒部ダム関連、ホタルイカ", "石川：兼六園、輪島塗", "福井：恐竜博物館関連、越前ガニ", "長野：アルプス山脈、りんご・ぶどう", "山梨：富士山、ぶどう・もも畑", "静岡：茶畑、富士山、うなぎ", "愛知：名古屋城、味噌カツ看板", "岐阜：白川郷、鵜飼い"],
+          "quiz": ["pref-niigata", "pref-nagano", "pref-shizuoka"]
+        }
+      ]
+    },
+    {
+      "id": "level-6",
+      "name": "マスター",
+      "title": "レベル6: ピンポイント特定",
+      "description": "道路番号、住所表示、細かいディテールから具体的な場所を特定する。",
+      "estimatedTime": "3時間",
+      "prerequisite": "level-5",
+      "modules": [
+        {
+          "id": "mod-6-1",
+          "title": "道路番号の法則",
+          "description": "国道・県道番号から場所を絞る",
+          "points": ["国道1〜58号：主要幹線（旧一級国道）", "国道101号〜：一般国道", "県道1〜100号：主要地方道", "県道101号〜：一般県道", "北海道は151号まで主要道道"],
+          "quiz": ["road-number-rule", "road-national-route"]
+        },
+        {
+          "id": "mod-6-2",
+          "title": "電柱の住所表示",
+          "description": "電柱に書かれた地名を読む",
+          "points": ["電柱には地名が書かれていることが多い", "NTT電柱にも地名プレートがある", "電柱番号から市町村を特定（北陸電力）"],
+          "quiz": ["pole-address"]
+        },
+        {
+          "id": "mod-6-3",
+          "title": "横断歩道のひし形",
+          "description": "都道府県ごとのひし形の違い",
+          "points": ["横断歩道手前50m・30mにひし形", "都道府県によって形状が微妙に異なる", "愛知県は特徴的な切り込み"],
+          "quiz": ["diamond-shape"]
+        },
+        {
+          "id": "mod-6-4",
+          "title": "マンホールで都市特定",
+          "description": "ご当地マンホールから市町村を特定",
+          "points": ["全国に12,000種以上のデザイン", "市町村の名所・特産品がデザイン", "カラーマンホールは特に目立つ", "東京都：5枚花びらと小円"],
+          "quiz": ["manhole-tokyo", "manhole-osaka"]
+        }
+      ]
+    }
+  ],
+  "totalModules": 20,
+  "completionMessage": "おめでとうございます！日本マップ完全攻略カリキュラムを修了しました。あなたは今、日本のあらゆる場所を特定できる知識を持っています。"
+}

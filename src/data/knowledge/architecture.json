@@ -1,0 +1,231 @@
+{
+  "category": "建築・屋根",
+  "description": "日本の建築様式は地域によって異なる。特に屋根の形状や材質、建物の構造から地域を特定できる。",
+  "headerImage": "https://www.plonkit.net/images/japan/66-76.png",
+  "sections": [
+    {
+      "id": "roof-types",
+      "title": "屋根の種類と地域分布",
+      "image": "https://www.plonkit.net/images/japan/66-76.png",
+      "items": [
+        {
+          "id": "sekishu-tile",
+          "name": "石州瓦（赤い瓦屋根）",
+          "region": "島根・広島",
+          "importance": "high",
+          "description": "赤褐色の瓦屋根。島根県石見地方発祥。広島県と島根県で多く見られる。中国地方の決め手。耐久性が高く、寒さや塩害に強い。",
+          "colors": ["赤褐色", "オレンジ"],
+          "confidence": "very-high",
+          "tips": "赤い屋根が多い＝島根・広島（中国地方）の可能性大"
+        },
+        {
+          "id": "black-tile",
+          "name": "黒い瓦屋根",
+          "region": "関東・東海・近畿",
+          "importance": "medium",
+          "description": "いぶし瓦とも呼ばれる。東日本と西日本の都市部に多い。銀色に近い黒で光沢がある。",
+          "colors": ["黒", "灰色"],
+          "confidence": "low",
+          "tips": "黒い瓦だけでは地域特定は難しい"
+        },
+        {
+          "id": "okinawa-roof",
+          "name": "沖縄の平らな屋根",
+          "region": "沖縄",
+          "importance": "high",
+          "description": "台風対策で平らなコンクリート屋根が主流。白いRC造の建物が多い。沖縄確定の大きな要素。屋上にタンクがあることも。",
+          "colors": ["白", "グレー"],
+          "confidence": "very-high",
+          "tips": "白いコンクリート建物＋平らな屋根＝沖縄確定"
+        },
+        {
+          "id": "okinawa-red-tile",
+          "name": "沖縄の赤瓦",
+          "region": "沖縄",
+          "importance": "high",
+          "description": "伝統的な沖縄の民家は赤瓦。台風対策として漆喰で固められている。シーサーと組み合わせで沖縄確定。",
+          "colors": ["赤褐色"],
+          "confidence": "very-high",
+          "tips": "赤瓦＋漆喰＋シーサー＝沖縄確定"
+        },
+        {
+          "id": "snow-country-roof",
+          "name": "雪国の急勾配屋根",
+          "region": "北海道・東北・北陸",
+          "importance": "medium",
+          "description": "積雪対策で屋根の傾斜が急。落雪式や融雪式の屋根もある。金属製の屋根も多い。",
+          "colors": ["様々"],
+          "confidence": "medium",
+          "tips": "急勾配の屋根＝雪国（北海道・東北・北陸）"
+        },
+        {
+          "id": "gassho-zukuri",
+          "name": "合掌造り",
+          "region": "白川郷（岐阜）・五箇山（富山）",
+          "importance": "high",
+          "description": "急勾配の茅葺き屋根。世界遺産。見つけたら白川郷か五箇山確定。手を合わせた形に似ている。",
+          "colors": ["茶色（茅葺き）"],
+          "confidence": "very-high",
+          "tips": "急勾配の茅葺き屋根＝白川郷・五箇山"
+        },
+        {
+          "id": "kura",
+          "name": "蔵造り（なまこ壁）",
+          "region": "川越（埼玉）・倉敷（岡山）",
+          "importance": "medium",
+          "description": "白い漆喰壁に黒い格子状のなまこ壁。川越や倉敷の観光地で見られる。防火対策の建築様式。",
+          "confidence": "high",
+          "tips": "白黒の格子状の壁＝川越（埼玉）か倉敷（岡山）"
+        }
+      ]
+    },
+    {
+      "id": "building-types",
+      "title": "建物の特徴と地域",
+      "items": [
+        {
+          "id": "okinawa-concrete",
+          "name": "白いコンクリート建物",
+          "region": "沖縄",
+          "importance": "high",
+          "description": "台風対策でRC造が主流。平らな屋根と白い外壁が特徴。沖縄ほぼ確定。窓が小さいことも多い。",
+          "confidence": "very-high",
+          "tips": "白いコンクリート＋平らな屋根＝沖縄"
+        },
+        {
+          "id": "shisa",
+          "name": "シーサー（獅子像）",
+          "region": "沖縄",
+          "importance": "high",
+          "description": "門や屋根に置かれる守護獣。沖縄の象徴。見つけたら沖縄確定。対になって置かれることが多い。",
+          "image": "https://www.plonkit.net/images/japan/78-83.png",
+          "confidence": "very-high",
+          "tips": "シーサー＝沖縄確定"
+        },
+        {
+          "id": "oil-tank",
+          "name": "灯油タンク（クレイモア）",
+          "region": "北海道・東北",
+          "importance": "medium",
+          "description": "家の外に設置された大きな灯油タンク。暖房用。寒冷地の特徴。オレンジや白のタンクが多い。",
+          "confidence": "high",
+          "tips": "家の外に灯油タンク＝北海道・東北"
+        },
+        {
+          "id": "machiya",
+          "name": "町家（うなぎの寝床）",
+          "region": "京都",
+          "importance": "medium",
+          "description": "間口が狭く奥行きが深い伝統的な商家。京都の町並みで見られる。格子戸が特徴。",
+          "confidence": "high",
+          "tips": "間口が狭い格子戸の建物＝京都の可能性"
+        },
+        {
+          "id": "traditional-gate",
+          "name": "神社・寺院の門",
+          "region": "全国（特に京都・奈良）",
+          "importance": "low",
+          "description": "鳥居や山門が見える場合、観光地の可能性。京都・奈良は特に多い。朱色の鳥居は目立つ。",
+          "confidence": "low",
+          "tips": "神社仏閣だけでは地域特定は難しい"
+        },
+        {
+          "id": "red-soil",
+          "name": "赤土の露出",
+          "region": "沖縄",
+          "importance": "medium",
+          "description": "沖縄では赤土（国頭マージ・島尻マージ）が露出した地面が見られる。畑や道路脇で確認。",
+          "confidence": "high",
+          "tips": "赤土が露出した地面＝沖縄の可能性"
+        }
+      ]
+    },
+    {
+      "id": "regional-styles",
+      "title": "地方別の伝統建築様式",
+      "items": [
+        {
+          "id": "magariya",
+          "name": "曲屋（まがりや）",
+          "region": "岩手県南部",
+          "description": "L字型の平面。母屋と馬屋が一体化。遠野地方で見られる。馬と人が同じ屋根の下で暮らした。",
+          "confidence": "high",
+          "tips": "L字型の茅葺き屋根＝岩手・遠野地方"
+        },
+        {
+          "id": "chumon-zukuri",
+          "name": "中門造り",
+          "region": "秋田・新潟",
+          "description": "主屋から突き出た中門を持つ。雪国の特徴。玄関が突き出た形状。",
+          "confidence": "medium",
+          "tips": "玄関が突き出た伝統家屋＝秋田・新潟"
+        },
+        {
+          "id": "kabuto-zukuri",
+          "name": "かぶと造り",
+          "region": "山梨県",
+          "description": "兜のような形の屋根。養蚕のための通気を確保。甲州地方で見られる。",
+          "confidence": "high",
+          "tips": "兜型の屋根＝山梨の可能性"
+        },
+        {
+          "id": "kudo-zukuri",
+          "name": "くど造り",
+          "region": "佐賀県（有明湾沿岸）",
+          "description": "コの字型の平面。竈（くど）を中心とした配置。有明海沿岸の伝統建築。",
+          "confidence": "high",
+          "tips": "コの字型の屋根＝佐賀・有明海沿岸"
+        },
+        {
+          "id": "ouchi-juku",
+          "name": "大内宿の茅葺き",
+          "region": "福島県",
+          "description": "茅葺き屋根の宿場町。会津若松近くの観光地。江戸時代の街並みが残る。",
+          "confidence": "very-high",
+          "tips": "茅葺き屋根の宿場町＝大内宿（福島）"
+        }
+      ]
+    },
+    {
+      "id": "architecture-clues",
+      "title": "建築から推測する地域",
+      "rules": [
+        {
+          "condition": "白いコンクリート建物＋平らな屋根",
+          "inference": "沖縄確定",
+          "confidence": "very-high"
+        },
+        {
+          "condition": "シーサーがある",
+          "inference": "沖縄確定",
+          "confidence": "very-high"
+        },
+        {
+          "condition": "赤い瓦屋根が多い",
+          "inference": "島根・広島（中国地方）",
+          "confidence": "high"
+        },
+        {
+          "condition": "灯油タンクが家の外にある",
+          "inference": "北海道・東北",
+          "confidence": "high"
+        },
+        {
+          "condition": "急勾配の茅葺き屋根",
+          "inference": "白川郷・五箇山",
+          "confidence": "very-high"
+        },
+        {
+          "condition": "白黒のなまこ壁",
+          "inference": "川越（埼玉）か倉敷（岡山）",
+          "confidence": "high"
+        },
+        {
+          "condition": "屋根の傾斜が急で金属製",
+          "inference": "雪国（北海道・東北・北陸）",
+          "confidence": "medium"
+        }
+      ]
+    }
+  ]
+}

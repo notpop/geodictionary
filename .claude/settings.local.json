@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:www.plonkit.net)",
+      "WebFetch(domain:geodummy.com)",
+      "WebFetch(domain:wikiwiki.jp)",
+      "WebFetch(domain:note.com)",
+      "WebFetch(domain:geoguessrtips.com)",
+      "Bash(npx create-next-app:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run build:*)",
+      "Bash(curl:*)",
+      "WebFetch(domain:geotips.net)",
+      "Bash(pkill:*)",
+      "Bash(lsof:*)",
+      "WebFetch(domain:commons.wikimedia.org)"
+    ]
+  }
+}

@@ -1,0 +1,175 @@
+{
+  "category": "農作物・産地",
+  "description": "農地や畑から地域を特定する。特定の農作物は特定の地域にしか存在しない。",
+  "sections": [
+    {
+      "id": "rice",
+      "title": "水田・米",
+      "description": "日本の主食。特に東北と北陸が主産地。",
+      "regions": [
+        { "pref": "新潟県", "share": "8.5%", "brand": "コシヒカリ" },
+        { "pref": "北海道", "share": "7.0%", "brand": "ゆめぴりか" },
+        { "pref": "秋田県", "share": "5.5%", "brand": "あきたこまち" },
+        { "pref": "山形県", "share": "4.5%", "brand": "つや姫" },
+        { "pref": "茨城県", "share": "4.5%", "brand": "" }
+      ],
+      "features": "水田は東北・北陸・関東に多い。夏の緑、秋の黄金色が特徴。"
+    },
+    {
+      "id": "tea",
+      "title": "茶畑",
+      "description": "段々に刈り込まれた低木が並ぶ緑の畑。",
+      "importance": "high",
+      "regions": [
+        { "pref": "静岡県", "share": "36%", "note": "日本一の産地" },
+        { "pref": "鹿児島県", "share": "34%", "note": "知覧茶" },
+        { "pref": "三重県", "share": "7%", "note": "伊勢茶" },
+        { "pref": "京都府", "share": "3%", "note": "宇治茶" }
+      ],
+      "features": "丘陵地に段々畑。緑が濃く、整然と刈り込まれている。"
+    },
+    {
+      "id": "sugarcane",
+      "title": "サトウキビ",
+      "description": "背の高い草のような植物。南西諸島確定。",
+      "importance": "high",
+      "regions": [
+        { "pref": "沖縄県", "share": "60%以上" },
+        { "pref": "鹿児島県（奄美・種子島）", "share": "約30%" }
+      ],
+      "features": "2〜3mの高さになる。見つけたら沖縄・奄美・種子島確定。"
+    },
+    {
+      "id": "fruits",
+      "title": "果物",
+      "items": [
+        {
+          "name": "りんご",
+          "importance": "high",
+          "regions": [
+            { "pref": "青森県", "share": "60%" },
+            { "pref": "長野県", "share": "18%" }
+          ],
+          "features": "りんご畑があれば青森か長野。秋は赤い実が目立つ。"
+        },
+        {
+          "name": "みかん",
+          "importance": "medium",
+          "regions": [
+            { "pref": "和歌山県", "share": "18%" },
+            { "pref": "愛媛県", "share": "15%" },
+            { "pref": "静岡県", "share": "11%" }
+          ],
+          "features": "段々畑のみかん園。愛媛・和歌山・静岡に多い。"
+        },
+        {
+          "name": "ぶどう",
+          "importance": "medium",
+          "regions": [
+            { "pref": "山梨県", "share": "24%" },
+            { "pref": "長野県", "share": "16%" }
+          ],
+          "features": "ぶどう棚が見える。山梨の甲府盆地が有名。"
+        },
+        {
+          "name": "もも",
+          "importance": "medium",
+          "regions": [
+            { "pref": "山梨県", "share": "33%" },
+            { "pref": "福島県", "share": "22%" }
+          ],
+          "features": "春はピンクの花が美しい。"
+        },
+        {
+          "name": "さくらんぼ",
+          "importance": "high",
+          "regions": [
+            { "pref": "山形県", "share": "75%" }
+          ],
+          "features": "さくらんぼ畑があれば山形ほぼ確定。"
+        },
+        {
+          "name": "パイナップル",
+          "importance": "high",
+          "regions": [
+            { "pref": "沖縄県", "share": "100%" }
+          ],
+          "features": "パイナップル畑は沖縄本島北部に多い。"
+        }
+      ]
+    },
+    {
+      "id": "vegetables",
+      "title": "野菜",
+      "items": [
+        {
+          "name": "キャベツ",
+          "regions": [
+            { "pref": "群馬県（嬬恋）", "share": "19%" },
+            { "pref": "愛知県", "share": "14%" }
+          ],
+          "features": "高原キャベツは夏の嬬恋で有名。"
+        },
+        {
+          "name": "たまねぎ",
+          "regions": [
+            { "pref": "北海道", "share": "65%" },
+            { "pref": "佐賀県", "share": "9%" },
+            { "pref": "兵庫県（淡路島）", "share": "6%" }
+          ],
+          "features": "北海道が圧倒的シェア。"
+        },
+        {
+          "name": "らっかせい",
+          "importance": "high",
+          "regions": [
+            { "pref": "千葉県", "share": "80%" }
+          ],
+          "features": "落花生畑があれば千葉県ほぼ確定。"
+        },
+        {
+          "name": "こんにゃく芋",
+          "importance": "high",
+          "regions": [
+            { "pref": "群馬県", "share": "90%" }
+          ],
+          "features": "こんにゃく畑があれば群馬県。"
+        }
+      ]
+    },
+    {
+      "id": "other-crops",
+      "title": "その他の農産物",
+      "items": [
+        {
+          "name": "小麦",
+          "regions": [
+            { "pref": "北海道", "share": "65%" }
+          ]
+        },
+        {
+          "name": "大豆",
+          "regions": [
+            { "pref": "北海道", "share": "35%" }
+          ]
+        },
+        {
+          "name": "そば",
+          "regions": [
+            { "pref": "北海道", "share": "45%" },
+            { "pref": "長野県", "share": "8%" }
+          ],
+          "features": "白い花が咲く。信州そばは長野県。"
+        },
+        {
+          "name": "ホップ",
+          "importance": "high",
+          "regions": [
+            { "pref": "岩手県（遠野）", "share": "60%" }
+          ],
+          "features": "ホップ畑は遠野（岩手県）。ビール原料。"
+        }
+      ]
+    }
+  ]
+}
