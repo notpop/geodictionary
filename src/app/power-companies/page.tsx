@@ -59,40 +59,6 @@ export default function PowerCompaniesPage() {
         </button>
       ))}
 
-      {/* Regional Transformer Styles */}
-      <div className="bg-white rounded-xl shadow-sm p-4">
-        <h2 className="font-bold text-slate-800 mb-2">地域別の電柱設備（変圧器）</h2>
-        <p className="text-sm text-slate-600 mb-4">プレートだけでなく、変圧器の形状も地域によって異なります。タップで拡大。</p>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-          {powerCompanies.companies.map((company) => (
-            <button
-              key={company.id}
-              onClick={() => setSelectedImage({
-                url: company.image,
-                title: `${company.name}管轄の電柱設備`,
-                source: (company as { source?: string }).source
-              })}
-              className="group"
-            >
-              <div className="aspect-square bg-slate-100 rounded-lg overflow-hidden relative">
-                <img
-                  src={company.image}
-                  alt={company.name}
-                  className="w-full h-full object-contain group-hover:scale-105 transition-transform"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement
-                    target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect fill="%23f1f5f9" width="100" height="100"/><text fill="%2394a3b8" x="50%" y="50%" text-anchor="middle" dy=".3em" font-size="10">読込エラー</text></svg>'
-                  }}
-                />
-                <span className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-xs py-1 text-center">
-                  {company.name.replace('電力', '')}
-                </span>
-              </div>
-            </button>
-          ))}
-        </div>
-      </div>
-
       {/* Service Area Map */}
       <div className="bg-white rounded-xl shadow-sm p-4">
         <h2 className="font-bold text-slate-800 mb-3">管轄地域マップ</h2>
@@ -202,37 +168,6 @@ export default function PowerCompaniesPage() {
             {expandedId === company.id && (
               <div className="px-4 pb-4 border-t border-slate-100 pt-4">
                 <div className="space-y-4">
-                  {/* Company Image */}
-                  {company.image && (
-                    <button
-                      onClick={() => setSelectedImage({
-                        url: company.image,
-                        title: (company as { imageCaption?: string }).imageCaption || `${company.name}の電柱設備`,
-                        source: (company as { source?: string }).source
-                      })}
-                      className="w-full"
-                    >
-                      <p className="text-xs text-slate-500 mb-1 text-left">
-                        {(company as { imageCaption?: string }).imageCaption || `${company.name}の電柱設備`}
-                      </p>
-                      <div className="relative aspect-video bg-slate-100 rounded-lg overflow-hidden">
-                        <img
-                          src={company.image}
-                          alt={(company as { imageCaption?: string }).imageCaption || `${company.name}の電柱設備`}
-                          className="w-full h-full object-contain"
-                          onError={(e) => {
-                            const target = e.target as HTMLImageElement
-                            target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect fill="%23f1f5f9" width="100" height="100"/><text fill="%2394a3b8" x="50%" y="50%" text-anchor="middle" dy=".3em" font-size="12">画像読込エラー</text></svg>'
-                          }}
-                        />
-                        {(company as { source?: string }).source && (
-                          <span className="absolute bottom-1 right-1 text-xs bg-black/60 text-white px-1.5 py-0.5 rounded">
-                            {(company as { source?: string }).source}
-                          </span>
-                        )}
-                      </div>
-                    </button>
-                  )}
                   <div>
                     <h4 className="text-sm font-semibold text-slate-700 mb-2">詳細</h4>
                     <ul className="space-y-1">

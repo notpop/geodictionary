@@ -134,77 +134,7 @@
           "id": "power-plates-overview",
           "title": "電力会社別プレート一覧",
           "url": "https://www.plonkit.net/images/japan/21.png",
-          "description": "各電力会社の電柱プレートの違い。プレートを見れば地域を特定できる。",
-          "source": "Plonkit"
-        },
-        {
-          "id": "power-hokkaido",
-          "title": "北海道電力の電柱設備",
-          "url": "https://www.plonkit.net/images/japan/26.png",
-          "description": "北海道電力の変圧器。十字型のバーが特徴的。",
-          "source": "Plonkit"
-        },
-        {
-          "id": "power-tohoku",
-          "title": "東北電力の電柱設備",
-          "url": "https://www.plonkit.net/images/japan/27.png",
-          "description": "東北電力の変圧器。横型バーのマウント。",
-          "source": "Plonkit"
-        },
-        {
-          "id": "power-tokyo",
-          "title": "東京電力の電柱設備",
-          "url": "https://www.plonkit.net/images/japan/28.png",
-          "description": "東京電力の変圧器。関東一円で見られる。",
-          "source": "Plonkit"
-        },
-        {
-          "id": "power-chubu",
-          "title": "中部電力の電柱設備",
-          "url": "https://www.plonkit.net/images/japan/30.png",
-          "description": "中部電力の変圧器。黄色い数字表示が特徴。",
-          "source": "Plonkit"
-        },
-        {
-          "id": "power-hokuriku",
-          "title": "北陸電力の電柱設備",
-          "url": "https://www.plonkit.net/images/japan/29.png",
-          "description": "北陸電力の変圧器。富山・石川・福井で見られる。",
-          "source": "Plonkit"
-        },
-        {
-          "id": "power-kansai",
-          "title": "関西電力の電柱設備",
-          "url": "https://www.plonkit.net/images/japan/31.png",
-          "description": "関西電力の変圧器。約120°の角度で伸びたアタッチメント。",
-          "source": "Plonkit"
-        },
-        {
-          "id": "power-chugoku",
-          "title": "中国電力の電柱設備",
-          "url": "https://www.plonkit.net/images/japan/32.png",
-          "description": "中国電力の変圧器。energiaの表記も目印。",
-          "source": "Plonkit"
-        },
-        {
-          "id": "power-shikoku",
-          "title": "四国電力の電柱設備",
-          "url": "https://www.plonkit.net/images/japan/33.png",
-          "description": "四国電力の変圧器。十字型バー＋半三角マウント。",
-          "source": "Plonkit"
-        },
-        {
-          "id": "power-kyushu",
-          "title": "九州電力の電柱設備",
-          "url": "https://www.plonkit.net/images/japan/34.png",
-          "description": "九州電力の変圧器。碍子キャップが三角形っぽい。",
-          "source": "Plonkit"
-        },
-        {
-          "id": "power-okinawa",
-          "title": "沖縄電力の電柱設備",
-          "url": "https://www.plonkit.net/images/japan/35.png",
-          "description": "沖縄電力の変圧器。T字型バーが特徴的。",
+          "description": "各電力会社の電柱プレートの違い。プレートを見れば地域を特定できる。北海道・東北・東京・中部・北陸・関西・中国・四国・九州・沖縄の10社。",
           "source": "Plonkit"
         }
       ]
@@ -275,9 +205,9 @@
         },
         {
           "id": "hokkaido-power",
-          "title": "北海道電力の特徴",
-          "url": "https://www.plonkit.net/images/japan/26.png",
-          "description": "北海道電力のプレートと変圧器。縦型で数字配置が独特。",
+          "title": "北海道電力のプレート",
+          "url": "https://www.plonkit.net/images/japan/21.png",
+          "description": "北海道電力のプレートは縦型長方形。区・画・図の順に数字が並ぶ。（プレート一覧画像の左上）",
           "source": "Plonkit"
         }
       ]
@@ -287,9 +217,9 @@
       "images": [
         {
           "id": "okinawa-power",
-          "title": "沖縄電力プレート",
-          "url": "https://www.plonkit.net/images/japan/35.png",
-          "description": "沖縄電力のプレート。罫線入り、3枚並び。見つけたら沖縄確定。",
+          "title": "沖縄電力のプレート",
+          "url": "https://www.plonkit.net/images/japan/21.png",
+          "description": "沖縄電力のプレートは罫線入りで3枚並び。見つけたら沖縄確定。（プレート一覧画像の右下）",
           "source": "Plonkit"
         },
         {
@@ -313,9 +243,9 @@
         },
         {
           "id": "chugoku-power",
-          "title": "中国電力プレート",
-          "url": "https://www.plonkit.net/images/japan/32.png",
-          "description": "中国電力のプレート。上部に「energia」表記。",
+          "title": "中国電力のプレート",
+          "url": "https://www.plonkit.net/images/japan/21.png",
+          "description": "中国電力のプレートは上部に「energia」表記。縦型で漢字・カタカナ横書き。",
           "source": "Plonkit"
         },
         {
@@ -332,9 +262,9 @@
       "images": [
         {
           "id": "shikoku-power",
-          "title": "四国電力プレート",
-          "url": "https://www.plonkit.net/images/japan/33.png",
-          "description": "四国電力のプレート。カタカナ横書き。",
+          "title": "四国電力のプレート",
+          "url": "https://www.plonkit.net/images/japan/21.png",
+          "description": "四国電力のプレートはカタカナ横書き。上部に四国電力のロゴ。",
           "source": "Plonkit"
         },
         {
@@ -351,9 +281,9 @@
       "images": [
         {
           "id": "tohoku-power",
-          "title": "東北電力プレート",
-          "url": "https://www.plonkit.net/images/japan/27.png",
-          "description": "東北電力のプレート。横長でロゴと幹線名。",
+          "title": "東北電力のプレート",
+          "url": "https://www.plonkit.net/images/japan/21.png",
+          "description": "東北電力のプレートは横長。左上にロゴと幹線名が表示される。",
           "source": "Plonkit"
         },
         {
@@ -370,9 +300,9 @@
       "images": [
         {
           "id": "kyushu-power",
-          "title": "九州電力プレート",
-          "url": "https://www.plonkit.net/images/japan/34.png",
-          "description": "九州電力のプレート。カタカナ1文字＋数字。",
+          "title": "九州電力のプレート",
+          "url": "https://www.plonkit.net/images/japan/21.png",
+          "description": "九州電力のプレートは縦型でカタカナ1文字＋数字の組み合わせ。",
           "source": "Plonkit"
         },
         {
