@@ -1431,6 +1431,182 @@
       "options": ["カメラの高さ", "ストリートビューが撮影されている範囲", "地図の精度", "GPSの信号強度"],
       "correctAnswer": 1,
       "explanation": "カバレッジはストリートビューが撮影されている範囲・地域のことです。"
+    },
+    {
+      "id": "q201", "category": "power-companies", "difficulty": 2,
+      "question": "【画像を見て答えよう】縦型で「区」「画」「図」と数字が並んでいるプレートはどの電力会社？",
+      "options": ["東京電力", "北海道電力", "東北電力", "関西電力"],
+      "correctAnswer": 1,
+      "explanation": "北海道電力のプレートです。縦型の長方形で、上から「区」「画」「図」の順に数字が並ぶのが特徴。これが見えたら北海道確定！",
+      "image": "https://www.plonkit.net/images/japan/21.png",
+      "explanationImage": "https://www.plonkit.net/images/japan/21.png"
+    },
+    {
+      "id": "q202", "category": "power-companies", "difficulty": 2,
+      "question": "【画像を見て答えよう】横長のプレートで左上にロゴマークがあるのはどの電力会社？",
+      "options": ["北陸電力", "東北電力", "北海道電力", "中部電力"],
+      "correctAnswer": 1,
+      "explanation": "東北電力のプレートです。横長プレートで左上にロゴマークと幹線名が表示されるのが特徴。青森・岩手・宮城・秋田・山形・福島・新潟が管轄。",
+      "image": "https://www.plonkit.net/images/japan/21.png",
+      "explanationImage": "https://www.plonkit.net/images/japan/21.png"
+    },
+    {
+      "id": "q203", "category": "power-companies", "difficulty": 2,
+      "question": "【画像を見て答えよう】縦長の白いプレートで漢字が「横書き」されているのはどの電力会社？",
+      "options": ["関西電力", "東京電力", "中部電力", "中国電力"],
+      "correctAnswer": 1,
+      "explanation": "東京電力のプレートです。縦長の白いプレートに漢字横書きが特徴。関西電力は縦書きなので区別できます。関東一円が管轄。",
+      "image": "https://www.plonkit.net/images/japan/21.png",
+      "explanationImage": "https://www.plonkit.net/images/japan/21.png"
+    },
+    {
+      "id": "q204", "category": "power-companies", "difficulty": 2,
+      "question": "【画像を見て答えよう】電柱に約120度の角度のアタッチメントがついているのはどの電力会社のエリア？",
+      "options": ["東京電力", "関西電力", "九州電力", "四国電力"],
+      "correctAnswer": 1,
+      "explanation": "関西電力のエリアです。約120度の角度のアタッチメントが電柱についているのが特徴。プレートは縦長の白いプレートに縦書き。滋賀・京都・大阪・兵庫・奈良・和歌山が管轄。",
+      "image": "https://www.plonkit.net/images/japan/24.png",
+      "explanationImage": "https://www.plonkit.net/images/japan/21.png"
+    },
+    {
+      "id": "q205", "category": "power-companies", "difficulty": 2,
+      "question": "【画像を見て答えよう】角が丸みを帯びた縦型プレートで、上部にロゴがあるのはどの電力会社？",
+      "options": ["東京電力", "東北電力", "中部電力", "関西電力"],
+      "correctAnswer": 2,
+      "explanation": "中部電力のプレートです。角が丸い縦型で上部に「中部電力」のロゴが刻印。愛知・岐阜・三重・長野・静岡(西部)が管轄。",
+      "image": "https://www.plonkit.net/images/japan/21.png",
+      "explanationImage": "https://www.plonkit.net/images/japan/21.png"
+    },
+    {
+      "id": "q206", "category": "power-companies", "difficulty": 2,
+      "question": "【画像を見て答えよう】プレートの上にオレンジ色の矢印プレートがあるのはどの地域の電力会社？",
+      "options": ["四国電力", "九州電力", "中国電力", "関西電力"],
+      "correctAnswer": 2,
+      "explanation": "中国電力のエリアです。プレートの上にオレンジ色の矢印（昇降表示札）があるのが特徴。また「energia」の表記も目印。広島・岡山・山口・鳥取・島根が管轄。",
+      "image": "https://www.plonkit.net/images/japan/22.png",
+      "explanationImage": "https://www.plonkit.net/images/japan/21.png"
+    },
+    {
+      "id": "q207", "category": "power-companies", "difficulty": 2,
+      "question": "【画像を見て答えよう】電柱にオレンジと黒の帯が巻かれているのはどの電力会社のエリア？",
+      "options": ["九州電力", "四国電力", "中国電力", "北陸電力"],
+      "correctAnswer": 1,
+      "explanation": "四国電力のエリアです。電柱にオレンジと黒の帯が巻かれているのが大きな特徴。プレートはカタカナ横書きで上部に四国電力のロゴ。香川・徳島・愛媛・高知が管轄。",
+      "image": "https://www.plonkit.net/images/japan/23.png",
+      "explanationImage": "https://www.plonkit.net/images/japan/21.png"
+    },
+    {
+      "id": "q208", "category": "power-companies", "difficulty": 2,
+      "question": "【画像を見て答えよう】カタカナ1文字＋数字の組み合わせ（例：イ-123）のプレートはどの電力会社？",
+      "options": ["四国電力", "沖縄電力", "九州電力", "中国電力"],
+      "correctAnswer": 2,
+      "explanation": "九州電力のプレートです。縦型で厚みがあり、カタカナ1文字と数字の組み合わせが特徴。福岡・佐賀・長崎・熊本・大分・宮崎・鹿児島が管轄。",
+      "image": "https://www.plonkit.net/images/japan/21.png",
+      "explanationImage": "https://www.plonkit.net/images/japan/21.png"
+    },
+    {
+      "id": "q209", "category": "power-companies", "difficulty": 2,
+      "question": "【画像を見て答えよう】プレートに罫線が入っていて、プレートが3枚並んでいるのはどの電力会社？",
+      "options": ["九州電力", "四国電力", "中国電力", "沖縄電力"],
+      "correctAnswer": 3,
+      "explanation": "沖縄電力のプレートです。罫線入りでプレートが3枚並んでいるのが特徴。これが見えたら沖縄確定！他の電力会社とは明らかに異なります。",
+      "image": "https://www.dee-okinawa.com/topics/2018/11/30/018.jpg",
+      "explanationImage": "https://www.plonkit.net/images/japan/21.png"
+    },
+    {
+      "id": "q210", "category": "power-companies", "difficulty": 3,
+      "question": "【画像を見て答えよう】横長でやや幅が狭いプレートで、電柱番号の最初の桁で市を特定できるのはどの電力会社？",
+      "options": ["東北電力", "北陸電力", "中国電力", "四国電力"],
+      "correctAnswer": 1,
+      "explanation": "北陸電力のプレートです。横長でやや狭いプレート。番号の最初の桁で地域判定可能（0=富山市、4=金沢市、8=福井市など）。富山・石川・福井が管轄。",
+      "image": "https://www.plonkit.net/images/japan/21.png",
+      "explanationImage": "https://www.plonkit.net/images/japan/21.png"
+    },
+    {
+      "id": "q211", "category": "power-companies", "difficulty": 2,
+      "question": "【比較問題】東京電力と関西電力のプレートの違いは？",
+      "options": ["サイズが違う", "色が違う", "横書きか縦書きか", "形が丸いか四角いか"],
+      "correctAnswer": 2,
+      "explanation": "東京電力は漢字「横書き」、関西電力は「縦書き」です。どちらも縦長の白いプレートですが、文字の向きで区別できます。",
+      "image": "https://paulplay-storage-1.fra1.digitaloceanspaces.com/geometas/7c8caf7d-c9ef-43e1-a5b3-c18467a960df.jpg",
+      "explanationImage": "https://www.plonkit.net/images/japan/21.png"
+    },
+    {
+      "id": "q212", "category": "power-companies", "difficulty": 3,
+      "question": "【上級】プレートの形状で「横長」なのはどの2つの電力会社？",
+      "options": ["北海道電力と東京電力", "東北電力と北陸電力", "関西電力と九州電力", "中部電力と四国電力"],
+      "correctAnswer": 1,
+      "explanation": "東北電力と北陸電力が横長プレートです。他の電力会社は基本的に縦型のプレートを使用しています。",
+      "image": "https://paulplay-storage-1.fra1.digitaloceanspaces.com/geometas/7c8caf7d-c9ef-43e1-a5b3-c18467a960df.jpg",
+      "explanationImage": "https://www.plonkit.net/images/japan/21.png"
+    },
+    {
+      "id": "q213", "category": "power-companies", "difficulty": 3,
+      "question": "【上級】電柱プレートで一目で地域が確定できる特徴的なプレートは？",
+      "options": ["東京電力と関西電力", "北海道電力と沖縄電力", "中部電力と九州電力", "東北電力と四国電力"],
+      "correctAnswer": 1,
+      "explanation": "北海道電力（区画図の縦型）と沖縄電力（罫線入り3枚プレート）は非常に特徴的で、見た瞬間に地域を確定できます。",
+      "image": "https://paulplay-storage-1.fra1.digitaloceanspaces.com/geometas/7c8caf7d-c9ef-43e1-a5b3-c18467a960df.jpg",
+      "explanationImage": "https://www.plonkit.net/images/japan/21.png"
+    },
+    {
+      "id": "q214", "category": "power-companies", "difficulty": 2,
+      "question": "静岡県で東京電力と中部電力の管轄が分かれているのはなぜ？",
+      "options": ["人口で分けている", "東部が東京電力、西部が中部電力", "北部が東京電力、南部が中部電力", "市町村ごとに選べる"],
+      "correctAnswer": 1,
+      "explanation": "静岡県は東部が東京電力、西部が中部電力の管轄です。県内でプレートが変わるので、静岡県内では電柱プレートで東西の位置がわかります。",
+      "image": "https://www.plonkit.net/images/japan/21.png"
+    },
+    {
+      "id": "q215", "category": "power-companies", "difficulty": 1,
+      "question": "日本には全部で何社の電力会社がある？",
+      "options": ["5社", "8社", "10社", "12社"],
+      "correctAnswer": 2,
+      "explanation": "日本には10の電力会社があります：北海道、東北、東京、中部、北陸、関西、中国、四国、九州、沖縄電力。それぞれ管轄地域が決まっています。",
+      "image": "https://www.plonkit.net/images/japan/21.png"
+    },
+    {
+      "id": "q216", "category": "power-companies", "difficulty": 2,
+      "question": "【画像を見て答えよう】電柱に90度の小さなアタッチメントがついているのはどの電力会社のエリア？",
+      "options": ["関西電力", "四国電力", "中国電力", "九州電力"],
+      "correctAnswer": 1,
+      "explanation": "四国電力のエリアです。関西電力は約120度ですが、四国電力は90度の小さなアタッチメントが特徴。香川・徳島・愛媛・高知が管轄。",
+      "image": "https://www.plonkit.net/images/japan/25.png",
+      "explanationImage": "https://www.plonkit.net/images/japan/23.png"
+    },
+    {
+      "id": "q217", "category": "power-companies", "difficulty": 2,
+      "question": "この沖縄の電柱プレートの特徴として正しいものは？",
+      "options": ["横長のプレート", "罫線入りで3枚並んでいる", "角丸の縦型", "カタカナ1文字＋数字"],
+      "correctAnswer": 1,
+      "explanation": "沖縄電力のプレートは罫線（線）が入っていて、3枚のプレートが並んでいるのが特徴です。他の電力会社とは明らかに異なるデザインです。",
+      "image": "https://www.dee-okinawa.com/topics/2018/11/30/001.jpg",
+      "explanationImage": "https://www.plonkit.net/images/japan/21.png"
+    },
+    {
+      "id": "q218", "category": "power-companies", "difficulty": 3,
+      "question": "沖縄の電柱名には地名や通り名が使われることが多いですが、次のうち実際に存在する電柱名は？",
+      "options": ["ハブ", "キリン", "ゴーヤー", "サトウキビ"],
+      "correctAnswer": 1,
+      "explanation": "「キリン」は沖縄こどもの国（動物園）の近くにある実在の電柱名です。電柱名は周辺の施設や通りの名前に由来することが多いです。",
+      "image": "https://www.dee-okinawa.com/topics/2018/11/30/007.jpg"
+    },
+    {
+      "id": "q219", "category": "power-companies", "difficulty": 2,
+      "question": "【画像を見て答えよう】電柱のプレートで中部電力を見分ける最も簡単な特徴は？",
+      "options": ["横長のプレート", "罫線入り", "角が丸い楕円形", "カタカナ縦書き"],
+      "correctAnswer": 2,
+      "explanation": "中部電力のプレートは角が丸い楕円形をしています。この形状は中部電力にしかなく、遠くからでも判別できます。",
+      "image": "https://www.plonkit.net/images/japan/21.png",
+      "explanationImage": "https://www.plonkit.net/images/japan/21.png"
+    },
+    {
+      "id": "q220", "category": "power-companies", "difficulty": 3,
+      "question": "新潟県の電力会社はどこ？",
+      "options": ["東京電力", "中部電力", "東北電力", "北陸電力"],
+      "correctAnswer": 2,
+      "explanation": "新潟県は東北電力の管轄です。地理的には中部地方に近いですが、電力会社は東北電力なので注意が必要です。東北電力の横長プレートが目印。",
+      "image": "https://paulplay-storage-1.fra1.digitaloceanspaces.com/geometas/7c8caf7d-c9ef-43e1-a5b3-c18467a960df.jpg"
     }
   ]
 }
