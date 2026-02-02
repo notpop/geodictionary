@@ -1,10 +1,16 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+  useEffect(() => {
+    const handleCloseMenu = () => setIsMenuOpen(false)
+    window.addEventListener('closeMenu', handleCloseMenu)
+    return () => window.removeEventListener('closeMenu', handleCloseMenu)
+  }, [])
 
   return (
     <header className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-b border-slate-200 z-50">
@@ -55,16 +61,16 @@ export default function Header() {
 
           <nav className="hidden md:flex items-center gap-6">
             <Link href="/common" className="text-slate-600 hover:text-primary transition-colors">
-              共通知識
+              <ruby>共通知識<rp>(</rp><rt>きょうつうちしき</rt><rp>)</rp></ruby>
             </Link>
             <Link href="/infrastructure" className="text-slate-600 hover:text-primary transition-colors">
               インフラ
             </Link>
             <Link href="/power-companies" className="text-slate-600 hover:text-primary transition-colors">
-              電力会社
+              <ruby>電力会社<rp>(</rp><rt>でんりょくがいしゃ</rt><rp>)</rp></ruby>
             </Link>
             <Link href="/regions" className="text-slate-600 hover:text-primary transition-colors">
-              地域別
+              <ruby>地域別<rp>(</rp><rt>ちいきべつ</rt><rp>)</rp></ruby>
             </Link>
           </nav>
         </div>

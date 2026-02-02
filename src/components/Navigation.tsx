@@ -3,65 +3,83 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
+const closeMenuOnMobile = () => {
+  // モバイルでメニューを閉じる
+  if (window.innerWidth < 768) {
+    const nav = document.getElementById('mobile-nav')
+    if (nav && nav.classList.contains('nav-open')) {
+      nav.classList.remove('nav-open')
+      nav.classList.add('nav-closed')
+      // ヘッダーのメニューボタン状態も同期
+      window.dispatchEvent(new CustomEvent('closeMenu'))
+    }
+  }
+}
+
+// ふりがなヘルパー
+const Ruby = ({ children, reading }: { children: React.ReactNode; reading: string }) => (
+  <ruby>{children}<rp>(</rp><rt>{reading}</rt><rp>)</rp></ruby>
+)
+
 const mainNavItems = [
   {
-    title: '学習カリキュラム',
+    title: <><Ruby reading="がくしゅう">学習</Ruby>カリキュラム</>,
     href: '/learn',
     icon: '📖',
-    description: '体系的に学ぶ',
+    description: <><Ruby reading="たいけいてき">体系的</Ruby>に<Ruby reading="まな">学</Ruby>ぶ</>,
   },
   {
     title: 'クイズ',
     href: '/quiz',
     icon: '🎯',
-    description: '知識を確認',
+    description: <><Ruby reading="ちしき">知識</Ruby>を<Ruby reading="かくにん">確認</Ruby></>,
   },
   {
-    title: '画像リファレンス',
+    title: <><Ruby reading="がぞう">画像</Ruby>リファレンス</>,
     href: '/images',
     icon: '🖼️',
-    description: '参考画像集',
+    description: <><Ruby reading="さんこうがぞうしゅう">参考画像集</Ruby></>,
   },
 ]
 
 const navItems = [
   {
-    title: '共通知識',
+    title: <><Ruby reading="きょうつうちしき">共通知識</Ruby></>,
     href: '/common',
     icon: '📚',
-    description: '日本識別の基本',
+    description: <><Ruby reading="にほん">日本</Ruby><Ruby reading="しきべつ">識別</Ruby>の<Ruby reading="きほん">基本</Ruby></>,
   },
   {
     title: 'インフラ',
     href: '/infrastructure',
     icon: '🔌',
-    description: '電柱・道路・標識',
+    description: <><Ruby reading="でんちゅう">電柱</Ruby>・<Ruby reading="どうろ">道路</Ruby>・<Ruby reading="ひょうしき">標識</Ruby></>,
   },
   {
-    title: '電力会社別',
+    title: <><Ruby reading="でんりょくがいしゃべつ">電力会社別</Ruby></>,
     href: '/power-companies',
     icon: '⚡',
-    description: '10電力会社の電柱',
+    description: <>10<Ruby reading="でんりょくがいしゃ">電力会社</Ruby>の<Ruby reading="でんちゅう">電柱</Ruby></>,
   },
   {
-    title: '地域別Tips',
+    title: <><Ruby reading="ちいきべつ">地域別</Ruby>Tips</>,
     href: '/regions',
     icon: '🗾',
-    description: '北海道〜沖縄',
+    description: <><Ruby reading="ほっかいどう">北海道</Ruby>〜<Ruby reading="おきなわ">沖縄</Ruby></>,
   },
 ]
 
 const regions = [
-  { name: '北海道', href: '/regions/hokkaido' },
-  { name: '東北', href: '/regions/tohoku' },
-  { name: '関東', href: '/regions/kanto' },
-  { name: '中部', href: '/regions/chubu' },
-  { name: '北陸', href: '/regions/hokuriku' },
-  { name: '近畿', href: '/regions/kinki' },
-  { name: '中国', href: '/regions/chugoku' },
-  { name: '四国', href: '/regions/shikoku' },
-  { name: '九州', href: '/regions/kyushu' },
-  { name: '沖縄', href: '/regions/okinawa' },
+  { name: <Ruby reading="ほっかいどう">北海道</Ruby>, href: '/regions/hokkaido' },
+  { name: <Ruby reading="とうほく">東北</Ruby>, href: '/regions/tohoku' },
+  { name: <Ruby reading="かんとう">関東</Ruby>, href: '/regions/kanto' },
+  { name: <Ruby reading="ちゅうぶ">中部</Ruby>, href: '/regions/chubu' },
+  { name: <Ruby reading="ほくりく">北陸</Ruby>, href: '/regions/hokuriku' },
+  { name: <Ruby reading="きんき">近畿</Ruby>, href: '/regions/kinki' },
+  { name: <Ruby reading="ちゅうごく">中国</Ruby>, href: '/regions/chugoku' },
+  { name: <Ruby reading="しこく">四国</Ruby>, href: '/regions/shikoku' },
+  { name: <Ruby reading="きゅうしゅう">九州</Ruby>, href: '/regions/kyushu' },
+  { name: <Ruby reading="おきなわ">沖縄</Ruby>, href: '/regions/okinawa' },
 ]
 
 export default function Navigation() {
@@ -79,6 +97,7 @@ export default function Navigation() {
             <li key={item.href}>
               <Link
                 href={item.href}
+                onClick={closeMenuOnMobile}
                 className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
                   pathname === item.href || pathname.startsWith(item.href + '/')
                     ? 'bg-gradient-to-r from-primary to-blue-600 text-white'
@@ -112,6 +131,7 @@ export default function Navigation() {
             <li key={item.href}>
               <Link
                 href={item.href}
+                onClick={closeMenuOnMobile}
                 className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
                   pathname === item.href || pathname.startsWith(item.href + '/')
                     ? 'bg-primary text-white'
@@ -143,6 +163,7 @@ export default function Navigation() {
               <li key={region.href}>
                 <Link
                   href={region.href}
+                  onClick={closeMenuOnMobile}
                   className={`block px-3 py-2 text-sm rounded transition-colors ${
                     pathname === region.href
                       ? 'bg-primary/10 text-primary font-medium'

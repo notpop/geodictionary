@@ -22,10 +22,16 @@ export default function PowerCompaniesPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-slate-800 mb-2">
-          電力会社別電柱
+          <ruby>電力会社別<rp>(</rp><rt>でんりょくがいしゃべつ</rt><rp>)</rp></ruby>
+          <ruby>電柱<rp>(</rp><rt>でんちゅう</rt><rp>)</rp></ruby>
         </h1>
         <p className="text-slate-600">
-          {powerCompanies.description}
+          10<ruby>電力会社<rp>(</rp><rt>でんりょくがいしゃ</rt><rp>)</rp></ruby>の
+          <ruby>電柱<rp>(</rp><rt>でんちゅう</rt><rp>)</rp></ruby>プレートの
+          <ruby>見分<rp>(</rp><rt>みわ</rt><rp>)</rp></ruby>け<ruby>方<rp>(</rp><rt>かた</rt><rp>)</rp></ruby>。
+          プレートを<ruby>見<rp>(</rp><rt>み</rt><rp>)</rp></ruby>れば
+          <ruby>地域<rp>(</rp><rt>ちいき</rt><rp>)</rp></ruby>を
+          <ruby>特定<rp>(</rp><rt>とくてい</rt><rp>)</rp></ruby>できる。
         </p>
       </div>
 
@@ -61,68 +67,81 @@ export default function PowerCompaniesPage() {
 
       {/* Service Area Map */}
       <div className="bg-white rounded-xl shadow-sm p-4">
-        <h2 className="font-bold text-slate-800 mb-3">管轄地域マップ</h2>
+        <h2 className="font-bold text-slate-800 mb-3">
+          <ruby>管轄地域<rp>(</rp><rt>かんかつちいき</rt><rp>)</rp></ruby>マップ
+        </h2>
         <div className="grid gap-2 text-sm">
           <div className="grid grid-cols-2 gap-2">
             <div className="bg-blue-50 p-2 rounded-lg">
-              <span className="font-medium text-blue-800">北海道電力</span>
-              <p className="text-blue-600 text-xs">北海道</p>
+              <span className="font-medium text-blue-800"><ruby>北海道電力<rp>(</rp><rt>ほっかいどうでんりょく</rt><rp>)</rp></ruby></span>
+              <p className="text-blue-600 text-xs"><ruby>北海道<rp>(</rp><rt>ほっかいどう</rt><rp>)</rp></ruby></p>
             </div>
             <div className="bg-green-50 p-2 rounded-lg">
-              <span className="font-medium text-green-800">東北電力</span>
-              <p className="text-green-600 text-xs">青森・岩手・宮城・秋田・山形・福島・新潟</p>
+              <span className="font-medium text-green-800"><ruby>東北電力<rp>(</rp><rt>とうほくでんりょく</rt><rp>)</rp></ruby></span>
+              <p className="text-green-600 text-xs"><ruby>青森<rp>(</rp><rt>あおもり</rt><rp>)</rp></ruby>・<ruby>岩手<rp>(</rp><rt>いわて</rt><rp>)</rp></ruby>・<ruby>宮城<rp>(</rp><rt>みやぎ</rt><rp>)</rp></ruby>・<ruby>秋田<rp>(</rp><rt>あきた</rt><rp>)</rp></ruby>・<ruby>山形<rp>(</rp><rt>やまがた</rt><rp>)</rp></ruby>・<ruby>福島<rp>(</rp><rt>ふくしま</rt><rp>)</rp></ruby>・<ruby>新潟<rp>(</rp><rt>にいがた</rt><rp>)</rp></ruby></p>
             </div>
             <div className="bg-orange-50 p-2 rounded-lg">
-              <span className="font-medium text-orange-800">東京電力</span>
-              <p className="text-orange-600 text-xs">茨城・栃木・群馬・埼玉・千葉・東京・神奈川・山梨・静岡(東部)</p>
+              <span className="font-medium text-orange-800"><ruby>東京電力<rp>(</rp><rt>とうきょうでんりょく</rt><rp>)</rp></ruby></span>
+              <p className="text-orange-600 text-xs"><ruby>茨城<rp>(</rp><rt>いばらき</rt><rp>)</rp></ruby>・<ruby>栃木<rp>(</rp><rt>とちぎ</rt><rp>)</rp></ruby>・<ruby>群馬<rp>(</rp><rt>ぐんま</rt><rp>)</rp></ruby>・<ruby>埼玉<rp>(</rp><rt>さいたま</rt><rp>)</rp></ruby>・<ruby>千葉<rp>(</rp><rt>ちば</rt><rp>)</rp></ruby>・<ruby>東京<rp>(</rp><rt>とうきょう</rt><rp>)</rp></ruby>・<ruby>神奈川<rp>(</rp><rt>かながわ</rt><rp>)</rp></ruby>・<ruby>山梨<rp>(</rp><rt>やまなし</rt><rp>)</rp></ruby>・<ruby>静岡<rp>(</rp><rt>しずおか</rt><rp>)</rp></ruby>(<ruby>東部<rp>(</rp><rt>とうぶ</rt><rp>)</rp></ruby>)</p>
             </div>
             <div className="bg-yellow-50 p-2 rounded-lg">
-              <span className="font-medium text-yellow-800">中部電力</span>
-              <p className="text-yellow-600 text-xs">愛知・岐阜・三重・長野・静岡(西部)</p>
+              <span className="font-medium text-yellow-800"><ruby>中部電力<rp>(</rp><rt>ちゅうぶでんりょく</rt><rp>)</rp></ruby></span>
+              <p className="text-yellow-600 text-xs"><ruby>愛知<rp>(</rp><rt>あいち</rt><rp>)</rp></ruby>・<ruby>岐阜<rp>(</rp><rt>ぎふ</rt><rp>)</rp></ruby>・<ruby>三重<rp>(</rp><rt>みえ</rt><rp>)</rp></ruby>・<ruby>長野<rp>(</rp><rt>ながの</rt><rp>)</rp></ruby>・<ruby>静岡<rp>(</rp><rt>しずおか</rt><rp>)</rp></ruby>(<ruby>西部<rp>(</rp><rt>せいぶ</rt><rp>)</rp></ruby>)</p>
             </div>
             <div className="bg-purple-50 p-2 rounded-lg">
-              <span className="font-medium text-purple-800">北陸電力</span>
-              <p className="text-purple-600 text-xs">富山・石川・福井</p>
+              <span className="font-medium text-purple-800"><ruby>北陸電力<rp>(</rp><rt>ほくりくでんりょく</rt><rp>)</rp></ruby></span>
+              <p className="text-purple-600 text-xs"><ruby>富山<rp>(</rp><rt>とやま</rt><rp>)</rp></ruby>・<ruby>石川<rp>(</rp><rt>いしかわ</rt><rp>)</rp></ruby>・<ruby>福井<rp>(</rp><rt>ふくい</rt><rp>)</rp></ruby></p>
             </div>
             <div className="bg-red-50 p-2 rounded-lg">
-              <span className="font-medium text-red-800">関西電力</span>
-              <p className="text-red-600 text-xs">滋賀・京都・大阪・兵庫・奈良・和歌山</p>
+              <span className="font-medium text-red-800"><ruby>関西電力<rp>(</rp><rt>かんさいでんりょく</rt><rp>)</rp></ruby></span>
+              <p className="text-red-600 text-xs"><ruby>滋賀<rp>(</rp><rt>しが</rt><rp>)</rp></ruby>・<ruby>京都<rp>(</rp><rt>きょうと</rt><rp>)</rp></ruby>・<ruby>大阪<rp>(</rp><rt>おおさか</rt><rp>)</rp></ruby>・<ruby>兵庫<rp>(</rp><rt>ひょうご</rt><rp>)</rp></ruby>・<ruby>奈良<rp>(</rp><rt>なら</rt><rp>)</rp></ruby>・<ruby>和歌山<rp>(</rp><rt>わかやま</rt><rp>)</rp></ruby></p>
             </div>
             <div className="bg-teal-50 p-2 rounded-lg">
-              <span className="font-medium text-teal-800">中国電力</span>
-              <p className="text-teal-600 text-xs">広島・岡山・山口・鳥取・島根</p>
+              <span className="font-medium text-teal-800"><ruby>中国電力<rp>(</rp><rt>ちゅうごくでんりょく</rt><rp>)</rp></ruby></span>
+              <p className="text-teal-600 text-xs"><ruby>広島<rp>(</rp><rt>ひろしま</rt><rp>)</rp></ruby>・<ruby>岡山<rp>(</rp><rt>おかやま</rt><rp>)</rp></ruby>・<ruby>山口<rp>(</rp><rt>やまぐち</rt><rp>)</rp></ruby>・<ruby>鳥取<rp>(</rp><rt>とっとり</rt><rp>)</rp></ruby>・<ruby>島根<rp>(</rp><rt>しまね</rt><rp>)</rp></ruby></p>
             </div>
             <div className="bg-amber-50 p-2 rounded-lg">
-              <span className="font-medium text-amber-800">四国電力</span>
-              <p className="text-amber-600 text-xs">香川・徳島・愛媛・高知</p>
+              <span className="font-medium text-amber-800"><ruby>四国電力<rp>(</rp><rt>しこくでんりょく</rt><rp>)</rp></ruby></span>
+              <p className="text-amber-600 text-xs"><ruby>香川<rp>(</rp><rt>かがわ</rt><rp>)</rp></ruby>・<ruby>徳島<rp>(</rp><rt>とくしま</rt><rp>)</rp></ruby>・<ruby>愛媛<rp>(</rp><rt>えひめ</rt><rp>)</rp></ruby>・<ruby>高知<rp>(</rp><rt>こうち</rt><rp>)</rp></ruby></p>
             </div>
             <div className="bg-pink-50 p-2 rounded-lg">
-              <span className="font-medium text-pink-800">九州電力</span>
-              <p className="text-pink-600 text-xs">福岡・佐賀・長崎・熊本・大分・宮崎・鹿児島</p>
+              <span className="font-medium text-pink-800"><ruby>九州電力<rp>(</rp><rt>きゅうしゅうでんりょく</rt><rp>)</rp></ruby></span>
+              <p className="text-pink-600 text-xs"><ruby>福岡<rp>(</rp><rt>ふくおか</rt><rp>)</rp></ruby>・<ruby>佐賀<rp>(</rp><rt>さが</rt><rp>)</rp></ruby>・<ruby>長崎<rp>(</rp><rt>ながさき</rt><rp>)</rp></ruby>・<ruby>熊本<rp>(</rp><rt>くまもと</rt><rp>)</rp></ruby>・<ruby>大分<rp>(</rp><rt>おおいた</rt><rp>)</rp></ruby>・<ruby>宮崎<rp>(</rp><rt>みやざき</rt><rp>)</rp></ruby>・<ruby>鹿児島<rp>(</rp><rt>かごしま</rt><rp>)</rp></ruby></p>
             </div>
             <div className="bg-cyan-50 p-2 rounded-lg">
-              <span className="font-medium text-cyan-800">沖縄電力</span>
-              <p className="text-cyan-600 text-xs">沖縄</p>
+              <span className="font-medium text-cyan-800"><ruby>沖縄電力<rp>(</rp><rt>おきなわでんりょく</rt><rp>)</rp></ruby></span>
+              <p className="text-cyan-600 text-xs"><ruby>沖縄<rp>(</rp><rt>おきなわ</rt><rp>)</rp></ruby></p>
             </div>
           </div>
         </div>
       </div>
 
       <div className="bg-blue-50 rounded-xl p-4">
-        <h2 className="font-bold text-blue-800 mb-2">電柱プレートの見方</h2>
+        <h2 className="font-bold text-blue-800 mb-2">
+          <ruby>電柱<rp>(</rp><rt>でんちゅう</rt><rp>)</rp></ruby>プレートの
+          <ruby>見方<rp>(</rp><rt>みかた</rt><rp>)</rp></ruby>
+        </h2>
         <p className="text-sm text-blue-700">
-          日本には10の電力会社があり、それぞれ管轄地域が決まっています。
-          電柱のプレートを見れば、どの電力会社かわかり、地域を絞り込めます。
+          <ruby>日本<rp>(</rp><rt>にほん</rt><rp>)</rp></ruby>には10の
+          <ruby>電力会社<rp>(</rp><rt>でんりょくがいしゃ</rt><rp>)</rp></ruby>があり、それぞれ
+          <ruby>管轄地域<rp>(</rp><rt>かんかつちいき</rt><rp>)</rp></ruby>が
+          <ruby>決<rp>(</rp><rt>き</rt><rp>)</rp></ruby>まっています。
+          <ruby>電柱<rp>(</rp><rt>でんちゅう</rt><rp>)</rp></ruby>のプレートを
+          <ruby>見<rp>(</rp><rt>み</rt><rp>)</rp></ruby>れば、どの
+          <ruby>電力会社<rp>(</rp><rt>でんりょくがいしゃ</rt><rp>)</rp></ruby>かわかり、
+          <ruby>地域<rp>(</rp><rt>ちいき</rt><rp>)</rp></ruby>を
+          <ruby>絞<rp>(</rp><rt>しぼ</rt><rp>)</rp></ruby>り
+          <ruby>込<rp>(</rp><rt>こ</rt><rp>)</rp></ruby>めます。
         </p>
       </div>
 
-      <SearchBar onSearch={setSearchQuery} placeholder="電力会社名、地域名で検索..." />
+      <SearchBar onSearch={setSearchQuery} placeholder="電力会社名(でんりょくがいしゃめい)、地域名(ちいきめい)で検索..." />
 
       <div className="flex items-center gap-2 text-sm text-slate-500">
-        <span>{filteredCompanies.length} 社</span>
+        <span>{filteredCompanies.length} <ruby>社<rp>(</rp><rt>しゃ</rt><rp>)</rp></ruby></span>
         {searchQuery && (
           <span className="bg-slate-100 px-2 py-0.5 rounded">
-            「{searchQuery}」で検索中
+            「{searchQuery}」で<ruby>検索中<rp>(</rp><rt>けんさくちゅう</rt><rp>)</rp></ruby>
           </span>
         )}
       </div>
@@ -145,7 +164,7 @@ export default function PowerCompaniesPage() {
                     <h3 className="font-bold text-lg text-slate-800">{company.name}</h3>
                     {company.importance === 'high' && (
                       <span className="text-xs bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full">
-                        重要
+                        <ruby>重要<rp>(</rp><rt>じゅうよう</rt><rp>)</rp></ruby>
                       </span>
                     )}
                   </div>
@@ -169,7 +188,7 @@ export default function PowerCompaniesPage() {
               <div className="px-4 pb-4 border-t border-slate-100 pt-4">
                 <div className="space-y-4">
                   <div>
-                    <h4 className="text-sm font-semibold text-slate-700 mb-2">詳細</h4>
+                    <h4 className="text-sm font-semibold text-slate-700 mb-2"><ruby>詳細<rp>(</rp><rt>しょうさい</rt><rp>)</rp></ruby></h4>
                     <ul className="space-y-1">
                       {company.details.map((detail, index) => (
                         <li key={index} className="text-sm text-slate-600 flex items-start gap-2">
@@ -180,7 +199,7 @@ export default function PowerCompaniesPage() {
                     </ul>
                   </div>
                   <div className="bg-slate-50 rounded-lg p-3">
-                    <h4 className="text-sm font-semibold text-slate-700 mb-1">覚え方</h4>
+                    <h4 className="text-sm font-semibold text-slate-700 mb-1"><ruby>覚<rp>(</rp><rt>おぼ</rt><rp>)</rp></ruby>え<ruby>方<rp>(</rp><rt>かた</rt><rp>)</rp></ruby></h4>
                     <p className="text-sm text-slate-600">{company.tips}</p>
                   </div>
                 </div>
@@ -192,7 +211,7 @@ export default function PowerCompaniesPage() {
 
       {filteredCompanies.length === 0 && (
         <div className="text-center py-12 text-slate-500">
-          <p>該当する電力会社が見つかりませんでした</p>
+          <p><ruby>該当<rp>(</rp><rt>がいとう</rt><rp>)</rp></ruby>する<ruby>電力会社<rp>(</rp><rt>でんりょくがいしゃ</rt><rp>)</rp></ruby>が<ruby>見<rp>(</rp><rt>み</rt><rp>)</rp></ruby>つかりませんでした</p>
         </div>
       )}
 
@@ -226,7 +245,7 @@ export default function PowerCompaniesPage() {
                 />
                 {selectedImage.source && (
                   <span className="absolute bottom-2 right-2 text-xs bg-black/70 text-white px-2 py-1 rounded">
-                    出典: {selectedImage.source}
+                    <ruby>出典<rp>(</rp><rt>しゅってん</rt><rp>)</rp></ruby>: {selectedImage.source}
                   </span>
                 )}
               </div>
@@ -237,7 +256,7 @@ export default function PowerCompaniesPage() {
                   rel="noopener noreferrer"
                   className="text-sm text-primary hover:underline"
                 >
-                  画像を新しいタブで開く
+                  <ruby>画像<rp>(</rp><rt>がぞう</rt><rp>)</rp></ruby>を<ruby>新<rp>(</rp><rt>あたら</rt><rp>)</rp></ruby>しいタブで<ruby>開<rp>(</rp><rt>ひら</rt><rp>)</rp></ruby>く
                 </a>
               </div>
             </div>

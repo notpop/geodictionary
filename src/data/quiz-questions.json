@@ -92,7 +92,7 @@
       "options": ["東京電力", "北海道電力", "東北電力", "中部電力"],
       "correctAnswer": 1,
       "explanation": "北海道電力の電柱プレートは縦型で、上から「区」「画」「図」の順に数字が並びます。これで北海道と確定できます。",
-      "image": "https://www.plonkit.net/images/japan/20-39.png"
+      "image": "https://www.plonkit.net/images/japan/21.png"
     },
     {
       "id": "q012", "category": "power-companies", "difficulty": 2,

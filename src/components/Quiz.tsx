@@ -68,8 +68,8 @@ export default function Quiz({ questions, title, onComplete }: QuizProps) {
       setIsAnswered(false)
     } else {
       setIsComplete(true)
-      recordQuizResult(correctCount + (isCorrect ? 1 : 0), limitedQuestions.length)
-      onComplete?.(correctCount + (isCorrect ? 1 : 0), limitedQuestions.length)
+      recordQuizResult(correctCount, limitedQuestions.length)
+      onComplete?.(correctCount, limitedQuestions.length)
     }
   }
 
@@ -85,7 +85,7 @@ export default function Quiz({ questions, title, onComplete }: QuizProps) {
   }
 
   if (isComplete) {
-    const finalScore = correctCount + (isCorrect ? 1 : 0)
+    const finalScore = correctCount
     const percentage = Math.round((finalScore / limitedQuestions.length) * 100)
 
     return (
