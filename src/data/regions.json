@@ -1,67 +1,102 @@
 {
   "category": "地域別Tips",
-  "description": "日本の地域ごとの特徴的な見分け方",
+  "description": "日本の地域ごとの特徴的な見分け方。47都道府県対応。",
   "regions": [
     {
       "id": "hokkaido",
       "name": "北海道",
       "description": "日本最北の島。広大な土地と独特の雪対策設備が特徴。",
-      "tips": [
+      "prefectures": [
         {
-          "id": "hokkaido-1",
-          "title": "赤白矢印（スノーポール）",
-          "description": "道路の端を示す赤と白のストライプ矢印。積雪時に道路の位置を示すためのもので、ほぼ北海道限定。",
-          "importance": "high",
-          "tags": ["雪対策", "道路"]
-        },
-        {
-          "id": "hokkaido-2",
-          "title": "巨大フキ（ラワンブキ）",
-          "description": "道路脇に生える巨大な葉を持つ植物。北海道と北東北、ロシアに分布。",
-          "importance": "high",
-          "tags": ["植生"]
-        },
-        {
-          "id": "hokkaido-3",
-          "title": "白樺の木",
-          "description": "白い幹が特徴的な白樺が多く見られる。本州の高山地帯にもあるが、北海道では平地でも多い。",
-          "importance": "medium",
-          "tags": ["植生"]
-        },
-        {
-          "id": "hokkaido-4",
-          "title": "灯油タンク（クレイモア）",
-          "description": "家の外に設置された大きな灯油タンク。暖房用で、寒冷地特有の設備。",
-          "importance": "medium",
-          "tags": ["建物", "設備"]
-        },
-        {
-          "id": "hokkaido-5",
-          "title": "広い道路",
-          "description": "北海道は道路が広く、3車線道路も見られる。積雪時のスペース確保のため。",
-          "importance": "medium",
-          "tags": ["道路"]
-        },
-        {
-          "id": "hokkaido-6",
-          "title": "平らな屋根",
-          "description": "雪下ろしをしやすくするため、または落雪防止のための平らな屋根が多い。",
-          "importance": "low",
-          "tags": ["建物"]
-        },
-        {
-          "id": "hokkaido-7",
-          "title": "シェブロンステッカー",
-          "description": "ガードレールにシェブロン（V字）模様のステッカーや、オレンジのステッカーが見られる。",
-          "importance": "low",
-          "tags": ["道路", "ガードレール"]
-        },
-        {
-          "id": "hokkaido-8",
-          "title": "キリル文字（稀）",
-          "description": "稚内や根室など、ロシアに近い地域では稀にキリル文字の案内がある。",
-          "importance": "low",
-          "tags": ["標識", "上級"]
+          "id": "hokkaido",
+          "name": "北海道",
+          "areaCode": "011-016",
+          "tips": [
+            {
+              "id": "hokkaido-1",
+              "title": "矢羽（赤白矢印スノーポール）",
+              "description": "道路の端を示す赤と白のストライプ矢印。積雪時に道路の位置を示すためのもので、ほぼ北海道限定。日本で一番分かりやすい地域特定要素。",
+              "importance": "high",
+              "tags": ["雪対策", "道路"]
+            },
+            {
+              "id": "hokkaido-2",
+              "title": "白/黄色部分付きスノーポール",
+              "description": "矢羽とは別に、白い棒に黄色い部分が付いたスノーポールも存在。雪国共通だが北海道で特に多い。",
+              "importance": "medium",
+              "tags": ["雪対策", "道路"]
+            },
+            {
+              "id": "hokkaido-3",
+              "title": "低圧スペーサー",
+              "description": "電線間に1個+3個の部品が付いている。北海道電力エリア限定の確定要素。遠くからでも見える。",
+              "importance": "high",
+              "tags": ["電柱", "上級"]
+            },
+            {
+              "id": "hokkaido-4",
+              "title": "電柱プレートの番号",
+              "description": "上2桁で地域特定可能。1桁目は南北（2=南〜8=北）、2桁目は東西（9,0,1,2,3,4,5の順）。41=札幌、43=帯広、20=函館、52=旭川、81-82=稚内。",
+              "importance": "high",
+              "tags": ["電柱", "上級"]
+            },
+            {
+              "id": "hokkaido-5",
+              "title": "巨大フキ（ラワンブキ）",
+              "description": "道路脇に生える巨大な葉を持つ植物。北海道と北東北、ロシアに分布。",
+              "importance": "high",
+              "tags": ["植生"]
+            },
+            {
+              "id": "hokkaido-6",
+              "title": "白樺の木",
+              "description": "白い幹が特徴的な白樺が多く見られる。本州の高山地帯にもあるが、北海道では平地でも多い。",
+              "importance": "medium",
+              "tags": ["植生"]
+            },
+            {
+              "id": "hokkaido-7",
+              "title": "灯油タンク（クレイモア）",
+              "description": "家の外に設置された大きな灯油タンク。暖房用で、寒冷地特有の設備。",
+              "importance": "medium",
+              "tags": ["建物", "設備"]
+            },
+            {
+              "id": "hokkaido-8",
+              "title": "広い道路",
+              "description": "北海道は道路が広く、3車線道路も見られる。積雪時のスペース確保のため。",
+              "importance": "medium",
+              "tags": ["道路"]
+            },
+            {
+              "id": "hokkaido-9",
+              "title": "平らな屋根",
+              "description": "雪下ろしをしやすくするため、または落雪防止のための平らな屋根が多い。",
+              "importance": "low",
+              "tags": ["建物"]
+            },
+            {
+              "id": "hokkaido-10",
+              "title": "防風林",
+              "description": "強風対策の防風林が多い。北海道の広大な農地の特徴。",
+              "importance": "medium",
+              "tags": ["植生", "農業"]
+            },
+            {
+              "id": "hokkaido-11",
+              "title": "札幌黄色プレート",
+              "description": "札幌市内では黄色い電柱プレートが見られる。札幌限定の確定要素。",
+              "importance": "medium",
+              "tags": ["電柱"]
+            },
+            {
+              "id": "hokkaido-12",
+              "title": "市外局番011-016",
+              "description": "011=札幌、0123=千歳、0134=小樽、0138=函館、0154=釧路、0155=帯広、0166=旭川。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
         }
       ]
     },
@@ -69,35 +104,209 @@
       "id": "tohoku",
       "name": "東北",
       "description": "本州北部の6県。雪国としての特徴と東北電力管轄が目印。",
-      "prefectures": ["青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県"],
-      "tips": [
+      "prefectures": [
         {
-          "id": "tohoku-1",
-          "title": "八角形リフレクター",
-          "description": "ボラードに八角形または長方形のリフレクターが付いている。東北地方の特徴。",
-          "importance": "high",
-          "tags": ["ボラード", "リフレクター"]
+          "id": "aomori",
+          "name": "青森県",
+          "areaCode": "017",
+          "tips": [
+            {
+              "id": "aomori-1",
+              "title": "りんご畑",
+              "description": "青森県は日本一のりんご産地。りんご畑が道路沿いに多く見られる。",
+              "importance": "high",
+              "tags": ["農業", "植生"]
+            },
+            {
+              "id": "aomori-2",
+              "title": "ねぶた・ねぷた看板",
+              "description": "ねぶた祭り関連の看板やデザインが見られる。青森市周辺で特に多い。",
+              "importance": "medium",
+              "tags": ["文化", "看板"]
+            },
+            {
+              "id": "aomori-3",
+              "title": "八角形リフレクター",
+              "description": "ボラードに八角形のリフレクターが付いている。東北地方共通。",
+              "importance": "medium",
+              "tags": ["ボラード", "リフレクター"]
+            },
+            {
+              "id": "aomori-4",
+              "title": "市外局番017",
+              "description": "青森市は017。0172=弘前、0175=むつ、0178=八戸。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
         },
         {
-          "id": "tohoku-2",
-          "title": "赤白スノーポール型ボラード",
-          "description": "赤と白のストライプのボラード。雪国の特徴だが、東北で多く見られる。",
-          "importance": "medium",
-          "tags": ["ボラード", "雪対策"]
+          "id": "akita",
+          "name": "秋田県",
+          "areaCode": "018",
+          "tips": [
+            {
+              "id": "akita-1",
+              "title": "なまはげ関連看板",
+              "description": "なまはげのイラストや看板が見られる。特に男鹿半島周辺。",
+              "importance": "medium",
+              "tags": ["文化", "看板"]
+            },
+            {
+              "id": "akita-2",
+              "title": "きりたんぽ看板",
+              "description": "秋田名物きりたんぽの看板が見られる。",
+              "importance": "low",
+              "tags": ["看板", "グルメ"]
+            },
+            {
+              "id": "akita-3",
+              "title": "縦型信号機",
+              "description": "豪雪地帯のため信号機が縦型。雪国の特徴。",
+              "importance": "medium",
+              "tags": ["信号", "雪対策"]
+            },
+            {
+              "id": "akita-4",
+              "title": "市外局番018",
+              "description": "秋田市は018。0182=横手、0183=湯沢、0184=由利本荘。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
         },
         {
-          "id": "tohoku-3",
-          "title": "縦型信号機",
-          "description": "積雪対策で信号機が縦型になっている。北海道、東北、北陸で多い。",
-          "importance": "medium",
-          "tags": ["信号"]
+          "id": "iwate",
+          "name": "岩手県",
+          "areaCode": "019",
+          "tips": [
+            {
+              "id": "iwate-1",
+              "title": "わんこそば看板",
+              "description": "岩手名物わんこそばの看板が見られる。盛岡市周辺で多い。",
+              "importance": "low",
+              "tags": ["看板", "グルメ"]
+            },
+            {
+              "id": "iwate-2",
+              "title": "リアス式海岸",
+              "description": "三陸海岸はリアス式海岸。入り組んだ海岸線と急な斜面が特徴。",
+              "importance": "medium",
+              "tags": ["地形", "景観"]
+            },
+            {
+              "id": "iwate-3",
+              "title": "止まれ標識の特徴",
+              "description": "岩手県は止まれ標識の「れ」の形が独特。",
+              "importance": "low",
+              "tags": ["標識", "上級"]
+            },
+            {
+              "id": "iwate-4",
+              "title": "市外局番019",
+              "description": "盛岡市は019。0191=一関、0193=宮古、0194=久慈、0197=奥州。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
         },
         {
-          "id": "tohoku-4",
-          "title": "東北電力プレート",
-          "description": "横長のプレートで左上にロゴと幹線名。東北6県＋新潟が管轄。",
-          "importance": "high",
-          "tags": ["電柱"]
+          "id": "miyagi",
+          "name": "宮城県",
+          "areaCode": "022",
+          "tips": [
+            {
+              "id": "miyagi-1",
+              "title": "仙台の都市景観",
+              "description": "東北最大の都市。高層ビルと緑が多い都市景観。",
+              "importance": "medium",
+              "tags": ["都市", "景観"]
+            },
+            {
+              "id": "miyagi-2",
+              "title": "牛タン看板",
+              "description": "仙台名物牛タンの看板が見られる。仙台市周辺で多い。",
+              "importance": "low",
+              "tags": ["看板", "グルメ"]
+            },
+            {
+              "id": "miyagi-3",
+              "title": "伊達政宗関連",
+              "description": "伊達政宗の像や関連施設の看板が見られる。",
+              "importance": "low",
+              "tags": ["文化", "看板"]
+            },
+            {
+              "id": "miyagi-4",
+              "title": "市外局番022",
+              "description": "仙台市は022。0223=岩沼、0224=角田、0225=石巻、0228=大崎。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
+        },
+        {
+          "id": "yamagata",
+          "name": "山形県",
+          "areaCode": "023",
+          "tips": [
+            {
+              "id": "yamagata-1",
+              "title": "さくらんぼ看板",
+              "description": "山形県は日本一のさくらんぼ産地。さくらんぼ関連の看板やイラストが多い。",
+              "importance": "high",
+              "tags": ["農業", "看板"]
+            },
+            {
+              "id": "yamagata-2",
+              "title": "芋煮看板",
+              "description": "山形名物芋煮の看板が見られる。",
+              "importance": "low",
+              "tags": ["看板", "グルメ"]
+            },
+            {
+              "id": "yamagata-3",
+              "title": "市外局番023",
+              "description": "山形市は023（3桁）。0233=新庄、0234=酒田、0235=鶴岡、0237=寒河江、0238=米沢。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
+        },
+        {
+          "id": "fukushima",
+          "name": "福島県",
+          "areaCode": "024",
+          "tips": [
+            {
+              "id": "fukushima-1",
+              "title": "桃畑",
+              "description": "福島県は桃の産地。桃畑が見られる。",
+              "importance": "medium",
+              "tags": ["農業", "植生"]
+            },
+            {
+              "id": "fukushima-2",
+              "title": "会津の赤べこ",
+              "description": "会津地方では赤べこのデザインや看板が見られる。",
+              "importance": "low",
+              "tags": ["文化", "看板"]
+            },
+            {
+              "id": "fukushima-3",
+              "title": "磐梯山",
+              "description": "福島のシンボル磐梯山。猪苗代湖周辺から見える。",
+              "importance": "medium",
+              "tags": ["山", "景観"]
+            },
+            {
+              "id": "fukushima-4",
+              "title": "市外局番024",
+              "description": "福島市は024。0241=会津若松、0242=会津若松、0243=二本松、0244=相馬、0246=いわき。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
         }
       ]
     },
@@ -105,71 +314,525 @@
       "id": "kanto",
       "name": "関東",
       "description": "首都圏を含む日本最大の都市圏。東京電力管轄。",
-      "prefectures": ["茨城県", "栃木県", "群馬県", "埼玉県", "千葉県", "東京都", "神奈川県"],
-      "tips": [
+      "prefectures": [
         {
-          "id": "kanto-1",
-          "title": "高層ビル・都市景観",
-          "description": "東京都心部は高層ビルが密集。横浜、さいたまなど周辺都市も発展している。",
-          "importance": "medium",
-          "tags": ["都市", "建物"]
+          "id": "ibaraki",
+          "name": "茨城県",
+          "areaCode": "029",
+          "tips": [
+            {
+              "id": "ibaraki-1",
+              "title": "筑波山",
+              "description": "筑波山が見える平野部は茨城県の可能性が高い。関東平野の目印。",
+              "importance": "medium",
+              "tags": ["山", "景観"]
+            },
+            {
+              "id": "ibaraki-2",
+              "title": "納豆看板",
+              "description": "水戸納豆の看板が見られる。水戸市周辺で多い。",
+              "importance": "low",
+              "tags": ["看板", "グルメ"]
+            },
+            {
+              "id": "ibaraki-3",
+              "title": "霞ヶ浦",
+              "description": "日本第2位の湖。湖畔の景色は茨城県の目印。",
+              "importance": "medium",
+              "tags": ["水域", "景観"]
+            },
+            {
+              "id": "ibaraki-4",
+              "title": "市外局番029",
+              "description": "水戸市・つくば市は029。0291=鹿嶋、0293=日立、0294=常陸太田、0297=守谷。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
         },
         {
-          "id": "kanto-2",
-          "title": "東京電力の縦長プレート",
-          "description": "白い縦長プレートに漢字横書き。関東一円と山梨、静岡の一部をカバー。",
-          "importance": "high",
-          "tags": ["電柱"]
+          "id": "tochigi",
+          "name": "栃木県",
+          "areaCode": "028",
+          "tips": [
+            {
+              "id": "tochigi-1",
+              "title": "日光の杉並木",
+              "description": "日光街道の杉並木は栃木県の象徴。高い杉の木が並ぶ道。",
+              "importance": "medium",
+              "tags": ["植生", "道路"]
+            },
+            {
+              "id": "tochigi-2",
+              "title": "いちご看板",
+              "description": "栃木県はいちごの産地（とちおとめ）。いちご関連の看板が見られる。",
+              "importance": "low",
+              "tags": ["農業", "看板"]
+            },
+            {
+              "id": "tochigi-3",
+              "title": "餃子看板",
+              "description": "宇都宮餃子の看板が見られる。宇都宮市周辺で多い。",
+              "importance": "low",
+              "tags": ["看板", "グルメ"]
+            },
+            {
+              "id": "tochigi-4",
+              "title": "市外局番028",
+              "description": "宇都宮市は028。0282=栃木、0283=佐野、0284=足利、0285=真岡、0287=那須。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
         },
         {
-          "id": "kanto-3",
-          "title": "木製プレート付き変圧器",
-          "description": "変圧器に木製のプレートが付いていることがある。関東の特徴。",
-          "importance": "low",
-          "tags": ["電柱", "上級"]
+          "id": "gunma",
+          "name": "群馬県",
+          "areaCode": "027",
+          "tips": [
+            {
+              "id": "gunma-1",
+              "title": "こんにゃく看板",
+              "description": "群馬県は日本一のこんにゃく産地。こんにゃく関連の看板が見られる。",
+              "importance": "low",
+              "tags": ["農業", "看板"]
+            },
+            {
+              "id": "gunma-2",
+              "title": "温泉地",
+              "description": "草津温泉、伊香保温泉など有名温泉地が多い。温泉関連の看板が見られる。",
+              "importance": "medium",
+              "tags": ["観光", "看板"]
+            },
+            {
+              "id": "gunma-3",
+              "title": "からっ風",
+              "description": "冬は空っ風が強い。風力発電の風車が見られることも。",
+              "importance": "low",
+              "tags": ["気候"]
+            },
+            {
+              "id": "gunma-4",
+              "title": "市外局番027",
+              "description": "前橋市・高崎市は027。0270=伊勢崎、0274=富岡、0276=太田、0277=桐生、0279=草津。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
         },
         {
-          "id": "kanto-4",
-          "title": "派手な色彩の建物",
-          "description": "都市部では派手な色の建物や看板が多い。",
-          "importance": "low",
-          "tags": ["建物"]
+          "id": "saitama",
+          "name": "埼玉県",
+          "areaCode": "048-049",
+          "tips": [
+            {
+              "id": "saitama-1",
+              "title": "バーコードシール",
+              "description": "電柱にバーコードシールが貼られている。埼玉県で見られる特徴。",
+              "importance": "medium",
+              "tags": ["電柱", "上級"]
+            },
+            {
+              "id": "saitama-2",
+              "title": "都市近郊の住宅地",
+              "description": "東京のベッドタウン。住宅密集地が多い。",
+              "importance": "low",
+              "tags": ["都市", "景観"]
+            },
+            {
+              "id": "saitama-3",
+              "title": "川越の蔵造り",
+              "description": "川越市には蔵造りの町並みが残る。観光地として有名。",
+              "importance": "low",
+              "tags": ["建物", "観光"]
+            },
+            {
+              "id": "saitama-4",
+              "title": "市外局番048-049",
+              "description": "さいたま市は048。049=川越・坂戸、0480=久喜、0485=熊谷、0493=東松山、0494=秩父。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
+        },
+        {
+          "id": "chiba",
+          "name": "千葉県",
+          "areaCode": "043-047",
+          "tips": [
+            {
+              "id": "chiba-1",
+              "title": "落花生看板",
+              "description": "千葉県は落花生の産地。落花生関連の看板が見られる。",
+              "importance": "low",
+              "tags": ["農業", "看板"]
+            },
+            {
+              "id": "chiba-2",
+              "title": "房総半島の海岸",
+              "description": "太平洋側の海岸線。砂浜と岩場が特徴。",
+              "importance": "medium",
+              "tags": ["海岸", "景観"]
+            },
+            {
+              "id": "chiba-3",
+              "title": "成田空港関連",
+              "description": "成田空港周辺は空港関連の看板や施設が見られる。",
+              "importance": "medium",
+              "tags": ["交通", "看板"]
+            },
+            {
+              "id": "chiba-4",
+              "title": "市外局番043-047",
+              "description": "千葉市は043。047=市川・船橋、0436=木更津、0438=君津、0439=館山、0470=房総。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
+        },
+        {
+          "id": "tokyo",
+          "name": "東京都",
+          "areaCode": "03",
+          "tips": [
+            {
+              "id": "tokyo-1",
+              "title": "高層ビル群",
+              "description": "新宿、渋谷、池袋など高層ビルが密集。日本最大の都市景観。",
+              "importance": "high",
+              "tags": ["都市", "建物"]
+            },
+            {
+              "id": "tokyo-2",
+              "title": "23区マンホール",
+              "description": "東京23区のマンホールは5枚の花びらと小さな円のデザイン。東京限定。",
+              "importance": "medium",
+              "tags": ["マンホール", "上級"]
+            },
+            {
+              "id": "tokyo-3",
+              "title": "都電・路面電車",
+              "description": "荒川区周辺では都電荒川線が走っている。",
+              "importance": "low",
+              "tags": ["交通"]
+            },
+            {
+              "id": "tokyo-4",
+              "title": "市外局番03",
+              "description": "23区は03。042=多摩地区、0422=武蔵野・三鷹、0428=青梅。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
+        },
+        {
+          "id": "kanagawa",
+          "name": "神奈川県",
+          "areaCode": "045-046",
+          "tips": [
+            {
+              "id": "kanagawa-1",
+              "title": "横浜の都市景観",
+              "description": "みなとみらい地区の高層ビル群。東京に次ぐ大都市。",
+              "importance": "medium",
+              "tags": ["都市", "景観"]
+            },
+            {
+              "id": "kanagawa-2",
+              "title": "湘南の海岸",
+              "description": "江ノ島、鎌倉周辺の海岸線。サーフィンスポットとして有名。",
+              "importance": "medium",
+              "tags": ["海岸", "景観"]
+            },
+            {
+              "id": "kanagawa-3",
+              "title": "箱根",
+              "description": "箱根は温泉地。山と湖の景観が特徴。",
+              "importance": "medium",
+              "tags": ["山", "観光"]
+            },
+            {
+              "id": "kanagawa-4",
+              "title": "市外局番045-046",
+              "description": "横浜市は045。046=厚木・藤沢、0463=平塚・秦野、0465=小田原、0467=鎌倉・藤沢。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
         }
       ]
     },
     {
       "id": "chubu",
       "name": "中部",
-      "description": "本州中央部。富士山、日本アルプスを含む。中部電力管轄。",
-      "prefectures": ["新潟県（北陸）", "長野県", "岐阜県", "静岡県", "愛知県", "三重県"],
-      "tips": [
+      "description": "本州中央部。富士山、日本アルプスを含む。新潟以外は中部電力管轄。",
+      "prefectures": [
         {
-          "id": "chubu-1",
-          "title": "富士山",
-          "description": "日本最高峰の山。静岡・山梨から見える。段階的な傾斜と雪を被った山頂が特徴。",
-          "importance": "high",
-          "tags": ["景観", "山"]
+          "id": "niigata",
+          "name": "新潟県",
+          "areaCode": "025",
+          "powerCompany": "東北電力",
+          "tips": [
+            {
+              "id": "niigata-1",
+              "title": "横長NTTプレート",
+              "description": "新潟県はNTTプレートも横長。東北電力プレート＋横長NTTプレートの組み合わせで新潟確定。",
+              "importance": "high",
+              "tags": ["電柱"]
+            },
+            {
+              "id": "niigata-2",
+              "title": "広大な水田",
+              "description": "日本一の米どころ。見渡す限りの水田が特徴。",
+              "importance": "medium",
+              "tags": ["農業", "景観"]
+            },
+            {
+              "id": "niigata-3",
+              "title": "豪雪地帯",
+              "description": "冬は豪雪地帯。スキー場が多い。縦型信号機も多い。",
+              "importance": "medium",
+              "tags": ["雪対策"]
+            },
+            {
+              "id": "niigata-4",
+              "title": "市外局番025",
+              "description": "新潟市は025。0254=新発田、0255=上越、0256=燕三条、0257=柏崎、0258=長岡、0259=佐渡。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
         },
         {
-          "id": "chubu-2",
-          "title": "茶畑",
-          "description": "静岡県は日本一の茶の産地。段々になった茶畑が特徴的。",
-          "importance": "medium",
-          "tags": ["農業", "植生"]
+          "id": "yamanashi",
+          "name": "山梨県",
+          "areaCode": "055",
+          "tips": [
+            {
+              "id": "yamanashi-1",
+              "title": "富士山",
+              "description": "富士山が北側から見える。裾野が広がる景観は山梨側の特徴。",
+              "importance": "high",
+              "tags": ["山", "景観"]
+            },
+            {
+              "id": "yamanashi-2",
+              "title": "ブドウ畑",
+              "description": "甲州市周辺はブドウの産地。ブドウ畑が多い。",
+              "importance": "medium",
+              "tags": ["農業", "植生"]
+            },
+            {
+              "id": "yamanashi-3",
+              "title": "甲府盆地",
+              "description": "山に囲まれた盆地地形。夏は暑く冬は寒い。",
+              "importance": "medium",
+              "tags": ["地形"]
+            },
+            {
+              "id": "yamanashi-4",
+              "title": "市外局番055",
+              "description": "甲府市・富士吉田は055。0551=北杜、0553=山梨、0554=都留・大月、0556=身延。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
         },
         {
-          "id": "chubu-3",
-          "title": "中部電力の角丸プレート",
-          "description": "角が丸みを帯びた縦型プレート。上部に中部電力ロゴ。",
-          "importance": "high",
-          "tags": ["電柱"]
+          "id": "nagano",
+          "name": "長野県",
+          "areaCode": "026",
+          "tips": [
+            {
+              "id": "nagano-1",
+              "title": "茶色い標識",
+              "description": "長野県では茶色い案内標識が使われていることがある。長野確定要素。",
+              "importance": "high",
+              "tags": ["標識"]
+            },
+            {
+              "id": "nagano-2",
+              "title": "横長NTTプレート",
+              "description": "長野県はNTTプレートが横長。楕円形の中部電力プレート＋横長NTTで長野確定。",
+              "importance": "high",
+              "tags": ["電柱"]
+            },
+            {
+              "id": "nagano-3",
+              "title": "アルプスの山々",
+              "description": "北アルプス、南アルプス、中央アルプスが見える。高い山々が特徴。",
+              "importance": "medium",
+              "tags": ["山", "景観"]
+            },
+            {
+              "id": "nagano-4",
+              "title": "高原野菜",
+              "description": "レタスやキャベツの産地。高原の農地が特徴。",
+              "importance": "low",
+              "tags": ["農業"]
+            },
+            {
+              "id": "nagano-5",
+              "title": "市外局番026",
+              "description": "長野市は026。0261=大町・白馬、0262=須坂、0263=松本、0264=木曽、0265=飯田、0266=諏訪、0267=佐久・軽井沢、0268=上田、0269=飯山。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
         },
         {
-          "id": "chubu-4",
-          "title": "黄色数字の変圧器",
-          "description": "変圧器に黄色い数字と黒いタップコネクタが付いている。",
-          "importance": "low",
-          "tags": ["電柱", "上級"]
+          "id": "shizuoka",
+          "name": "静岡県",
+          "areaCode": "054-055",
+          "tips": [
+            {
+              "id": "shizuoka-1",
+              "title": "富士山",
+              "description": "富士山が南側から見える。静岡側からは海と富士山の組み合わせが見られる。",
+              "importance": "high",
+              "tags": ["山", "景観"]
+            },
+            {
+              "id": "shizuoka-2",
+              "title": "茶畑",
+              "description": "静岡県は日本一の茶の産地。段々になった茶畑が特徴的。牧之原台地周辺で多い。",
+              "importance": "high",
+              "tags": ["農業", "植生"]
+            },
+            {
+              "id": "shizuoka-3",
+              "title": "電力会社境界",
+              "description": "富士川より東は東京電力、西は中部電力。御殿場・伊豆は東京電力エリア。",
+              "importance": "medium",
+              "tags": ["電柱"]
+            },
+            {
+              "id": "shizuoka-4",
+              "title": "うなぎ看板",
+              "description": "浜名湖周辺はうなぎの産地。うなぎ関連の看板が見られる。",
+              "importance": "low",
+              "tags": ["看板", "グルメ"]
+            },
+            {
+              "id": "shizuoka-5",
+              "title": "市外局番054-055",
+              "description": "静岡市は054。055=沼津・御殿場・伊豆、0536=浜松北部、0537=掛川、0538=磐田、0539=浜松、0544=富士宮、0545=富士、0547=島田、0548=焼津、0550=御殿場、0557=熱海・伊東、0558=伊豆。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
+        },
+        {
+          "id": "gifu",
+          "name": "岐阜県",
+          "areaCode": "058",
+          "tips": [
+            {
+              "id": "gifu-1",
+              "title": "白川郷",
+              "description": "合掌造りの家が並ぶ白川郷。世界遺産で観光地として有名。",
+              "importance": "medium",
+              "tags": ["建物", "観光"]
+            },
+            {
+              "id": "gifu-2",
+              "title": "飛騨高山",
+              "description": "古い町並みが残る飛騨高山。観光地として有名。",
+              "importance": "medium",
+              "tags": ["建物", "観光"]
+            },
+            {
+              "id": "gifu-3",
+              "title": "長良川鵜飼",
+              "description": "長良川周辺では鵜飼関連の看板が見られる。",
+              "importance": "low",
+              "tags": ["文化", "看板"]
+            },
+            {
+              "id": "gifu-4",
+              "title": "市外局番058",
+              "description": "岐阜市は058。0572=多治見、0573=中津川、0574=美濃、0575=関、0576=下呂、0577=高山、0578=飛騨。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
+        },
+        {
+          "id": "aichi",
+          "name": "愛知県",
+          "areaCode": "052",
+          "tips": [
+            {
+              "id": "aichi-1",
+              "title": "無限ビニールハウス",
+              "description": "田原市周辺では見渡す限りのビニールハウスが広がる。田原確定の景観。",
+              "importance": "high",
+              "tags": ["農業", "景観"]
+            },
+            {
+              "id": "aichi-2",
+              "title": "名古屋の都市景観",
+              "description": "日本第3の都市。高層ビルが多い。名古屋城も目印。",
+              "importance": "medium",
+              "tags": ["都市", "景観"]
+            },
+            {
+              "id": "aichi-3",
+              "title": "トヨタ関連",
+              "description": "豊田市周辺はトヨタの本拠地。自動車関連の工場や施設が多い。",
+              "importance": "medium",
+              "tags": ["工業"]
+            },
+            {
+              "id": "aichi-4",
+              "title": "ダイヤマークの特徴",
+              "description": "愛知県のダイヤマーク（横断歩道手前）は特徴的な切り込みがある。",
+              "importance": "low",
+              "tags": ["道路", "上級"]
+            },
+            {
+              "id": "aichi-5",
+              "title": "市外局番052",
+              "description": "名古屋市は052。0531=田原、0532=豊橋、0533=豊川、0561=瀬戸、0562=知多、0563=西尾、0564=岡崎、0565=豊田、0566=刈谷、0567=津島、0568=春日井、0569=常滑。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
+        },
+        {
+          "id": "mie",
+          "name": "三重県",
+          "areaCode": "059",
+          "tips": [
+            {
+              "id": "mie-1",
+              "title": "電力会社境界",
+              "description": "三重県北部（四日市・津・松阪・名張・伊賀など）は中部電力、南部は関西電力。",
+              "importance": "high",
+              "tags": ["電柱"]
+            },
+            {
+              "id": "mie-2",
+              "title": "伊勢神宮関連",
+              "description": "伊勢市周辺では伊勢神宮関連の看板が多い。",
+              "importance": "medium",
+              "tags": ["観光", "看板"]
+            },
+            {
+              "id": "mie-3",
+              "title": "松阪牛看板",
+              "description": "松阪市周辺では松阪牛の看板が見られる。",
+              "importance": "low",
+              "tags": ["看板", "グルメ"]
+            },
+            {
+              "id": "mie-4",
+              "title": "市外局番059",
+              "description": "津市は059。0594=桑名、0595=伊賀、0596=伊勢・鳥羽、0597=熊野・尾鷲、0598=松阪、0599=志摩。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
         }
       ]
     },
@@ -177,35 +840,125 @@
       "id": "hokuriku",
       "name": "北陸",
       "description": "日本海側の3県。豪雪地帯。北陸電力管轄。",
-      "prefectures": ["富山県", "石川県", "福井県"],
-      "tips": [
+      "prefectures": [
         {
-          "id": "hokuriku-1",
-          "title": "縦型信号機",
-          "description": "豪雪地帯のため信号機が縦型。東北、北海道と共通。",
-          "importance": "medium",
-          "tags": ["信号", "雪対策"]
+          "id": "toyama",
+          "name": "富山県",
+          "areaCode": "076",
+          "tips": [
+            {
+              "id": "toyama-1",
+              "title": "黄色い街灯プレート",
+              "description": "富山県（特に富山市・高岡市）では黄色い街灯番号プレートが多い。富山確定要素。",
+              "importance": "high",
+              "tags": ["電柱"]
+            },
+            {
+              "id": "toyama-2",
+              "title": "電柱番号で市を特定",
+              "description": "北陸電力の電柱番号の最初の桁で市が分かる。0=富山市周辺、1=高岡市周辺、2=砺波市周辺、3=魚津市周辺。",
+              "importance": "high",
+              "tags": ["電柱", "上級"]
+            },
+            {
+              "id": "toyama-3",
+              "title": "立山連峰",
+              "description": "富山市からは立山連峰が見える。3000m級の山々が壁のように並ぶ。",
+              "importance": "medium",
+              "tags": ["山", "景観"]
+            },
+            {
+              "id": "toyama-4",
+              "title": "横長NTTプレート",
+              "description": "富山県はNTTプレートが横長。北陸電力プレート＋横長NTTで富山の可能性。",
+              "importance": "medium",
+              "tags": ["電柱"]
+            },
+            {
+              "id": "toyama-5",
+              "title": "市外局番076",
+              "description": "富山市は076。0763=砺波、0764=滑川、0765=黒部、0766=高岡。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
         },
         {
-          "id": "hokuriku-2",
-          "title": "電柱番号で市を特定",
-          "description": "北陸電力の電柱番号の最初の桁で市が分かる。0=富山市、4=金沢市、8=福井市など。",
-          "importance": "high",
-          "tags": ["電柱", "上級"]
+          "id": "ishikawa",
+          "name": "石川県",
+          "areaCode": "076",
+          "tips": [
+            {
+              "id": "ishikawa-1",
+              "title": "赤瓦（加賀地方）",
+              "description": "加賀市周辺では赤い瓦屋根が見られる。石州瓦ではなく加賀独自の赤瓦。",
+              "importance": "medium",
+              "tags": ["建物", "屋根"]
+            },
+            {
+              "id": "ishikawa-2",
+              "title": "電柱番号で市を特定",
+              "description": "北陸電力の電柱番号の最初の桁で市が分かる。4=金沢市周辺、5=七尾市周辺、6=珠洲市周辺、7=小松市周辺。",
+              "importance": "high",
+              "tags": ["電柱", "上級"]
+            },
+            {
+              "id": "ishikawa-3",
+              "title": "能登半島",
+              "description": "能登半島は独特の海岸線と棚田が特徴。輪島塗の看板も見られる。",
+              "importance": "medium",
+              "tags": ["地形", "景観"]
+            },
+            {
+              "id": "ishikawa-4",
+              "title": "市外局番076",
+              "description": "金沢市は076（富山と同じ）。0761=加賀・小松、0767=七尾、0768=珠洲・輪島。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
         },
         {
-          "id": "hokuriku-3",
-          "title": "黄色い街灯番号プレート",
-          "description": "富山県（主に富山市・高岡市）では黄色い街灯番号プレートが多い。",
-          "importance": "medium",
-          "tags": ["電柱"]
-        },
-        {
-          "id": "hokuriku-4",
-          "title": "ランプ型絶縁体",
-          "description": "変圧器にランプ型の小さい絶縁体が付いている。北陸の特徴。",
-          "importance": "low",
-          "tags": ["電柱", "上級"]
+          "id": "fukui",
+          "name": "福井県",
+          "areaCode": "0776-0778",
+          "tips": [
+            {
+              "id": "fukui-1",
+              "title": "電力会社境界",
+              "description": "敦賀市以北（福井市・鯖江市・勝山市など）は北陸電力、若狭地方（小浜市・大飯町・高浜町など）は関西電力。",
+              "importance": "high",
+              "tags": ["電柱"]
+            },
+            {
+              "id": "fukui-2",
+              "title": "黒い外区表示板",
+              "description": "福井県では黒い外区表示板が見られる。福井確定要素。",
+              "importance": "high",
+              "tags": ["標識", "上級"]
+            },
+            {
+              "id": "fukui-3",
+              "title": "電柱番号で市を特定",
+              "description": "北陸電力の電柱番号の最初の桁で市が分かる。8=福井市周辺、9=越前市周辺。",
+              "importance": "high",
+              "tags": ["電柱", "上級"]
+            },
+            {
+              "id": "fukui-4",
+              "title": "恐竜関連",
+              "description": "勝山市周辺では恐竜博物館関連の看板が見られる。福井は恐竜の町。",
+              "importance": "medium",
+              "tags": ["観光", "看板"]
+            },
+            {
+              "id": "fukui-5",
+              "title": "市外局番0776-0778",
+              "description": "福井市は0776。0770=敦賀・小浜、0776=福井、0778=越前・鯖江、0779=勝山・大野。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
         }
       ]
     },
@@ -213,28 +966,209 @@
       "id": "kinki",
       "name": "近畿",
       "description": "大阪・京都を中心とした西日本の中心地。関西電力管轄。",
-      "prefectures": ["滋賀県", "京都府", "大阪府", "兵庫県", "奈良県", "和歌山県"],
-      "tips": [
+      "prefectures": [
         {
-          "id": "kinki-1",
-          "title": "関西電力の縦書きプレート",
-          "description": "縦長の白いプレートに漢字またはカタカナの縦書き。東京電力との違いは縦書き。",
-          "importance": "high",
-          "tags": ["電柱"]
+          "id": "shiga",
+          "name": "滋賀県",
+          "areaCode": "077",
+          "tips": [
+            {
+              "id": "shiga-1",
+              "title": "琵琶湖の木",
+              "description": "琵琶湖周辺では湖岸に特徴的な木が並ぶ。琵琶湖が見えれば滋賀確定。",
+              "importance": "high",
+              "tags": ["水域", "植生"]
+            },
+            {
+              "id": "shiga-2",
+              "title": "彦根城",
+              "description": "彦根市周辺では彦根城関連の看板が見られる。",
+              "importance": "low",
+              "tags": ["観光", "看板"]
+            },
+            {
+              "id": "shiga-3",
+              "title": "市外局番077",
+              "description": "大津市は077。0748=東近江・彦根、0749=長浜。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
         },
         {
-          "id": "kinki-2",
-          "title": "120°角度アタッチメント",
-          "description": "電柱から約120°の角度で伸びたアタッチメントが特徴。上級者向け。",
-          "importance": "low",
-          "tags": ["電柱", "上級"]
+          "id": "kyoto",
+          "name": "京都府",
+          "areaCode": "075",
+          "tips": [
+            {
+              "id": "kyoto-1",
+              "title": "普通の止まれ標識",
+              "description": "京都府の止まれ標識は特に変わった特徴がない（普通）。",
+              "importance": "low",
+              "tags": ["標識", "上級"]
+            },
+            {
+              "id": "kyoto-2",
+              "title": "町家・古い町並み",
+              "description": "京都市内には町家や古い町並みが残る。碁盤の目の道路も特徴。",
+              "importance": "medium",
+              "tags": ["建物", "景観"]
+            },
+            {
+              "id": "kyoto-3",
+              "title": "寺社仏閣",
+              "description": "神社仏閣が多い。観光関連の看板も多い。",
+              "importance": "medium",
+              "tags": ["建物", "観光"]
+            },
+            {
+              "id": "kyoto-4",
+              "title": "市外局番075",
+              "description": "京都市は075。0771=福知山、0772=宮津、0773=舞鶴、0774=宇治。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
         },
         {
-          "id": "kinki-3",
-          "title": "歴史的建造物",
-          "description": "京都・奈良には寺社仏閣が多い。古い町並みが残る地域も。",
-          "importance": "medium",
-          "tags": ["建物", "景観"]
+          "id": "osaka",
+          "name": "大阪府",
+          "areaCode": "06",
+          "tips": [
+            {
+              "id": "osaka-1",
+              "title": "大阪の都市景観",
+              "description": "日本第2の都市。高層ビルと繁華街が特徴。道頓堀、通天閣など。",
+              "importance": "high",
+              "tags": ["都市", "景観"]
+            },
+            {
+              "id": "osaka-2",
+              "title": "たこ焼き看板",
+              "description": "たこ焼きや串カツの看板が見られる。大阪のグルメ。",
+              "importance": "low",
+              "tags": ["看板", "グルメ"]
+            },
+            {
+              "id": "osaka-3",
+              "title": "御堂筋",
+              "description": "御堂筋は銀杏並木が美しい大通り。大阪の中心を南北に走る。",
+              "importance": "medium",
+              "tags": ["道路", "景観"]
+            },
+            {
+              "id": "osaka-4",
+              "title": "市外局番06",
+              "description": "大阪市は06（2桁）。072=堺・枚方、0721=富田林、0722=岸和田、0723=泉佐野、0724=池田・箕面、0725=和泉。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
+        },
+        {
+          "id": "hyogo",
+          "name": "兵庫県",
+          "areaCode": "078",
+          "tips": [
+            {
+              "id": "hyogo-1",
+              "title": "新しいバス",
+              "description": "兵庫県では比較的新しいバスが多い。バスのデザインで地域特定のヒントになる。",
+              "importance": "low",
+              "tags": ["交通", "上級"]
+            },
+            {
+              "id": "hyogo-2",
+              "title": "神戸の港町",
+              "description": "神戸は港町。洋風建築や坂道が多い。六甲山も目印。",
+              "importance": "medium",
+              "tags": ["都市", "景観"]
+            },
+            {
+              "id": "hyogo-3",
+              "title": "姫路城",
+              "description": "姫路市周辺では姫路城関連の看板が見られる。",
+              "importance": "low",
+              "tags": ["観光", "看板"]
+            },
+            {
+              "id": "hyogo-4",
+              "title": "淡路島",
+              "description": "淡路島は関西電力エリア。玉ねぎ畑が多い。",
+              "importance": "medium",
+              "tags": ["農業", "島"]
+            },
+            {
+              "id": "hyogo-5",
+              "title": "市外局番078",
+              "description": "神戸市は078。079=姫路・明石、0791=相生・赤穂、0795=丹波、0796=豊岡、0797=芦屋・西宮、0799=淡路。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
+        },
+        {
+          "id": "nara",
+          "name": "奈良県",
+          "areaCode": "0742-0745",
+          "tips": [
+            {
+              "id": "nara-1",
+              "title": "鹿注意標識",
+              "description": "奈良公園周辺では鹿注意の標識が見られる。奈良のシンボル。",
+              "importance": "medium",
+              "tags": ["標識", "動物"]
+            },
+            {
+              "id": "nara-2",
+              "title": "寺社仏閣",
+              "description": "東大寺、法隆寺など古い寺社が多い。観光関連の看板も多い。",
+              "importance": "medium",
+              "tags": ["建物", "観光"]
+            },
+            {
+              "id": "nara-3",
+              "title": "市外局番0742-0745",
+              "description": "奈良市は0742。0743=天理、0744=橿原、0745=五條、0746=吉野、0747=大和高田。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
+        },
+        {
+          "id": "wakayama",
+          "name": "和歌山県",
+          "areaCode": "073",
+          "tips": [
+            {
+              "id": "wakayama-1",
+              "title": "みかん畑",
+              "description": "和歌山県は有田みかんの産地。段々畑のみかん園が多い。",
+              "importance": "medium",
+              "tags": ["農業", "植生"]
+            },
+            {
+              "id": "wakayama-2",
+              "title": "熊野古道",
+              "description": "熊野古道関連の看板が見られる。世界遺産。",
+              "importance": "medium",
+              "tags": ["観光", "看板"]
+            },
+            {
+              "id": "wakayama-3",
+              "title": "白浜",
+              "description": "白浜は有名な温泉・リゾート地。白い砂浜が特徴。",
+              "importance": "low",
+              "tags": ["海岸", "観光"]
+            },
+            {
+              "id": "wakayama-4",
+              "title": "市外局番073",
+              "description": "和歌山市は073。0735=新宮、0736=橋本、0737=有田、0738=御坊、0739=田辺・白浜。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
         }
       ]
     },
@@ -242,114 +1176,636 @@
       "id": "chugoku",
       "name": "中国",
       "description": "本州西端の5県。中国電力管轄。",
-      "prefectures": ["広島県", "岡山県", "山口県", "鳥取県", "島根県"],
-      "tips": [
+      "prefectures": [
         {
-          "id": "chugoku-1",
-          "title": "石州瓦（赤い屋根）",
-          "description": "広島県と島根県で赤い屋根瓦（石州瓦）が多く見られる。",
-          "importance": "high",
-          "tags": ["建物", "屋根"]
+          "id": "tottori",
+          "name": "鳥取県",
+          "areaCode": "0857-0859",
+          "tips": [
+            {
+              "id": "tottori-1",
+              "title": "UFOマンホール",
+              "description": "鳥取県ではUFO（円盤）のようなデザインのマンホールが見られる。鳥取確定要素。",
+              "importance": "high",
+              "tags": ["マンホール", "上級"]
+            },
+            {
+              "id": "tottori-2",
+              "title": "鳥取砂丘",
+              "description": "鳥取砂丘周辺では砂丘関連の看板が見られる。日本最大の砂丘。",
+              "importance": "medium",
+              "tags": ["景観", "観光"]
+            },
+            {
+              "id": "tottori-3",
+              "title": "二十世紀梨",
+              "description": "二十世紀梨の産地。梨関連の看板が見られる。",
+              "importance": "low",
+              "tags": ["農業", "看板"]
+            },
+            {
+              "id": "tottori-4",
+              "title": "市外局番0857-0859",
+              "description": "鳥取市は0857。0858=倉吉、0859=米子・境港。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
         },
         {
-          "id": "chugoku-2",
-          "title": "山口県の黄色いガードレール",
-          "description": "山口県のみ黄色いガードレールを使用。夏みかんの色にちなむ。日本唯一。",
-          "importance": "high",
-          "tags": ["ガードレール", "道路"]
+          "id": "shimane",
+          "name": "島根県",
+          "areaCode": "0852-0856",
+          "tips": [
+            {
+              "id": "shimane-1",
+              "title": "石州瓦（赤い屋根）",
+              "description": "島根県では赤い屋根瓦（石州瓦）が多く見られる。広島県と共通。",
+              "importance": "high",
+              "tags": ["建物", "屋根"]
+            },
+            {
+              "id": "shimane-2",
+              "title": "出雲大社",
+              "description": "出雲市周辺では出雲大社関連の看板が見られる。縁結びの神社。",
+              "importance": "medium",
+              "tags": ["観光", "看板"]
+            },
+            {
+              "id": "shimane-3",
+              "title": "宍道湖",
+              "description": "宍道湖周辺の景観は島根県の目印。しじみの産地。",
+              "importance": "medium",
+              "tags": ["水域", "景観"]
+            },
+            {
+              "id": "shimane-4",
+              "title": "市外局番0852-0856",
+              "description": "松江市は0852。0853=出雲、0854=雲南、0855=浜田・益田、0856=津和野。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
         },
         {
-          "id": "chugoku-3",
-          "title": "ガードレール端の縞ステッカー",
-          "description": "ガードレールの端に赤と黄色の縞模様のステッカーがある。",
-          "importance": "medium",
-          "tags": ["ガードレール"]
+          "id": "okayama",
+          "name": "岡山県",
+          "areaCode": "086",
+          "tips": [
+            {
+              "id": "okayama-1",
+              "title": "高架テープ車",
+              "description": "岡山県では高架道路を走る車にテープが巻かれていることがある。上級者向け。",
+              "importance": "low",
+              "tags": ["交通", "上級"]
+            },
+            {
+              "id": "okayama-2",
+              "title": "桃太郎関連",
+              "description": "岡山市周辺では桃太郎関連の看板やデザインが見られる。",
+              "importance": "medium",
+              "tags": ["文化", "看板"]
+            },
+            {
+              "id": "okayama-3",
+              "title": "後楽園",
+              "description": "岡山市の後楽園は日本三名園の一つ。観光関連の看板がある。",
+              "importance": "low",
+              "tags": ["観光", "看板"]
+            },
+            {
+              "id": "okayama-4",
+              "title": "倉敷の白壁",
+              "description": "倉敷市には白壁の町並みが残る。美観地区として有名。",
+              "importance": "medium",
+              "tags": ["建物", "観光"]
+            },
+            {
+              "id": "okayama-5",
+              "title": "市外局番086",
+              "description": "岡山市は086。0863=玉野、0865=笠岡、0866=総社、0867=津山、0868=美作、0869=備前。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
         },
         {
-          "id": "chugoku-4",
-          "title": "中国電力のenergiaプレート",
-          "description": "電柱プレートの上部に「energia」と表記。中国地方の目印。",
-          "importance": "high",
-          "tags": ["電柱"]
+          "id": "hiroshima",
+          "name": "広島県",
+          "areaCode": "082",
+          "tips": [
+            {
+              "id": "hiroshima-1",
+              "title": "反射板複数枚",
+              "description": "広島県では電柱に反射板が2〜3枚縦に並んでいることがある。広島限定の確定要素。",
+              "importance": "high",
+              "tags": ["電柱", "上級"]
+            },
+            {
+              "id": "hiroshima-2",
+              "title": "石州瓦（赤い屋根）",
+              "description": "広島県でも赤い屋根瓦（石州瓦）が見られる。島根県と共通。",
+              "importance": "medium",
+              "tags": ["建物", "屋根"]
+            },
+            {
+              "id": "hiroshima-3",
+              "title": "原爆ドーム関連",
+              "description": "広島市周辺では原爆ドームや平和記念公園関連の看板が見られる。",
+              "importance": "medium",
+              "tags": ["観光", "看板"]
+            },
+            {
+              "id": "hiroshima-4",
+              "title": "もみじ饅頭看板",
+              "description": "広島名物もみじ饅頭の看板が見られる。宮島周辺で多い。",
+              "importance": "low",
+              "tags": ["看板", "グルメ"]
+            },
+            {
+              "id": "hiroshima-5",
+              "title": "市外局番082",
+              "description": "広島市は082。0823=呉、0824=三次、0826=安芸高田、0827=岩国（山口）、0829=廿日市、0845=尾道、0846=竹原、0847=福山北部、0848=福山、0849=三原。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
+        },
+        {
+          "id": "yamaguchi",
+          "name": "山口県",
+          "areaCode": "083",
+          "tips": [
+            {
+              "id": "yamaguchi-1",
+              "title": "黄色いガードレール",
+              "description": "山口県のみ黄色いガードレールを使用。夏みかんの色にちなむ。日本唯一の確定要素。",
+              "importance": "high",
+              "tags": ["ガードレール", "道路"]
+            },
+            {
+              "id": "yamaguchi-2",
+              "title": "オレンジ白分離リフレクター",
+              "description": "ボラードのリフレクターがオレンジと白で分離している。九州と共通だが、黄色ガードレールとの組み合わせで山口確定。",
+              "importance": "medium",
+              "tags": ["ボラード", "リフレクター"]
+            },
+            {
+              "id": "yamaguchi-3",
+              "title": "ふぐ看板",
+              "description": "下関周辺ではふぐ関連の看板が見られる。日本一のふぐの産地。",
+              "importance": "low",
+              "tags": ["看板", "グルメ"]
+            },
+            {
+              "id": "yamaguchi-4",
+              "title": "秋芳洞",
+              "description": "秋芳洞周辺では鍾乳洞関連の看板が見られる。",
+              "importance": "low",
+              "tags": ["観光", "看板"]
+            },
+            {
+              "id": "yamaguchi-5",
+              "title": "市外局番083",
+              "description": "山口市は083。0833=下松、0834=周南、0835=防府、0836=宇部、0837=萩、0838=長門、0820=柳井。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
         }
       ]
     },
     {
       "id": "shikoku",
       "name": "四国",
-      "description": "四国島の4県。四国電力管轄。",
-      "prefectures": ["香川県", "徳島県", "愛媛県", "高知県"],
-      "tips": [
+      "description": "四国島の4県。四国電力管轄。お遍路文化が特徴。",
+      "prefectures": [
         {
-          "id": "shikoku-1",
-          "title": "オレンジと黒の帯（電柱）",
-          "description": "電柱にオレンジと黒の帯が巻き付けられている。四国の大きな特徴。",
-          "importance": "high",
-          "tags": ["電柱"]
+          "id": "kagawa",
+          "name": "香川県",
+          "areaCode": "087",
+          "tips": [
+            {
+              "id": "kagawa-1",
+              "title": "讃岐山脈",
+              "description": "香川県からは讃岐山脈が見える。独特の形の山々。",
+              "importance": "medium",
+              "tags": ["山", "景観"]
+            },
+            {
+              "id": "kagawa-2",
+              "title": "うどん看板",
+              "description": "讃岐うどんの看板が多い。香川県はうどん県として有名。",
+              "importance": "medium",
+              "tags": ["看板", "グルメ"]
+            },
+            {
+              "id": "kagawa-3",
+              "title": "小豆島",
+              "description": "小豆島は中国電力エリア。オリーブ畑が多い。",
+              "importance": "medium",
+              "tags": ["島", "農業"]
+            },
+            {
+              "id": "kagawa-4",
+              "title": "市外局番087",
+              "description": "高松市は087。0875=観音寺、0877=丸亀・坂出、0879=小豆島。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
         },
         {
-          "id": "shikoku-2",
-          "title": "黒い縞のボラード",
-          "description": "ボラードに黒い縞模様が付いている。四国で多く見られる。",
-          "importance": "medium",
-          "tags": ["ボラード"]
+          "id": "tokushima",
+          "name": "徳島県",
+          "areaCode": "088",
+          "tips": [
+            {
+              "id": "tokushima-1",
+              "title": "阿波踊り関連",
+              "description": "阿波踊り関連の看板やデザインが見られる。徳島市周辺で多い。",
+              "importance": "medium",
+              "tags": ["文化", "看板"]
+            },
+            {
+              "id": "tokushima-2",
+              "title": "鳴門の渦潮",
+              "description": "鳴門市周辺では渦潮関連の看板が見られる。",
+              "importance": "low",
+              "tags": ["観光", "看板"]
+            },
+            {
+              "id": "tokushima-3",
+              "title": "すだち",
+              "description": "徳島県はすだちの産地。すだち関連の看板が見られる。",
+              "importance": "low",
+              "tags": ["農業", "看板"]
+            },
+            {
+              "id": "tokushima-4",
+              "title": "市外局番088",
+              "description": "徳島市は088（高知と同じ）。0883=三好、0884=阿南、0885=小松島。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
         },
         {
-          "id": "shikoku-3",
-          "title": "四国電力カタカナプレート",
-          "description": "電柱プレートはカタカナ横書き。上部に四国電力ロゴ。",
-          "importance": "medium",
-          "tags": ["電柱"]
+          "id": "ehime",
+          "name": "愛媛県",
+          "areaCode": "089",
+          "tips": [
+            {
+              "id": "ehime-1",
+              "title": "みかん畑",
+              "description": "愛媛県は柑橘類の産地。段々畑のみかん園が多く見られる。",
+              "importance": "high",
+              "tags": ["農業", "植生"]
+            },
+            {
+              "id": "ehime-2",
+              "title": "しまなみ海道",
+              "description": "しまなみ海道は自転車で渡れる橋として有名。関連看板が見られる。",
+              "importance": "medium",
+              "tags": ["交通", "観光"]
+            },
+            {
+              "id": "ehime-3",
+              "title": "道後温泉",
+              "description": "松山市周辺では道後温泉関連の看板が見られる。",
+              "importance": "low",
+              "tags": ["観光", "看板"]
+            },
+            {
+              "id": "ehime-4",
+              "title": "大三島は中国電力",
+              "description": "大三島など一部の島は中国電力エリア。",
+              "importance": "low",
+              "tags": ["電柱", "島"]
+            },
+            {
+              "id": "ehime-5",
+              "title": "市外局番089",
+              "description": "松山市は089。0892=大洲、0893=内子、0894=八幡浜、0895=宇和島、0896=四国中央、0897=新居浜、0898=今治。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
         },
         {
-          "id": "shikoku-4",
-          "title": "みかん畑",
-          "description": "愛媛県は柑橘類の産地。段々畑のみかん園が見られる。",
-          "importance": "low",
-          "tags": ["農業"]
+          "id": "kochi",
+          "name": "高知県",
+          "areaCode": "088",
+          "tips": [
+            {
+              "id": "kochi-1",
+              "title": "88箇所看板",
+              "description": "四国88箇所お遍路の看板が見られる。四国全体で見られるが、高知県は札所が多い。",
+              "importance": "medium",
+              "tags": ["文化", "看板"]
+            },
+            {
+              "id": "kochi-2",
+              "title": "カツオ看板",
+              "description": "高知県はカツオの産地。カツオのたたき関連の看板が見られる。",
+              "importance": "medium",
+              "tags": ["看板", "グルメ"]
+            },
+            {
+              "id": "kochi-3",
+              "title": "黒縞ボラード",
+              "description": "ボラードに黒い縞模様が付いている。四国で多く見られる。",
+              "importance": "medium",
+              "tags": ["ボラード"]
+            },
+            {
+              "id": "kochi-4",
+              "title": "四万十川",
+              "description": "四万十川周辺では清流関連の看板が見られる。日本最後の清流。",
+              "importance": "low",
+              "tags": ["河川", "景観"]
+            },
+            {
+              "id": "kochi-5",
+              "title": "市外局番088",
+              "description": "高知市は088（徳島と同じ）。0880=四万十、0887=安芸、0889=須崎。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
         }
       ]
     },
     {
       "id": "kyushu",
       "name": "九州",
-      "description": "九州島の7県。九州電力管轄。",
-      "prefectures": ["福岡県", "佐賀県", "長崎県", "熊本県", "大分県", "宮崎県", "鹿児島県"],
-      "tips": [
+      "description": "九州島の7県。九州電力管轄。温暖な気候。",
+      "prefectures": [
         {
-          "id": "kyushu-1",
-          "title": "竹林",
-          "description": "九州では竹林が多く見られる。道路脇にも竹が生えていることが多い。",
-          "importance": "medium",
-          "tags": ["植生"]
+          "id": "fukuoka",
+          "name": "福岡県",
+          "areaCode": "092-093",
+          "tips": [
+            {
+              "id": "fukuoka-1",
+              "title": "博多ラーメン看板",
+              "description": "博多ラーメン、もつ鍋などの看板が見られる。福岡市周辺で多い。",
+              "importance": "medium",
+              "tags": ["看板", "グルメ"]
+            },
+            {
+              "id": "fukuoka-2",
+              "title": "福岡の都市景観",
+              "description": "九州最大の都市。天神・博多エリアは高層ビルが多い。",
+              "importance": "medium",
+              "tags": ["都市", "景観"]
+            },
+            {
+              "id": "fukuoka-3",
+              "title": "太宰府",
+              "description": "太宰府市周辺では太宰府天満宮関連の看板が見られる。",
+              "importance": "low",
+              "tags": ["観光", "看板"]
+            },
+            {
+              "id": "fukuoka-4",
+              "title": "市外局番092-093",
+              "description": "福岡市は092。093=北九州、0940=宗像、0942=久留米、0943=八女、0944=大牟田、0946=朝倉、0947=田川、0948=飯塚、0949=直方。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
         },
         {
-          "id": "kyushu-2",
-          "title": "ススキ",
-          "description": "特に秋には道路脇にススキが多く見られる。九州で特に多い。",
-          "importance": "low",
-          "tags": ["植生"]
+          "id": "saga",
+          "name": "佐賀県",
+          "areaCode": "0952-0955",
+          "tips": [
+            {
+              "id": "saga-1",
+              "title": "六角形洋壁",
+              "description": "佐賀県では六角形の洋壁パターンが見られる。宮崎県と共通。",
+              "importance": "medium",
+              "tags": ["建物", "上級"]
+            },
+            {
+              "id": "saga-2",
+              "title": "電柱プレート上部2桁数字",
+              "description": "佐賀県平野部では電柱プレートの上部に2桁の数字がある。佐賀限定の確定要素。",
+              "importance": "high",
+              "tags": ["電柱", "上級"]
+            },
+            {
+              "id": "saga-3",
+              "title": "有田焼",
+              "description": "有田町周辺では有田焼関連の看板が見られる。",
+              "importance": "low",
+              "tags": ["文化", "看板"]
+            },
+            {
+              "id": "saga-4",
+              "title": "バルーン関連",
+              "description": "佐賀市周辺ではバルーンフェスタ関連の看板が見られる。",
+              "importance": "low",
+              "tags": ["イベント", "看板"]
+            },
+            {
+              "id": "saga-5",
+              "title": "市外局番0952-0955",
+              "description": "佐賀市は0952。0954=武雄・嬉野、0955=唐津・伊万里。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
         },
         {
-          "id": "kyushu-3",
-          "title": "四角いリフレクター",
-          "description": "ボラードに四角いリフレクターが付いている。九州の特徴。",
-          "importance": "medium",
-          "tags": ["ボラード", "リフレクター"]
+          "id": "nagasaki",
+          "name": "長崎県",
+          "areaCode": "095",
+          "tips": [
+            {
+              "id": "nagasaki-1",
+              "title": "長崎の坂道",
+              "description": "長崎市は坂の多い町。急な坂道と石畳が特徴。",
+              "importance": "medium",
+              "tags": ["地形", "道路"]
+            },
+            {
+              "id": "nagasaki-2",
+              "title": "ちゃんぽん看板",
+              "description": "長崎ちゃんぽん、皿うどんの看板が見られる。",
+              "importance": "low",
+              "tags": ["看板", "グルメ"]
+            },
+            {
+              "id": "nagasaki-3",
+              "title": "教会群",
+              "description": "長崎県には多くの教会がある。世界遺産の教会群も。",
+              "importance": "medium",
+              "tags": ["建物", "文化"]
+            },
+            {
+              "id": "nagasaki-4",
+              "title": "市外局番095",
+              "description": "長崎市・佐世保は095。0950=平戸、0956=大村、0957=島原、0959=五島。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
         },
         {
-          "id": "kyushu-4",
-          "title": "九州電力カタカナプレート",
-          "description": "電柱プレートはカタカナ1文字＋数字の組み合わせ。上部に九州電力ロゴ。",
-          "importance": "medium",
-          "tags": ["電柱"]
+          "id": "kumamoto",
+          "name": "熊本県",
+          "areaCode": "096",
+          "tips": [
+            {
+              "id": "kumamoto-1",
+              "title": "赤テープ",
+              "description": "熊本県では電柱に赤いテープが巻かれていることがある。熊本の特徴。",
+              "importance": "high",
+              "tags": ["電柱", "上級"]
+            },
+            {
+              "id": "kumamoto-2",
+              "title": "阿蘇山",
+              "description": "阿蘇山周辺はカルデラ地形が特徴。広大な草原が見られる。",
+              "importance": "high",
+              "tags": ["山", "景観"]
+            },
+            {
+              "id": "kumamoto-3",
+              "title": "くまモン",
+              "description": "くまモン関連の看板やデザインが多い。熊本県のマスコット。",
+              "importance": "medium",
+              "tags": ["文化", "看板"]
+            },
+            {
+              "id": "kumamoto-4",
+              "title": "市外局番096",
+              "description": "熊本市は096。0964=宇土・宇城、0965=八代、0966=人吉、0967=阿蘇、0968=玉名。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
         },
         {
-          "id": "kyushu-5",
-          "title": "サトウキビ畑",
-          "description": "鹿児島県南部ではサトウキビ畑が見られる。背の高い植物が特徴。",
-          "importance": "low",
-          "tags": ["農業"]
+          "id": "oita",
+          "name": "大分県",
+          "areaCode": "097",
+          "tips": [
+            {
+              "id": "oita-1",
+              "title": "温泉関連",
+              "description": "別府・湯布院は温泉地として有名。温泉関連の看板が多い。",
+              "importance": "high",
+              "tags": ["観光", "看板"]
+            },
+            {
+              "id": "oita-2",
+              "title": "地獄めぐり",
+              "description": "別府市周辺では地獄めぐり関連の看板が見られる。",
+              "importance": "medium",
+              "tags": ["観光", "看板"]
+            },
+            {
+              "id": "oita-3",
+              "title": "関あじ・関さば",
+              "description": "大分市周辺では関あじ・関さば関連の看板が見られる。",
+              "importance": "low",
+              "tags": ["看板", "グルメ"]
+            },
+            {
+              "id": "oita-4",
+              "title": "市外局番097",
+              "description": "大分市は097。0972=佐伯、0973=日田、0974=竹田、0977=別府、0978=杵築・国東、0979=中津。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
+        },
+        {
+          "id": "miyazaki",
+          "name": "宮崎県",
+          "areaCode": "0982-0987",
+          "tips": [
+            {
+              "id": "miyazaki-1",
+              "title": "六角形洋壁",
+              "description": "宮崎県では六角形の洋壁パターンが見られる。佐賀県と共通。",
+              "importance": "medium",
+              "tags": ["建物", "上級"]
+            },
+            {
+              "id": "miyazaki-2",
+              "title": "フェニックス並木",
+              "description": "宮崎市周辺ではフェニックス（ヤシ類）の並木が見られる。南国ムード。",
+              "importance": "medium",
+              "tags": ["植生", "景観"]
+            },
+            {
+              "id": "miyazaki-3",
+              "title": "マンゴー看板",
+              "description": "宮崎マンゴーの看板が見られる。",
+              "importance": "low",
+              "tags": ["農業", "看板"]
+            },
+            {
+              "id": "miyazaki-4",
+              "title": "高千穂",
+              "description": "高千穂町周辺では神話関連の看板が見られる。天孫降臨の地。",
+              "importance": "medium",
+              "tags": ["観光", "文化"]
+            },
+            {
+              "id": "miyazaki-5",
+              "title": "市外局番0982-0987",
+              "description": "宮崎市は0985。0982=延岡、0983=高鍋、0984=都城、0986=小林、0987=日南。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
+        },
+        {
+          "id": "kagoshima",
+          "name": "鹿児島県",
+          "areaCode": "099",
+          "tips": [
+            {
+              "id": "kagoshima-1",
+              "title": "桜島",
+              "description": "鹿児島市からは桜島が見える。活火山で噴煙を上げていることも。",
+              "importance": "high",
+              "tags": ["山", "景観"]
+            },
+            {
+              "id": "kagoshima-2",
+              "title": "サトウキビ畑",
+              "description": "鹿児島県南部や奄美ではサトウキビ畑が見られる。背の高い植物が特徴。",
+              "importance": "medium",
+              "tags": ["農業", "植生"]
+            },
+            {
+              "id": "kagoshima-3",
+              "title": "黒豚看板",
+              "description": "鹿児島黒豚の看板が見られる。",
+              "importance": "low",
+              "tags": ["看板", "グルメ"]
+            },
+            {
+              "id": "kagoshima-4",
+              "title": "屋久島・奄美",
+              "description": "屋久島は世界遺産。奄美は亜熱帯の自然が特徴。",
+              "importance": "medium",
+              "tags": ["島", "自然"]
+            },
+            {
+              "id": "kagoshima-5",
+              "title": "市外局番099",
+              "description": "鹿児島市は099。0993=指宿、0994=鹿屋、0995=霧島、0996=出水、0997=奄美。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
         }
       ]
     },
@@ -357,55 +1813,90 @@
       "id": "okinawa",
       "name": "沖縄",
       "description": "日本最南端の県。独特の文化と景観。沖縄電力管轄。",
-      "tips": [
+      "prefectures": [
         {
-          "id": "okinawa-1",
-          "title": "白いコンクリート建物",
-          "description": "沖縄の建物は白いコンクリート造りで平らな屋根が特徴。台風対策。",
-          "importance": "high",
-          "tags": ["建物"]
-        },
-        {
-          "id": "okinawa-2",
-          "title": "シーサー",
-          "description": "家の門や屋根に獅子の像（シーサー）が置かれている。沖縄のシンボル。",
-          "importance": "high",
-          "tags": ["文化", "建物"]
-        },
-        {
-          "id": "okinawa-3",
-          "title": "赤土",
-          "description": "沖縄南部では赤土（赤い土壌）が見られる。畑や道路脇で確認可能。",
-          "importance": "medium",
-          "tags": ["土壌", "景観"]
-        },
-        {
-          "id": "okinawa-4",
-          "title": "サトウキビ畑",
-          "description": "沖縄はサトウキビの主要産地。背の高いサトウキビが道路脇に見られる。",
-          "importance": "medium",
-          "tags": ["農業"]
-        },
-        {
-          "id": "okinawa-5",
-          "title": "沖縄電力の罫線プレート",
-          "description": "電柱プレートに罫線が入っている。プレートが3枚並ぶ。沖縄確定の決め手。",
-          "importance": "high",
-          "tags": ["電柱"]
-        },
-        {
-          "id": "okinawa-6",
-          "title": "アメリカ軍基地",
-          "description": "沖縄には多くの米軍基地がある。英語の標識や基地のフェンスが見えることも。",
-          "importance": "low",
-          "tags": ["標識", "景観"]
-        },
-        {
-          "id": "okinawa-7",
-          "title": "熱帯植物",
-          "description": "ヤシの木やハイビスカスなど、熱帯・亜熱帯の植物が見られる。",
-          "importance": "medium",
-          "tags": ["植生"]
+          "id": "okinawa",
+          "name": "沖縄県",
+          "areaCode": "098",
+          "tips": [
+            {
+              "id": "okinawa-1",
+              "title": "電柱番号で島を特定",
+              "description": "上の数字1桁目で島を特定可能。1=本島北部・久米島、2=本島中部、3-4=本島南部、6-7=宮古島、8=八重山（石垣・竹富・与那国・波照間）。8番=八重山は必須暗記。",
+              "importance": "high",
+              "tags": ["電柱", "上級"]
+            },
+            {
+              "id": "okinawa-2",
+              "title": "白いコンクリート建物",
+              "description": "沖縄の建物は白いコンクリート造りで平らな屋根が特徴。台風対策。",
+              "importance": "high",
+              "tags": ["建物"]
+            },
+            {
+              "id": "okinawa-3",
+              "title": "シーサー",
+              "description": "家の門や屋根に獅子の像（シーサー）が置かれている。沖縄のシンボル。",
+              "importance": "high",
+              "tags": ["文化", "建物"]
+            },
+            {
+              "id": "okinawa-4",
+              "title": "赤瓦屋根",
+              "description": "伝統的な沖縄の家は赤瓦屋根。首里城周辺や竹富島で多く見られる。",
+              "importance": "medium",
+              "tags": ["建物", "屋根"]
+            },
+            {
+              "id": "okinawa-5",
+              "title": "石造り（琉球石灰岩）",
+              "description": "沖縄では琉球石灰岩を使った石垣や建物が見られる。白っぽい石が特徴。",
+              "importance": "medium",
+              "tags": ["建物", "文化"]
+            },
+            {
+              "id": "okinawa-6",
+              "title": "赤土",
+              "description": "沖縄南部では赤土（赤い土壌）が見られる。畑や道路脇で確認可能。",
+              "importance": "medium",
+              "tags": ["土壌", "景観"]
+            },
+            {
+              "id": "okinawa-7",
+              "title": "サトウキビ畑",
+              "description": "沖縄はサトウキビの主要産地。背の高いサトウキビが道路脇に見られる。",
+              "importance": "medium",
+              "tags": ["農業"]
+            },
+            {
+              "id": "okinawa-8",
+              "title": "熱帯植物",
+              "description": "ヤシの木やハイビスカスなど、熱帯・亜熱帯の植物が見られる。ガジュマルの木も特徴。",
+              "importance": "medium",
+              "tags": ["植生"]
+            },
+            {
+              "id": "okinawa-9",
+              "title": "アメリカ軍基地",
+              "description": "沖縄には多くの米軍基地がある。英語の標識や基地のフェンスが見えることも。Yナンバーの車も。",
+              "importance": "medium",
+              "tags": ["標識", "景観"]
+            },
+            {
+              "id": "okinawa-10",
+              "title": "罫線入り電柱プレート",
+              "description": "沖縄電力のプレートには罫線（横線）が入っている。プレートが3枚並ぶ。沖縄確定要素。",
+              "importance": "high",
+              "tags": ["電柱"]
+            },
+            {
+              "id": "okinawa-11",
+              "title": "市外局番098",
+              "description": "沖縄全域は098。0980=名護・本部・宮古・石垣。",
+              "importance": "high",
+              "tags": ["市外局番"]
+            }
+          ]
         }
       ]
     }

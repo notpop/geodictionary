@@ -26,7 +26,27 @@
       "Bash(npm ls:*)",
       "Bash(npm view:*)",
       "Bash(git commit -m \"$\\(cat <<''EOF''\nFix Cloudflare deploy and Next.js version mismatch\n\n- Add wrangler.jsonc for Cloudflare Pages deployment\n- Downgrade Next.js to 15.5.7 to match @next/swc version\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "WebFetch(domain:www.daito-d.co.jp)",
+      "WebFetch(domain:www.dee-okinawa.com)",
+      "WebFetch(domain:www.kyuden.co.jp)",
+      "WebFetch(domain:geometas.com)",
+      "Bash(for i in 22 23 24 25)",
+      "Bash(do echo -n \"$i.png: \")",
+      "Bash(done)",
+      "Bash(for i in:*)",
+      "Bash(node -e:*)",
+      "WebFetch(domain:ja.wikipedia.org)",
+      "WebFetch(domain:good-luck-day.com)",
+      "WebFetch(domain:origamijapan.net)",
+      "WebFetch(domain:www.denpa-data.com)",
+      "Bash(git --version:*)",
+      "Bash(git status:*)",
+      "Bash(git log:*)",
+      "Bash(wc:*)",
+      "Bash(find:*)",
+      "Bash(xargs -I{} sh -c 'test -s \"\"\"\"{}\"\"\"\" || echo \"\"\"\"{}\"\"\"\"')",
+      "Bash(git checkout:*)"
     ]
   }
 }
