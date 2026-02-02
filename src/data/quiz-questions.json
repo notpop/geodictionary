@@ -1607,6 +1607,286 @@
       "correctAnswer": 2,
       "explanation": "新潟県は東北電力の管轄です。地理的には中部地方に近いですが、電力会社は東北電力なので注意が必要です。東北電力の横長プレートが目印。",
       "image": "https://paulplay-storage-1.fra1.digitaloceanspaces.com/geometas/7c8caf7d-c9ef-43e1-a5b3-c18467a960df.jpg"
+    },
+    {
+      "id": "q221", "category": "roads", "difficulty": 1,
+      "question": "日本の国道標識の形は？",
+      "options": ["六角形", "逆三角形（おにぎり型）", "四角形", "丸形"],
+      "correctAnswer": 1,
+      "explanation": "国道標識は逆三角形で「おにぎり」と呼ばれます。青地に白文字で国道番号が表示されます。"
+    },
+    {
+      "id": "q222", "category": "roads", "difficulty": 1,
+      "question": "日本の県道・府道・都道の標識の形は？",
+      "options": ["逆三角形", "六角形（ヘキサ）", "丸形", "五角形"],
+      "correctAnswer": 1,
+      "explanation": "県道・府道・都道の標識は六角形で「ヘキサ」と呼ばれます。青地に白文字で路線番号が表示されます。"
+    },
+    {
+      "id": "q223", "category": "roads", "difficulty": 2,
+      "question": "山口県の県道ガードレールの色として有名なのは？",
+      "options": ["白", "黄色", "緑", "オレンジ"],
+      "correctAnswer": 1,
+      "explanation": "山口県の県道ガードレールは黄色です。地元の特産品「夏みかん」をイメージしています。国道や市道は標準の白色。"
+    },
+    {
+      "id": "q224", "category": "roads", "difficulty": 2,
+      "question": "新潟県や北陸地方の道路が赤茶色に染まっている理由は？",
+      "options": ["赤土", "消雪パイプの地下水", "紅葉", "塗装"],
+      "correctAnswer": 1,
+      "explanation": "消雪パイプから出る地下水に含まれる鉄分が酸化して、道路が赤茶色（錆色）になります。雪国特有の特徴。"
+    },
+    {
+      "id": "q225", "category": "roads", "difficulty": 2,
+      "question": "北海道の道路脇にある赤と白の縞模様の棒は何？",
+      "options": ["工事現場", "矢羽根（スノーポール）", "バス停", "消火栓"],
+      "correctAnswer": 1,
+      "explanation": "矢羽根（スノーポール）は積雪時に道路の端を示すもの。高さ5〜7mの逆L字型ポールに取り付けられ、北海道ほぼ限定の特徴。"
+    },
+    {
+      "id": "q226", "category": "roads", "difficulty": 2,
+      "question": "東北地方のボラード（視線誘導標）のリフレクターの形状で多いのは？",
+      "options": ["丸型", "八角形", "三角形", "四角形"],
+      "correctAnswer": 1,
+      "explanation": "東北地方では八角形のリフレクターが多く使われます。全国標準は丸型ですが、地域によって形状が異なります。"
+    },
+    {
+      "id": "q227", "category": "roads", "difficulty": 2,
+      "question": "四国地方の電柱やボラードに巻かれている帯の色の組み合わせは？",
+      "options": ["赤と白", "黄と黒", "オレンジと黒", "青と白"],
+      "correctAnswer": 2,
+      "explanation": "四国地方（特に徳島以外）では、電柱やボラードにオレンジと黒の帯が巻かれていることが多いです。"
+    },
+    {
+      "id": "q228", "category": "roads", "difficulty": 3,
+      "question": "熊本県以南（九州南部）の道路標識のポールによく見られる特徴は？",
+      "options": ["青いステッカー", "赤い帯", "緑のテープ", "黄色い印"],
+      "correctAnswer": 1,
+      "explanation": "熊本県以南の道路標識ポールには赤い帯やステッカーが貼られていることが多いです。「火の国」熊本のイメージ。"
+    },
+    {
+      "id": "q229", "category": "prefectures", "difficulty": 2,
+      "question": "市外局番「03」はどの地域？",
+      "options": ["大阪市", "東京23区", "名古屋市", "横浜市"],
+      "correctAnswer": 1,
+      "explanation": "03は東京23区周辺の市外局番です。日本で最も短い市外局番の一つ（もう一つは大阪の06）。"
+    },
+    {
+      "id": "q230", "category": "prefectures", "difficulty": 2,
+      "question": "市外局番「06」はどの地域？",
+      "options": ["名古屋市", "福岡市", "大阪市", "札幌市"],
+      "correctAnswer": 2,
+      "explanation": "06は大阪市周辺と兵庫県尼崎市の市外局番です。東京の03と並んで日本で最も短い市外局番。"
+    },
+    {
+      "id": "q231", "category": "prefectures", "difficulty": 2,
+      "question": "市外局番の最初の1桁で地域を判別できます。「09」で始まる地域は？",
+      "options": ["中国地方", "四国地方", "九州・沖縄", "東北地方"],
+      "correctAnswer": 2,
+      "explanation": "市外局番は北から南へ数字が大きくなる傾向があり、09は九州・沖縄地方です。例：092福岡、098那覇。"
+    },
+    {
+      "id": "q232", "category": "prefectures", "difficulty": 2,
+      "question": "市外局番「011」はどの都市？",
+      "options": ["仙台市", "札幌市", "青森市", "盛岡市"],
+      "correctAnswer": 1,
+      "explanation": "011は札幌市の市外局番です。3桁目が「1」なのは全国で011（札幌）のみという特徴があります。"
+    },
+    {
+      "id": "q233", "category": "prefectures", "difficulty": 3,
+      "question": "市外局番の最初の桁が「01」の地域は？",
+      "options": ["北海道・北東北", "関東", "近畿", "中部"],
+      "correctAnswer": 0,
+      "explanation": "01は北海道と北東北（青森・岩手・秋田）の地域です。番号は北から南へ大きくなる傾向があります。"
+    },
+    {
+      "id": "q234", "category": "prefectures", "difficulty": 2,
+      "question": "「放出」という地名の読み方は？（大阪府）",
+      "options": ["ほうしゅつ", "はなてん", "ほうで", "はなで"],
+      "correctAnswer": 1,
+      "explanation": "「放出」は「はなてん」と読みます。三種の神器にまつわる伝説に由来する大阪の有名な難読地名です。"
+    },
+    {
+      "id": "q235", "category": "prefectures", "difficulty": 2,
+      "question": "「喜連瓜破」という駅名の読み方は？（大阪市）",
+      "options": ["きれんうりわり", "きれうりわり", "きづれうりわり", "よしつれうりわり"],
+      "correctAnswer": 1,
+      "explanation": "「喜連瓜破」は「きれうりわり」と読みます。江戸時代の瓜の市場があったことに由来します。"
+    },
+    {
+      "id": "q236", "category": "prefectures", "difficulty": 2,
+      "question": "「匝瑳」という市名の読み方は？（千葉県）",
+      "options": ["そうさく", "そうさ", "ひさ", "たくさ"],
+      "correctAnswer": 1,
+      "explanation": "「匝瑳」は「そうさ」と読みます。全国トップクラスの難読地名として有名な千葉県の市名です。"
+    },
+    {
+      "id": "q237", "category": "prefectures", "difficulty": 3,
+      "question": "北海道の「音威子府」の読み方は？",
+      "options": ["おんいしっぷ", "おといねっぷ", "ねこっぷ", "おんいこふ"],
+      "correctAnswer": 1,
+      "explanation": "「音威子府」は「おといねっぷ」と読みます。アイヌ語で「川口の濁っている川」を意味します。"
+    },
+    {
+      "id": "q238", "category": "prefectures", "difficulty": 3,
+      "question": "沖縄県の「保栄茂」という地名の読み方は？",
+      "options": ["ほえも", "びん", "やすえも", "ほえしげ"],
+      "correctAnswer": 1,
+      "explanation": "「保栄茂」は「びん」と読みます。3文字で2音という超難読地名で、琉球語に漢字を当てたものです。"
+    },
+    {
+      "id": "q239", "category": "prefectures", "difficulty": 2,
+      "question": "「特牛」という駅名の読み方は？（山口県）",
+      "options": ["とくうし", "こっとい", "とくべこ", "とっこ"],
+      "correctAnswer": 1,
+      "explanation": "「特牛」は「こっとい」と読みます。山陰本線にある有名な難読駅名です。"
+    },
+    {
+      "id": "q240", "category": "prefectures", "difficulty": 2,
+      "question": "京都府の「太秦」の読み方は？",
+      "options": ["たいしん", "ふとはた", "うずまさ", "おおはた"],
+      "correctAnswer": 2,
+      "explanation": "「太秦」は「うずまさ」と読みます。映画村で有名な京都の地名で、万葉仮名由来の読み方です。"
+    },
+    {
+      "id": "q241", "category": "prefectures", "difficulty": 2,
+      "question": "「七十七銀行」はどの県に本店がある地方銀行？",
+      "options": ["福島県", "宮城県", "山形県", "岩手県"],
+      "correctAnswer": 1,
+      "explanation": "七十七銀行は宮城県（仙台市）の地方銀行です。明治時代の国立銀行番号（第77番）に由来します。"
+    },
+    {
+      "id": "q242", "category": "prefectures", "difficulty": 2,
+      "question": "「八十二銀行」の「82」の由来は？",
+      "options": ["創業年", "82番目の国立銀行", "合併した2行の番号の和（19+63）", "支店数"],
+      "correctAnswer": 2,
+      "explanation": "八十二銀行（長野県）は、第十九銀行と六十三銀行が合併し、19+63=82となりました。"
+    },
+    {
+      "id": "q243", "category": "prefectures", "difficulty": 2,
+      "question": "「阿波銀行」はどの県の地方銀行？",
+      "options": ["兵庫県", "香川県", "徳島県", "高知県"],
+      "correctAnswer": 2,
+      "explanation": "阿波銀行は徳島県の地方銀行です。「阿波」は徳島の旧国名（阿波国）です。"
+    },
+    {
+      "id": "q244", "category": "prefectures", "difficulty": 2,
+      "question": "「肥後銀行」はどの県の地方銀行？",
+      "options": ["佐賀県", "長崎県", "熊本県", "大分県"],
+      "correctAnswer": 2,
+      "explanation": "肥後銀行は熊本県の地方銀行です。「肥後」は熊本の旧国名（肥後国）です。"
+    },
+    {
+      "id": "q245", "category": "prefectures", "difficulty": 3,
+      "question": "「琉球銀行」はどの県にある？",
+      "options": ["鹿児島県", "沖縄県", "宮崎県", "長崎県"],
+      "correctAnswer": 1,
+      "explanation": "琉球銀行は沖縄県の地方銀行です。かつての琉球王国に由来する名前です。"
+    },
+    {
+      "id": "q246", "category": "agriculture", "difficulty": 1,
+      "question": "りんごの生産量日本一の都道府県は？",
+      "options": ["長野県", "山形県", "岩手県", "青森県"],
+      "correctAnswer": 3,
+      "explanation": "りんごの生産量日本一は青森県です。「ふじ」などの品種が有名で、全国シェアの約60%を占めます。"
+    },
+    {
+      "id": "q247", "category": "agriculture", "difficulty": 1,
+      "question": "みかんの生産量日本一の都道府県は？",
+      "options": ["愛媛県", "静岡県", "和歌山県", "熊本県"],
+      "correctAnswer": 2,
+      "explanation": "みかんの生産量日本一は和歌山県です。愛媛県、静岡県が続きます。"
+    },
+    {
+      "id": "q248", "category": "agriculture", "difficulty": 1,
+      "question": "さくらんぼの生産量日本一の都道府県は？",
+      "options": ["北海道", "山形県", "長野県", "山梨県"],
+      "correctAnswer": 1,
+      "explanation": "さくらんぼの生産量日本一は山形県です。「佐藤錦」が特に有名で、全国シェアの約70%を占めます。"
+    },
+    {
+      "id": "q249", "category": "agriculture", "difficulty": 1,
+      "question": "ぶどうの生産量日本一の都道府県は？",
+      "options": ["長野県", "岡山県", "山梨県", "山形県"],
+      "correctAnswer": 2,
+      "explanation": "ぶどうの生産量日本一は山梨県です。甲州ぶどうやワインでも有名な「ぶどうの里」です。"
+    },
+    {
+      "id": "q250", "category": "agriculture", "difficulty": 2,
+      "question": "「夕張メロン」はどの都道府県の特産品？",
+      "options": ["茨城県", "熊本県", "北海道", "静岡県"],
+      "correctAnswer": 2,
+      "explanation": "夕張メロンは北海道夕張市の高級ブランドメロンです。赤肉メロンで独特の甘みがあります。"
+    },
+    {
+      "id": "q251", "category": "agriculture", "difficulty": 2,
+      "question": "「讃岐うどん」はどの県の名物？",
+      "options": ["徳島県", "愛媛県", "香川県", "高知県"],
+      "correctAnswer": 2,
+      "explanation": "讃岐うどんは香川県の名物です。「讃岐」は香川県の旧国名で、コシの強いうどんが特徴。"
+    },
+    {
+      "id": "q252", "category": "agriculture", "difficulty": 2,
+      "question": "「明太子」で有名な都市は？",
+      "options": ["長崎市", "北九州市", "福岡市", "熊本市"],
+      "correctAnswer": 2,
+      "explanation": "明太子（辛子明太子）は福岡市の名物です。博多名物として全国的に有名です。"
+    },
+    {
+      "id": "q253", "category": "agriculture", "difficulty": 2,
+      "question": "「松阪牛」はどの県のブランド牛？",
+      "options": ["岐阜県", "三重県", "滋賀県", "奈良県"],
+      "correctAnswer": 1,
+      "explanation": "松阪牛は三重県松阪市を中心に生産される高級ブランド牛です。神戸牛、近江牛と並ぶ三大和牛。"
+    },
+    {
+      "id": "q254", "category": "agriculture", "difficulty": 2,
+      "question": "「神戸ビーフ」はどの県のブランド牛？",
+      "options": ["大阪府", "兵庫県", "京都府", "奈良県"],
+      "correctAnswer": 1,
+      "explanation": "神戸ビーフ（神戸牛）は兵庫県産の但馬牛から取れる高級ブランド牛です。世界的にも有名。"
+    },
+    {
+      "id": "q255", "category": "agriculture", "difficulty": 2,
+      "question": "「有田焼」「伊万里焼」はどの県の伝統工芸品？",
+      "options": ["長崎県", "佐賀県", "福岡県", "熊本県"],
+      "correctAnswer": 1,
+      "explanation": "有田焼・伊万里焼は佐賀県の伝統工芸品です。日本磁器の発祥の地として400年以上の歴史があります。"
+    },
+    {
+      "id": "q256", "category": "agriculture", "difficulty": 2,
+      "question": "「南部鉄器」はどの県の伝統工芸品？",
+      "options": ["青森県", "岩手県", "秋田県", "宮城県"],
+      "correctAnswer": 1,
+      "explanation": "南部鉄器は岩手県の伝統工芸品です。盛岡市・奥州市で生産される鋳鉄製品で、鉄瓶が有名。"
+    },
+    {
+      "id": "q257", "category": "agriculture", "difficulty": 2,
+      "question": "「今治タオル」はどの県の特産品？",
+      "options": ["香川県", "高知県", "愛媛県", "徳島県"],
+      "correctAnswer": 2,
+      "explanation": "今治タオルは愛媛県今治市の特産品です。高品質な綿タオルとして全国的に有名なブランド。"
+    },
+    {
+      "id": "q258", "category": "vegetation", "difficulty": 2,
+      "question": "北海道でよく見られる巨大なフキ（ラワンブキ）を見つけたら？",
+      "options": ["青森県かも", "北海道ほぼ確定", "東北地方全般", "長野県かも"],
+      "correctAnswer": 1,
+      "explanation": "巨大フキ（ラワンブキ）は北海道ほぼ限定の植物です。高さ2〜3mにもなり、見たら北海道確定の手がかり。"
+    },
+    {
+      "id": "q259", "category": "vegetation", "difficulty": 2,
+      "question": "沖縄の家の屋根や門に置かれている守り神は？",
+      "options": ["狛犬", "シーサー", "鯱", "鬼瓦"],
+      "correctAnswer": 1,
+      "explanation": "シーサーは沖縄の守り神で、家の屋根や門柱に置かれています。獅子に似た伝統的な魔除けです。"
+    },
+    {
+      "id": "q260", "category": "architecture", "difficulty": 2,
+      "question": "雪国（北海道・東北・北陸）で縦型の信号機が使われている理由は？",
+      "options": ["見やすいから", "雪が積もりにくいから", "デザインのため", "コストが安いから"],
+      "correctAnswer": 1,
+      "explanation": "縦型信号機は雪が積もりにくく、積雪で見えなくなるのを防ぐための雪国仕様です。"
     }
   ]
 }
