@@ -136,6 +136,62 @@
           "url": "https://www.plonkit.net/images/japan/21.png",
           "description": "各電力会社の電柱プレートの違い。プレートを見れば地域を特定できる。北海道・東北・東京・中部・北陸・関西・中国・四国・九州・沖縄の10社。",
           "source": "Plonkit"
+        },
+        {
+          "id": "power-plates-overview-alt",
+          "title": "電力会社別プレート一覧（別角度）",
+          "url": "https://paulplay-storage-1.fra1.digitaloceanspaces.com/geometas/7c8caf7d-c9ef-43e1-a5b3-c18467a960df.jpg",
+          "description": "電力会社プレートの比較画像。縦型・横型・角丸など形状の違いが一目でわかる。",
+          "source": "Geometas"
+        },
+        {
+          "id": "chugoku-orange-arrow",
+          "title": "中国電力：オレンジ矢印",
+          "url": "https://www.plonkit.net/images/japan/22.png",
+          "description": "中国電力エリアの電柱には、プレートの上にオレンジ色の矢印（昇降表示札）がついている。広島・岡山・山口・鳥取・島根が管轄。",
+          "source": "Plonkit"
+        },
+        {
+          "id": "shikoku-orange-band",
+          "title": "四国電力：オレンジ黒帯",
+          "url": "https://www.plonkit.net/images/japan/23.png",
+          "description": "四国電力エリアの電柱には、オレンジと黒の帯が巻かれている。香川・徳島・愛媛・高知が管轄。",
+          "source": "Plonkit"
+        },
+        {
+          "id": "kansai-120-attachment",
+          "title": "関西電力：120度アタッチメント",
+          "url": "https://www.plonkit.net/images/japan/24.png",
+          "description": "関西電力エリアの電柱には、約120度の角度のアタッチメントがついている。滋賀・京都・大阪・兵庫・奈良・和歌山が管轄。",
+          "source": "Plonkit"
+        },
+        {
+          "id": "shikoku-90-attachment",
+          "title": "四国電力：90度アタッチメント",
+          "url": "https://www.plonkit.net/images/japan/25.png",
+          "description": "四国電力エリアの電柱には、90度の小さなアタッチメントがついていることも。関西の120度より角度が急。",
+          "source": "Plonkit"
+        },
+        {
+          "id": "okinawa-pole-1",
+          "title": "沖縄電力：電柱プレート",
+          "url": "https://www.dee-okinawa.com/topics/2018/11/30/018.jpg",
+          "description": "沖縄電力の電柱プレート。罫線入りでプレートが3枚並んでいるのが特徴。他の電力会社と明らかに異なる。",
+          "source": "DEEokinawa"
+        },
+        {
+          "id": "okinawa-pole-2",
+          "title": "沖縄電力：電柱全体",
+          "url": "https://www.dee-okinawa.com/topics/2018/11/30/001.jpg",
+          "description": "沖縄の電柱全体像。電柱名は地名や通りの名前に由来することが多い。",
+          "source": "DEEokinawa"
+        },
+        {
+          "id": "okinawa-pole-name",
+          "title": "沖縄電力：ユニークな電柱名",
+          "url": "https://www.dee-okinawa.com/topics/2018/11/30/007.jpg",
+          "description": "沖縄の電柱名の例。「キリン」（動物園近く）、「ダイエー」（旧店舗跡）など面白い名前がある。",
+          "source": "DEEokinawa"
         }
       ]
     },
