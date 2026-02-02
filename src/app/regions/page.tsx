@@ -59,7 +59,7 @@ export default function RegionsPage() {
                 <p className="text-sm text-slate-600 mb-3">{region.description}</p>
                 <div className="flex items-center justify-between">
                   <span className="text-xs text-primary font-medium">
-                    {region.tips.length} Tips
+                    {region.prefectures?.reduce((acc, pref) => acc + (pref.tips?.length || 0), 0) || 0} Tips
                   </span>
                   <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

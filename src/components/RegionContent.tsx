@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import TipCard from '@/components/TipCard'
 import SearchBar from '@/components/SearchBar'
-import type { Region, Tip } from '@/lib/types'
+import type { Region, Tip, Prefecture } from '@/lib/types'
 
 const regionEmojis: { [key: string]: string } = {
   hokkaido: '🏔️',
@@ -25,14 +25,26 @@ interface RegionContentProps {
 
 export default function RegionContent({ region }: RegionContentProps) {
   const [searchQuery, setSearchQuery] = useState('')
+  const [selectedPrefecture, setSelectedPrefecture] = useState<string | null>(null)
 
-  const filteredTips = (region.tips as Tip[]).filter((tip) => {
+  // Get all tips from all prefectures
+  const allTips: Tip[] = region.prefectures?.flatMap((pref) => pref.tips || []) || []
+
+  // Filter tips by search query and selected prefecture
+  const filteredTips = allTips.filter((tip) => {
     const query = searchQuery.toLowerCase()
-    return (
+    const matchesSearch = !query ||
       tip.title.toLowerCase().includes(query) ||
       tip.description.toLowerCase().includes(query) ||
       tip.tags?.some((tag) => tag.toLowerCase().includes(query))
+
+    if (!selectedPrefecture) return matchesSearch
+
+    // Find if this tip belongs to selected prefecture
+    const prefectureOfTip = region.prefectures?.find((pref) =>
+      pref.tips?.some((t) => t.id === tip.id)
     )
+    return matchesSearch && prefectureOfTip?.id === selectedPrefecture
   })
 
   return (
@@ -57,15 +69,30 @@ export default function RegionContent({ region }: RegionContentProps) {
 
       {region.prefectures && region.prefectures.length > 0 && (
         <div className="bg-slate-50 rounded-xl p-4">
-          <h2 className="text-sm font-semibold text-slate-700 mb-2">対象都道府県</h2>
+          <h2 className="text-sm font-semibold text-slate-700 mb-2">都道府県でフィルター</h2>
           <div className="flex flex-wrap gap-2">
+            <button
+              onClick={() => setSelectedPrefecture(null)}
+              className={`text-sm px-3 py-1 rounded-full border transition-colors ${
+                selectedPrefecture === null
+                  ? 'bg-primary text-white border-primary'
+                  : 'bg-white text-slate-600 border-slate-200 hover:border-primary'
+              }`}
+            >
+              すべて ({allTips.length})
+            </button>
             {region.prefectures.map((pref) => (
-              <span
-                key={pref}
-                className="bg-white text-slate-600 text-sm px-3 py-1 rounded-full border border-slate-200"
+              <button
+                key={pref.id}
+                onClick={() => setSelectedPrefecture(pref.id)}
+                className={`text-sm px-3 py-1 rounded-full border transition-colors ${
+                  selectedPrefecture === pref.id
+                    ? 'bg-primary text-white border-primary'
+                    : 'bg-white text-slate-600 border-slate-200 hover:border-primary'
+                }`}
               >
-                {pref}
-              </span>
+                {pref.name} ({pref.tips?.length || 0})
+              </button>
             ))}
           </div>
         </div>

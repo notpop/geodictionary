@@ -46,7 +46,12 @@
       "Bash(wc:*)",
       "Bash(find:*)",
       "Bash(xargs -I{} sh -c 'test -s \"\"\"\"{}\"\"\"\" || echo \"\"\"\"{}\"\"\"\"')",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "Bash(npm audit fix:*)",
+      "Bash(git show:*)",
+      "Bash(\"src/app/learn/[level]/[module]/page.tsx\")",
+      "Bash(\"src/app/regions/[region]/page.tsx\")",
+      "Bash(npm update:*)"
     ]
   }
 }

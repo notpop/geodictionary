@@ -19,10 +19,18 @@ export interface PowerCompany {
   tips: string
 }
 
+export interface Prefecture {
+  id: string
+  name: string
+  areaCode?: string
+  powerCompany?: string
+  tips: Tip[]
+}
+
 export interface Region {
   id: string
   name: string
   description: string
-  prefectures?: string[]
-  tips: Tip[]
+  prefectures?: Prefecture[]
+  tips?: Tip[]
 }
