@@ -8,10 +8,23 @@ import type { UserProgress } from '@/lib/storage'
 
 export default function LearnPage() {
   const [progress, setProgress] = useState<UserProgress | null>(null)
-  const [expandedLevel, setExpandedLevel] = useState<string | null>('level-1')
+  const [expandedLevel, setExpandedLevel] = useState<string | null>(null)
 
   useEffect(() => {
-    setProgress(getProgress())
+    const userProgress = getProgress()
+    setProgress(userProgress)
+
+    // Open the current level, or null if all completed
+    if (userProgress) {
+      const maxLevel = curriculum.levels.length
+      if (userProgress.currentLevel <= maxLevel) {
+        setExpandedLevel(`level-${userProgress.currentLevel}`)
+      }
+      // All completed: keep null (closed)
+    } else {
+      // No progress yet: open level 1
+      setExpandedLevel('level-1')
+    }
   }, [])
 
   const isLevelUnlocked = (levelId: string) => {
