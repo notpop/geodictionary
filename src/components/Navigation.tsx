@@ -23,6 +23,12 @@ const Ruby = ({ children, reading }: { children: React.ReactNode; reading: strin
 
 const mainNavItems = [
   {
+    title: <><Ruby reading="しくちょうそん">市区町村</Ruby>マスター</>,
+    href: '/municipalities',
+    icon: '🗺️',
+    description: <><Ruby reading="ちず">地図</Ruby>で<Ruby reading="おぼ">覚</Ruby>える1,900+</>,
+  },
+  {
     title: <><Ruby reading="がくしゅう">学習</Ruby>カリキュラム</>,
     href: '/learn',
     icon: '📖',

@@ -51,9 +51,22 @@ export default function Home() {
       </section>
 
       {/* Main CTAs */}
-      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <section className="grid gap-4 sm:grid-cols-2">
+        <Link href="/municipalities" className="block sm:col-span-2">
+          <div className="bg-gradient-to-r from-violet-500 to-purple-600 text-white rounded-2xl p-6 hover:shadow-lg transition-shadow active:scale-[0.98] transition-transform">
+            <div className="flex items-center gap-4">
+              <span className="text-4xl">🗺️</span>
+              <div>
+                <h2 className="font-bold text-xl">市区町村マスター</h2>
+                <p className="text-violet-100 text-sm mt-1">
+                  全1,900+市区町村を地図で覚える
+                </p>
+              </div>
+            </div>
+          </div>
+        </Link>
         <Link href="/learn" className="block">
-          <div className="bg-gradient-to-r from-primary to-blue-600 text-white rounded-2xl p-6 h-full hover:shadow-lg transition-shadow">
+          <div className="bg-gradient-to-r from-primary to-blue-600 text-white rounded-2xl p-6 h-full hover:shadow-lg transition-shadow active:scale-[0.98] transition-transform">
             <div className="flex items-center gap-4">
               <span className="text-4xl">📖</span>
               <div>
@@ -66,26 +79,13 @@ export default function Home() {
           </div>
         </Link>
         <Link href="/quiz" className="block">
-          <div className="bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-2xl p-6 h-full hover:shadow-lg transition-shadow">
+          <div className="bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-2xl p-6 h-full hover:shadow-lg transition-shadow active:scale-[0.98] transition-transform">
             <div className="flex items-center gap-4">
               <span className="text-4xl">🎯</span>
               <div>
                 <h2 className="font-bold text-xl">クイズで確認</h2>
                 <p className="text-amber-100 text-sm mt-1">
                   200問以上のクイズで知識をテスト
-                </p>
-              </div>
-            </div>
-          </div>
-        </Link>
-        <Link href="/images" className="block sm:col-span-2 lg:col-span-1">
-          <div className="bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-2xl p-6 h-full hover:shadow-lg transition-shadow">
-            <div className="flex items-center gap-4">
-              <span className="text-4xl">🖼️</span>
-              <div>
-                <h2 className="font-bold text-xl">画像リファレンス</h2>
-                <p className="text-emerald-100 text-sm mt-1">
-                  ビジュアルで覚える参考画像集
                 </p>
               </div>
             </div>
