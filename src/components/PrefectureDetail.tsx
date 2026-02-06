@@ -1,8 +1,9 @@
 'use client'
 
 import { useState, useMemo } from 'react'
-import JapanMap from './JapanMap'
-import type { MunicipalityPrefecture, Municipality } from '@/lib/types'
+import PrefectureLeafletMap from './PrefectureLeafletMap'
+import { useGeoJson } from '@/lib/useGeoJson'
+import type { MunicipalityPrefecture } from '@/lib/types'
 
 interface PrefectureDetailProps {
   prefecture: MunicipalityPrefecture
@@ -42,6 +43,7 @@ export default function PrefectureDetail({ prefecture, onStartQuiz }: Prefecture
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedType, setSelectedType] = useState<string>('all')
   const [highlightedMuni, setHighlightedMuni] = useState<string | null>(null)
+  const { data: geoJson } = useGeoJson(prefecture.code)
 
   const allEntries = useMemo(() => getAllEntries(prefecture), [prefecture])
 
@@ -84,11 +86,18 @@ export default function PrefectureDetail({ prefecture, onStartQuiz }: Prefecture
             <h2 className="text-xl font-bold text-slate-800">{prefecture.name}</h2>
             <span className="text-sm text-slate-500">{allEntries.length}件</span>
           </div>
-          <JapanMap
-            highlightedPrefecture={prefecture.code}
-            markers={markers}
-            size="md"
-          />
+          {geoJson ? (
+            <PrefectureLeafletMap
+              geojson={geoJson}
+              interactive={false}
+              highlightedName={highlightedMuni}
+              className="h-48"
+            />
+          ) : (
+            <div className="h-48 bg-slate-100 rounded-xl flex items-center justify-center">
+              <span className="text-slate-400 text-sm">地図を読み込み中...</span>
+            </div>
+          )}
         </div>
       </div>
 

@@ -22,18 +22,22 @@ interface JapanMapProps {
   className?: string
 }
 
-// lat/lng → SVG座標変換
-function geoToSvg(lat: number, lng: number, viewBox: string): { x: number; y: number } {
-  const [, , width, height] = viewBox.split(' ').map(Number)
-  // Japan extent: lat 24-46, lng 122-146
-  const minLng = 122
-  const maxLng = 146
-  const minLat = 24
-  const maxLat = 46
+// lat/lng → SVG座標変換（投影メタデータ使用）
+function geoToSvg(lat: number, lng: number): { x: number; y: number } {
+  const proj = mapData.projection
 
-  const x = ((lng - minLng) / (maxLng - minLng)) * width
-  const y = ((maxLat - lat) / (maxLat - minLat)) * height
+  // 沖縄判定: lat < 29 かつ lng < 130
+  if (lat < 29 && lng < 130) {
+    const oki = proj.okinawa
+    const x = oki.offsetX + oki.w / 2 + (lng - oki.midLng) * oki.scale
+    const y = oki.offsetY + oki.h / 2 - (lat - oki.midLat) * oki.scale
+    return { x, y }
+  }
 
+  // 本土
+  const main = proj.main
+  const x = main.cx + (lng - main.midLng) * main.scale
+  const y = main.cy - (lat - main.midLat) * main.scale
   return { x, y }
 }
 
@@ -87,7 +91,7 @@ export default function JapanMap({
   const svgMarkers = useMemo(
     () =>
       markers.map((m, i) => {
-        const pos = geoToSvg(m.lat, m.lng, mapData.viewBox)
+        const pos = geoToSvg(m.lat, m.lng)
         return { ...m, ...pos, key: i }
       }),
     [markers]

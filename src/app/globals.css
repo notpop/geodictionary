@@ -194,9 +194,4 @@ body {
   will-change: transform, opacity;
 }
 
-/* Standalone PWA styles */
-@media (display-mode: standalone) {
-  body {
-    padding-top: var(--safe-top);
-  }
-}
+/* Standalone PWA - safe area handled by Header + main paddingTop */

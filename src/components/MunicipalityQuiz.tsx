@@ -1,7 +1,9 @@
 'use client'
 
-import { useState, useEffect, useCallback, useMemo } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import JapanMap from './JapanMap'
+import PrefectureLeafletMap from './PrefectureLeafletMap'
+import { useGeoJson } from '@/lib/useGeoJson'
 import { recordMunicipalityQuiz } from '@/lib/storage'
 import type { MunicipalityPrefecture } from '@/lib/types'
 
@@ -10,10 +12,12 @@ interface QuizQuestion {
   reading: string
   correctPrefCode: string
   correctPrefName: string
+  correctMuniName: string // for intra-pref: same as municipalityName
   lat: number
   lng: number
-  options?: string[] // for multiple choice mode
-  optionCodes?: string[]
+  options: string[]
+  optionCodes: string[]
+  isIntraPref: boolean
 }
 
 interface MunicipalityQuizProps {
@@ -25,29 +29,30 @@ interface MunicipalityQuizProps {
   onBack?: () => void
 }
 
-function generateQuestions(
-  prefectures: MunicipalityPrefecture[],
-  count: number,
-  filterPref?: string,
-  mode?: string
-): QuizQuestion[] {
-  // Collect all quizzable entries
-  type Entry = {
-    name: string
-    reading: string
-    prefCode: string
-    prefName: string
-    lat: number
-    lng: number
+function shuffle<T>(arr: T[]): T[] {
+  const a = [...arr]
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[a[i], a[j]] = [a[j], a[i]]
   }
-  const allEntries: Entry[] = []
-  const targetPrefs = filterPref
-    ? prefectures.filter((p) => p.code === filterPref)
-    : prefectures
+  return a
+}
 
-  for (const pref of targetPrefs) {
+type Entry = {
+  name: string
+  reading: string
+  prefCode: string
+  prefName: string
+  lat: number
+  lng: number
+}
+
+function collectEntries(prefs: MunicipalityPrefecture[], filterPref?: string): Entry[] {
+  const target = filterPref ? prefs.filter((p) => p.code === filterPref) : prefs
+  const entries: Entry[] = []
+  for (const pref of target) {
     for (const m of pref.municipalities) {
-      allEntries.push({
+      entries.push({
         name: m.name,
         reading: m.reading,
         prefCode: pref.code,
@@ -55,46 +60,69 @@ function generateQuestions(
         lat: m.lat,
         lng: m.lng,
       })
-      if (m.wards) {
-        for (const w of m.wards) {
-          allEntries.push({
-            name: `${m.name}${w.name}`,
-            reading: `${m.reading}${w.reading}`,
-            prefCode: pref.code,
-            prefName: pref.name,
-            lat: w.lat,
-            lng: w.lng,
-          })
-        }
-      }
     }
   }
+  return entries
+}
 
-  // Shuffle and pick
-  const shuffled = [...allEntries].sort(() => Math.random() - 0.5).slice(0, count)
-  const allPrefNames = prefectures.map((p) => ({ code: p.code, name: p.name }))
+function generateNationalQuestions(
+  prefectures: MunicipalityPrefecture[],
+  count: number,
+  filterPref?: string
+): QuizQuestion[] {
+  const entries = collectEntries(prefectures, filterPref)
+  const picked = shuffle(entries).slice(0, count)
+  const allPrefs = prefectures.map((p) => ({ code: p.code, name: p.name }))
 
-  return shuffled.map((entry) => {
-    // Generate 3 wrong options
-    const wrongOptions = allPrefNames
-      .filter((p) => p.code !== entry.prefCode)
-      .sort(() => Math.random() - 0.5)
-      .slice(0, 3)
-
-    const optionsList = [
-      { code: entry.prefCode, name: entry.prefName },
-      ...wrongOptions,
-    ].sort(() => Math.random() - 0.5)
-
+  return picked.map((entry) => {
+    const wrong = shuffle(allPrefs.filter((p) => p.code !== entry.prefCode)).slice(0, 3)
+    const opts = shuffle([{ code: entry.prefCode, name: entry.prefName }, ...wrong])
     return {
       municipalityName: entry.name,
       reading: entry.reading,
       correctPrefCode: entry.prefCode,
       correctPrefName: entry.prefName,
+      correctMuniName: entry.name,
       lat: entry.lat,
       lng: entry.lng,
-      options: optionsList.map((o) => o.name),
-      optionCodes: optionsList.map((o) => o.code),
+      options: opts.map((o) => o.name),
+      optionCodes: opts.map((o) => o.code),
+      isIntraPref: false,
+    }
+  })
+}
+
+function generateIntraPrefQuestions(
+  prefectures: MunicipalityPrefecture[],
+  count: number,
+  prefCode: string
+): QuizQuestion[] {
+  const pref = prefectures.find((p) => p.code === prefCode)
+  if (!pref) return []
+
+  const munis = pref.municipalities.map((m) => ({
+    name: m.name,
+    reading: m.reading,
+    lat: m.lat,
+    lng: m.lng,
+  }))
+
+  const picked = shuffle(munis).slice(0, count)
+
+  return picked.map((entry) => {
+    const wrong = shuffle(munis.filter((m) => m.name !== entry.name)).slice(0, 3)
+    const opts = shuffle([entry, ...wrong])
+    return {
+      municipalityName: entry.name,
+      reading: entry.reading,
+      correctPrefCode: prefCode,
+      correctPrefName: pref.name,
+      correctMuniName: entry.name,
+      lat: entry.lat,
+      lng: entry.lng,
+      options: opts.map((o) => o.name),
+      optionCodes: opts.map((o) => o.name), // use name as identifier for intra-pref
+      isIntraPref: true,
     }
   })
 }
@@ -115,21 +143,33 @@ export default function MunicipalityQuiz({
   const [isComplete, setIsComplete] = useState(false)
   const [animState, setAnimState] = useState<'idle' | 'correct' | 'wrong'>('idle')
 
+  const isIntraPref = !!filterPrefecture
+  const { data: geoJson } = useGeoJson(isIntraPref ? filterPrefecture : null)
+
   useEffect(() => {
-    const q = generateQuestions(prefectures, questionCount, filterPrefecture, mode)
+    const q = isIntraPref
+      ? generateIntraPrefQuestions(prefectures, questionCount, filterPrefecture!)
+      : generateNationalQuestions(prefectures, questionCount)
     setQuestions(q)
-  }, [prefectures, questionCount, filterPrefecture, mode])
+  }, [prefectures, questionCount, filterPrefecture, isIntraPref])
 
   const currentQuestion = questions[currentIndex]
-  const isCorrect = selectedAnswer === currentQuestion?.correctPrefCode
   const progress = questions.length > 0 ? ((currentIndex + 1) / questions.length) * 100 : 0
 
+  const correctId = currentQuestion
+    ? isIntraPref
+      ? currentQuestion.correctMuniName
+      : currentQuestion.correctPrefCode
+    : ''
+  const isCorrect = selectedAnswer === correctId
+
   const handleAnswer = useCallback(
-    (code: string) => {
+    (answer: string) => {
       if (isAnswered || !currentQuestion) return
-      setSelectedAnswer(code)
+      setSelectedAnswer(answer)
       setIsAnswered(true)
-      const correct = code === currentQuestion.correctPrefCode
+      const cId = isIntraPref ? currentQuestion.correctMuniName : currentQuestion.correctPrefCode
+      const correct = answer === cId
       if (correct) {
         setCorrectCount((prev) => prev + 1)
         setAnimState('correct')
@@ -138,7 +178,7 @@ export default function MunicipalityQuiz({
       }
       setTimeout(() => setAnimState('idle'), 600)
     },
-    [isAnswered, currentQuestion]
+    [isAnswered, currentQuestion, isIntraPref]
   )
 
   const handleNext = useCallback(() => {
@@ -149,14 +189,15 @@ export default function MunicipalityQuiz({
       setAnimState('idle')
     } else {
       setIsComplete(true)
-      const finalCorrect = correctCount + (selectedAnswer === currentQuestion?.correctPrefCode ? 0 : 0)
       recordMunicipalityQuiz(correctCount, questions.length, filterPrefecture)
       onComplete?.(correctCount, questions.length)
     }
-  }, [currentIndex, questions.length, correctCount, selectedAnswer, currentQuestion, filterPrefecture, onComplete])
+  }, [currentIndex, questions.length, correctCount, filterPrefecture, onComplete])
 
   const handleRetry = useCallback(() => {
-    const q = generateQuestions(prefectures, questionCount, filterPrefecture, mode)
+    const q = isIntraPref
+      ? generateIntraPrefQuestions(prefectures, questionCount, filterPrefecture!)
+      : generateNationalQuestions(prefectures, questionCount)
     setQuestions(q)
     setCurrentIndex(0)
     setSelectedAnswer(null)
@@ -164,35 +205,28 @@ export default function MunicipalityQuiz({
     setCorrectCount(0)
     setIsComplete(false)
     setAnimState('idle')
-  }, [prefectures, questionCount, filterPrefecture, mode])
+  }, [prefectures, questionCount, filterPrefecture, isIntraPref])
 
   if (questions.length === 0) {
-    return <div className="text-center py-12 text-slate-500 animate-fade-in">問題を生成中...</div>
+    return <div className="text-center py-12 text-slate-500">問題を生成中...</div>
   }
 
   // Result screen
   if (isComplete) {
     const percentage = Math.round((correctCount / questions.length) * 100)
     return (
-      <div className="space-y-6 animate-fade-in">
-        <div className="bg-white rounded-2xl shadow-lg p-6 text-center">
-          <div className={`text-6xl mb-4 animate-fade-in-scale ${percentage >= 80 ? 'text-green-500' : percentage >= 60 ? 'text-yellow-500' : 'text-red-500'}`}>
+      <div className="space-y-4 animate-fade-in">
+        <div className="bg-white rounded-2xl shadow-sm p-5 text-center">
+          <div className={`text-5xl mb-3 ${percentage >= 80 ? 'text-green-500' : percentage >= 60 ? 'text-yellow-500' : 'text-red-500'}`}>
             {percentage >= 80 ? '🎉' : percentage >= 60 ? '👍' : '📚'}
           </div>
-          <h2 className="text-2xl font-bold text-slate-800 mb-2">クイズ完了!</h2>
-          <div className="bg-slate-50 rounded-xl p-6 mb-4">
-            <div className="text-4xl font-bold text-primary animate-count-up">
+          <h2 className="text-xl font-bold text-slate-800 mb-2">クイズ完了!</h2>
+          <div className="bg-slate-50 rounded-xl p-4 mb-3">
+            <div className="text-3xl font-bold text-primary">
               {correctCount} / {questions.length}
             </div>
-            <div className="text-slate-600 mt-1">正解率: {percentage}%</div>
+            <div className="text-slate-600 text-sm mt-1">正解率: {percentage}%</div>
           </div>
-          {percentage >= 80 ? (
-            <p className="text-green-600 font-medium mb-4">素晴らしい!</p>
-          ) : percentage >= 60 ? (
-            <p className="text-yellow-600 font-medium mb-4">もう少し頑張りましょう!</p>
-          ) : (
-            <p className="text-red-600 font-medium mb-4">復習して再挑戦!</p>
-          )}
           <div className="flex gap-3">
             <button
               onClick={handleRetry}
@@ -216,121 +250,149 @@ export default function MunicipalityQuiz({
 
   if (!currentQuestion) return null
 
+  // Quiz screen - compact layout for 100dvh
   return (
-    <div className="space-y-4 animate-fade-in">
-      {/* Progress */}
-      <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+    <div className="flex flex-col" style={{ height: 'calc(100dvh - 3.5rem - env(safe-area-inset-top, 0px))' }}>
+      {/* Progress bar */}
+      <div className="h-1 bg-slate-100 rounded-full overflow-hidden flex-shrink-0">
         <div
-          className="h-full bg-primary rounded-full transition-all duration-500 ease-out"
+          className="h-full bg-primary rounded-full transition-all duration-500"
           style={{ width: `${progress}%` }}
         />
       </div>
 
-      <div className="flex items-center justify-between text-sm text-slate-500">
-        <span>問題 {currentIndex + 1} / {questions.length}</span>
+      {/* Header row */}
+      <div className="flex items-center justify-between text-xs text-slate-500 py-1.5 flex-shrink-0">
+        <span>Q{currentIndex + 1}/{questions.length}</span>
         <span className="font-medium text-primary">正解: {correctCount}</span>
       </div>
 
       {/* Question */}
-      <div className={`bg-white rounded-2xl shadow-sm p-5 ${animState === 'correct' ? 'animate-pulse-green' : animState === 'wrong' ? 'animate-shake' : ''}`}>
-        <p className="text-sm text-slate-500 mb-1">
-          {mode === 'map_click' ? '地図上で都道府県をタップ' : '正しい都道府県を選択'}
-        </p>
-        <h2 className="text-xl font-bold text-slate-800">
-          {currentQuestion.municipalityName}
+      <div className={`rounded-xl p-3 flex-shrink-0 ${animState === 'correct' ? 'animate-pulse-green' : animState === 'wrong' ? 'animate-shake' : ''}`}>
+        <h2 className="text-lg font-bold text-slate-800 text-center">
+          {isIntraPref
+            ? `「${currentQuestion.municipalityName}」は${currentQuestion.correctPrefName}のどこ？`
+            : `「${currentQuestion.municipalityName}」はどの都道府県？`}
         </h2>
-        <p className="text-sm text-slate-400 mt-0.5">{currentQuestion.reading}</p>
+        <p className="text-xs text-slate-400 text-center mt-0.5">{currentQuestion.reading}</p>
       </div>
 
-      {/* Map (for map_click mode or after answer) */}
-      {(mode === 'map_click' || isAnswered) && (
-        <div className="bg-white rounded-2xl shadow-sm p-4 animate-fade-in">
-          <JapanMap
-            interactive={mode === 'map_click' && !isAnswered}
-            onPrefectureClick={mode === 'map_click' ? handleAnswer : undefined}
-            correctPrefecture={isAnswered ? currentQuestion.correctPrefCode : undefined}
-            wrongPrefecture={isAnswered && !isCorrect ? selectedAnswer || undefined : undefined}
-            markers={
-              isAnswered
-                ? [{ lat: currentQuestion.lat, lng: currentQuestion.lng, label: currentQuestion.municipalityName }]
-                : []
-            }
-            size="full"
-          />
-          {isAnswered && (
-            <div className="mt-3 text-center">
-              <span className={`inline-block px-4 py-1.5 rounded-full text-sm font-medium ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
-                {isCorrect ? '正解!' : `不正解 → ${currentQuestion.correctPrefName}`}
-              </span>
+      {/* Main content area - flex-1 fills remaining space */}
+      <div className="flex-1 min-h-0 flex flex-col gap-2 py-1">
+        {/* Map click mode: show Leaflet map for intra-pref, JapanMap for national */}
+        {mode === 'map_click' && (
+          <div className="flex-1 min-h-0">
+            {isIntraPref && geoJson ? (
+              <PrefectureLeafletMap
+                geojson={geoJson}
+                interactive={!isAnswered}
+                onFeatureClick={!isAnswered ? handleAnswer : undefined}
+                highlightedName={isAnswered ? currentQuestion.correctMuniName : null}
+                wrongName={isAnswered && !isCorrect ? selectedAnswer : null}
+                className="h-full"
+              />
+            ) : (
+              <JapanMap
+                interactive={!isAnswered}
+                onPrefectureClick={!isAnswered ? handleAnswer : undefined}
+                correctPrefecture={isAnswered ? currentQuestion.correctPrefCode : undefined}
+                wrongPrefecture={isAnswered && !isCorrect ? (selectedAnswer || undefined) : undefined}
+                markers={
+                  isAnswered
+                    ? [{ lat: currentQuestion.lat, lng: currentQuestion.lng, label: currentQuestion.municipalityName }]
+                    : []
+                }
+                size="full"
+              />
+            )}
+          </div>
+        )}
+
+        {/* Multiple choice options */}
+        {mode === 'multiple_choice' && (
+          <>
+            <div className="space-y-2 flex-shrink-0">
+              {currentQuestion.options.map((option, i) => {
+                const code = currentQuestion.optionCodes[i]
+                const isThisCorrect = code === correctId
+                const isSelected = code === selectedAnswer
+
+                let btnClass = 'w-full text-left px-3 py-2.5 rounded-xl border-2 transition-all active:scale-[0.98] '
+                if (!isAnswered) {
+                  btnClass += 'border-slate-200 bg-white'
+                } else if (isThisCorrect) {
+                  btnClass += 'border-green-500 bg-green-50'
+                } else if (isSelected) {
+                  btnClass += 'border-red-500 bg-red-50'
+                } else {
+                  btnClass += 'border-slate-100 bg-white opacity-50'
+                }
+
+                return (
+                  <button
+                    key={`${code}-${i}`}
+                    onClick={() => handleAnswer(code)}
+                    disabled={isAnswered}
+                    className={btnClass}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 ${
+                        isAnswered && isThisCorrect ? 'bg-green-500 text-white' :
+                        isAnswered && isSelected ? 'bg-red-500 text-white' :
+                        'bg-slate-100 text-slate-600'
+                      }`}>
+                        {String.fromCharCode(65 + i)}
+                      </span>
+                      <span className="font-medium text-slate-800 text-sm">{option}</span>
+                      {isAnswered && isThisCorrect && <span className="ml-auto text-green-500">✓</span>}
+                      {isAnswered && isSelected && !isThisCorrect && <span className="ml-auto text-red-500">✗</span>}
+                    </div>
+                  </button>
+                )
+              })}
             </div>
-          )}
-        </div>
-      )}
 
-      {/* Multiple choice options */}
-      {mode === 'multiple_choice' && (
-        <div className="space-y-2.5">
-          {currentQuestion.options?.map((option, i) => {
-            const code = currentQuestion.optionCodes?.[i] || ''
-            const isThisCorrect = code === currentQuestion.correctPrefCode
-            const isSelected = code === selectedAnswer
+            {/* Show map after answering in multiple choice mode */}
+            {isAnswered && (
+              <div className="flex-1 min-h-0 animate-fade-in">
+                {isIntraPref && geoJson ? (
+                  <PrefectureLeafletMap
+                    geojson={geoJson}
+                    interactive={false}
+                    highlightedName={currentQuestion.correctMuniName}
+                    wrongName={!isCorrect ? selectedAnswer : null}
+                    className="h-full"
+                  />
+                ) : (
+                  <JapanMap
+                    correctPrefecture={currentQuestion.correctPrefCode}
+                    wrongPrefecture={!isCorrect ? (selectedAnswer || undefined) : undefined}
+                    markers={[{ lat: currentQuestion.lat, lng: currentQuestion.lng, label: currentQuestion.municipalityName }]}
+                    size="full"
+                  />
+                )}
+              </div>
+            )}
+          </>
+        )}
 
-            let btnClass = 'w-full text-left px-4 py-3.5 rounded-xl border-2 transition-all active:scale-[0.98] '
-            if (!isAnswered) {
-              btnClass += 'border-slate-200 bg-white'
-            } else if (isThisCorrect) {
-              btnClass += 'border-green-500 bg-green-50'
-            } else if (isSelected) {
-              btnClass += 'border-red-500 bg-red-50'
-            } else {
-              btnClass += 'border-slate-100 bg-white opacity-50'
-            }
+        {/* Answer feedback for map click */}
+        {mode === 'map_click' && isAnswered && (
+          <div className="text-center flex-shrink-0">
+            <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+              {isCorrect ? '正解!' : `不正解 → ${isIntraPref ? currentQuestion.correctMuniName : currentQuestion.correctPrefName}`}
+            </span>
+          </div>
+        )}
+      </div>
 
-            return (
-              <button
-                key={code}
-                onClick={() => handleAnswer(code)}
-                disabled={isAnswered}
-                className={btnClass}
-              >
-                <div className="flex items-center gap-3">
-                  <span className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
-                    isAnswered && isThisCorrect ? 'bg-green-500 text-white' :
-                    isAnswered && isSelected ? 'bg-red-500 text-white' :
-                    'bg-slate-100 text-slate-600'
-                  }`}>
-                    {String.fromCharCode(65 + i)}
-                  </span>
-                  <span className="font-medium text-slate-800">{option}</span>
-                  {isAnswered && isThisCorrect && <span className="ml-auto text-green-500 text-xl">✓</span>}
-                  {isAnswered && isSelected && !isThisCorrect && <span className="ml-auto text-red-500 text-xl">✗</span>}
-                </div>
-              </button>
-            )
-          })}
-        </div>
-      )}
-
-      {/* Map display for multiple choice after answer */}
-      {mode === 'multiple_choice' && isAnswered && (
-        <div className="bg-white rounded-2xl shadow-sm p-4 animate-fade-in">
-          <p className="text-xs text-slate-500 mb-2 text-center">地図上の位置</p>
-          <JapanMap
-            correctPrefecture={currentQuestion.correctPrefCode}
-            wrongPrefecture={!isCorrect ? selectedAnswer || undefined : undefined}
-            markers={[{ lat: currentQuestion.lat, lng: currentQuestion.lng, label: currentQuestion.municipalityName }]}
-            size="md"
-          />
-        </div>
-      )}
-
-      {/* Next button */}
+      {/* Next button - fixed at bottom */}
       {isAnswered && (
         <button
           onClick={handleNext}
-          className="w-full py-4 bg-primary text-white rounded-2xl font-bold text-lg active:scale-[0.98] transition-transform animate-fade-in"
+          className="w-full py-3 bg-primary text-white rounded-xl font-bold active:scale-[0.98] transition-transform flex-shrink-0 mb-1"
         >
-          {currentIndex < questions.length - 1 ? '次の問題' : '結果を見る'}
+          {currentIndex < questions.length - 1 ? '次へ' : '結果を見る'}
         </button>
       )}
     </div>

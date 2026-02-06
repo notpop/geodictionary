@@ -28,16 +28,7 @@ function QuizPageInner() {
 
   if (started) {
     return (
-      <div className="space-y-4">
-        <button
-          onClick={() => setStarted(false)}
-          className="text-sm text-slate-500 flex items-center gap-1"
-        >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-          設定に戻る
-        </button>
+      <div className="-mx-4 -mt-6">
         <MunicipalityQuiz
           prefectures={prefectures as any}
           mode={quizMode}
@@ -93,7 +84,9 @@ function QuizPageInner() {
           >
             <div className="text-2xl mb-1">✋</div>
             <div className="font-medium text-slate-800 text-sm">4択モード</div>
-            <div className="text-xs text-slate-500 mt-0.5">4つの県名から選択</div>
+            <div className="text-xs text-slate-500 mt-0.5">
+              {selectedPref ? '県内の市区町村から4択' : '4つの県名から選択'}
+            </div>
           </button>
           <button
             onClick={() => setQuizMode('map_click')}
@@ -105,7 +98,9 @@ function QuizPageInner() {
           >
             <div className="text-2xl mb-1">🗺️</div>
             <div className="font-medium text-slate-800 text-sm">地図タップ</div>
-            <div className="text-xs text-slate-500 mt-0.5">地図上で都道府県を選択</div>
+            <div className="text-xs text-slate-500 mt-0.5">
+              {selectedPref ? '県内地図から市区町村を選択' : '地図上で都道府県を選択'}
+            </div>
           </button>
         </div>
       </div>
