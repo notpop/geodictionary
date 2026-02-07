@@ -37,10 +37,10 @@ export default function LeafletMap({
         return { fillColor: '#ef4444', fillOpacity: 0.6, color: '#dc2626', weight: 2 }
       }
       return {
-        fillColor: '#e2e8f0',
-        fillOpacity: 0.4,
-        color: '#64748b',
-        weight: 1,
+        fillColor: '#ffffff',
+        fillOpacity: 1,
+        color: '#94a3b8',
+        weight: 1.5,
       }
     },
     [highlightedName, wrongName]
@@ -56,13 +56,11 @@ export default function LeafletMap({
       dragging: interactive,
       touchZoom: interactive,
       doubleClickZoom: false,
-      attributionControl: true,
+      attributionControl: false,
     })
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>',
-      maxZoom: 18,
-    }).addTo(map)
+    // White background - no tile layer (blank map)
+    map.getContainer().style.backgroundColor = '#f8fafc'
 
     mapRef.current = map
 
@@ -96,7 +94,7 @@ export default function LeafletMap({
 
     const bounds = layer.getBounds()
     if (bounds.isValid()) {
-      map.fitBounds(bounds, { padding: [10, 10] })
+      map.fitBounds(bounds, { padding: [20, 20], maxZoom: 12 })
     }
   }, [geojson, getStyle, interactive, onFeatureClick])
 
