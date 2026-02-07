@@ -11,6 +11,7 @@ interface LeafletMapProps {
   highlightedName?: string | null
   wrongName?: string | null
   interactive?: boolean
+  showTileLabels?: boolean
   className?: string
 }
 
@@ -20,6 +21,7 @@ export default function LeafletMap({
   highlightedName,
   wrongName,
   interactive = true,
+  showTileLabels = false,
   className = '',
 }: LeafletMapProps) {
   const mapRef = useRef<L.Map | null>(null)
@@ -38,12 +40,12 @@ export default function LeafletMap({
       }
       return {
         fillColor: '#ffffff',
-        fillOpacity: 1,
+        fillOpacity: showTileLabels ? 0.4 : 1,
         color: '#94a3b8',
         weight: 1.5,
       }
     },
-    [highlightedName, wrongName]
+    [highlightedName, wrongName, showTileLabels]
   )
 
   // Initialize map
@@ -62,8 +64,9 @@ export default function LeafletMap({
     // Add zoom controls at bottom-right
     L.control.zoom({ position: 'bottomright' }).addTo(map)
 
-    // Light basemap for geographic context (no labels = no answer leaks)
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+    // Light basemap for geographic context
+    const tileVariant = showTileLabels ? 'light_all' : 'light_nolabels'
+    L.tileLayer(`https://{s}.basemaps.cartocdn.com/${tileVariant}/{z}/{x}/{y}{r}.png`, {
       maxZoom: 19,
     }).addTo(map)
     map.getContainer().style.backgroundColor = '#f0f4f8'
@@ -74,7 +77,7 @@ export default function LeafletMap({
       map.remove()
       mapRef.current = null
     }
-  }, [interactive])
+  }, [interactive, showTileLabels])
 
   // Update GeoJSON layer
   useEffect(() => {
