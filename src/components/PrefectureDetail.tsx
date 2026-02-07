@@ -87,7 +87,7 @@ export default function PrefectureDetail({ prefecture, onStartQuiz, prevPrefectu
     <div className="space-y-4 animate-fade-in">
       {/* Header with map - sticky */}
       <div
-        className="bg-white rounded-2xl shadow-sm overflow-hidden sticky z-20"
+        className="bg-white rounded-2xl shadow-sm overflow-hidden sticky z-30"
         style={{ top: 'calc(3.5rem + env(safe-area-inset-top, 0px))' }}
       >
         <div className="p-3 pb-2">
