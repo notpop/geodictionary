@@ -118,63 +118,67 @@ export default function PrefectureDetail({ prefecture, onStartQuiz, prevPrefectu
 
       {/* Map - sticky */}
       <div
-        className="bg-white rounded-xl shadow-sm sticky z-30 mb-3 relative"
+        className="bg-white rounded-xl shadow-sm sticky z-30 mb-3"
         style={{ top: 'calc(3.5rem + env(safe-area-inset-top, 0px))' }}
       >
-        {geoJson ? (
-          <PrefectureLeafletMap
-            geojson={geoJson}
-            interactive={false}
-            highlightedName={highlightedMuni}
-            showLabels={showLabels}
-            className="h-44 rounded-xl"
-          />
-        ) : (
-          <div className="h-44 bg-slate-100 rounded-xl flex items-center justify-center">
-            <span className="text-slate-400 text-sm">地図を読み込み中...</span>
-          </div>
-        )}
-        {/* Expand button */}
-        {geoJson && (
-          <button
-            onClick={() => setMapExpanded(true)}
-            className="absolute bottom-2 right-2 bg-white/90 backdrop-blur-sm rounded-lg p-1.5 shadow active:scale-95 transition-transform"
-            aria-label="地図を拡大"
-          >
-            <svg className="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5" />
-            </svg>
-          </button>
-        )}
+        <div className="relative">
+          {geoJson ? (
+            <PrefectureLeafletMap
+              geojson={geoJson}
+              interactive={false}
+              highlightedName={highlightedMuni}
+              showLabels={showLabels}
+              className="h-44 rounded-xl"
+            />
+          ) : (
+            <div className="h-44 bg-slate-100 rounded-xl flex items-center justify-center">
+              <span className="text-slate-400 text-sm">地図を読み込み中...</span>
+            </div>
+          )}
+          {/* Expand button - z-[1000] to stay above Leaflet layers */}
+          {geoJson && (
+            <button
+              onClick={() => setMapExpanded(true)}
+              className="absolute bottom-2 right-2 z-[1000] bg-white/90 backdrop-blur-sm rounded-lg p-1.5 shadow active:scale-95 transition-transform"
+              aria-label="地図を拡大"
+            >
+              <svg className="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5" />
+              </svg>
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Expanded map overlay */}
       {mapExpanded && geoJson && (
-        <div
-          className="fixed inset-x-0 bottom-0 z-50 bg-white flex flex-col"
-          style={{ top: 'calc(3.5rem + env(safe-area-inset-top, 0px))' }}
-        >
-          <PrefectureLeafletMap
-            geojson={geoJson}
-            interactive={false}
-            highlightedName={highlightedMuni}
-            showLabels={showLabels}
-            className="flex-1"
-          />
-          {/* Overlay controls */}
-          <div className="absolute top-3 left-3 right-3 flex justify-between items-start">
+        <div className="fixed inset-0 z-[60] bg-white">
+          <div className="w-full h-full">
+            <PrefectureLeafletMap
+              geojson={geoJson}
+              interactive={false}
+              highlightedName={highlightedMuni}
+              showLabels={showLabels}
+              className="w-full h-full"
+            />
+          </div>
+          {/* Overlay controls - z-[1000] above Leaflet */}
+          <div
+            className="absolute left-3 right-3 z-[1000] flex justify-between items-start"
+            style={{ top: 'calc(env(safe-area-inset-top, 0px) + 0.75rem)' }}
+          >
             <button
               onClick={() => setMapExpanded(false)}
-              className="bg-white/90 backdrop-blur-sm rounded-xl px-3 py-2 shadow-lg flex items-center gap-1.5 active:scale-95 transition-transform"
+              className="bg-white/95 backdrop-blur-sm rounded-xl px-3 py-2.5 shadow-lg flex items-center gap-1.5 active:scale-95 transition-transform"
             >
-              <svg className="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
               <span className="text-sm font-medium text-slate-700">閉じる</span>
             </button>
             <button
               onClick={() => setShowLabels(!showLabels)}
-              className="bg-white/90 backdrop-blur-sm rounded-xl px-3 py-2 shadow-lg flex items-center gap-2 active:scale-95 transition-transform"
+              className="bg-white/95 backdrop-blur-sm rounded-xl px-3 py-2.5 shadow-lg flex items-center gap-2 active:scale-95 transition-transform"
             >
               <span className="text-sm font-medium text-slate-700">ラベル</span>
               <div className={`relative w-9 h-5 rounded-full transition-colors ${showLabels ? 'bg-primary' : 'bg-slate-300'}`}>
