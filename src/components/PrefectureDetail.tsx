@@ -129,7 +129,7 @@ export default function PrefectureDetail({ prefecture, onStartQuiz, prevPrefectu
                 interactive={false}
                 highlightedName={highlightedMuni}
                 showLabels={showLabels}
-                className="h-44"
+                className="h-44 rounded-xl overflow-hidden"
               />
             ) : (
               <div className="h-44 bg-slate-100 flex items-center justify-center">
@@ -152,29 +152,29 @@ export default function PrefectureDetail({ prefecture, onStartQuiz, prevPrefectu
         </div>
       </div>
 
-      {/* Expanded map overlay - controls are separate flex row, not overlaid on Leaflet */}
+      {/* Expanded map overlay */}
       {mapExpanded && geoJson && (
-        <div className="fixed inset-0 z-[60] bg-white flex flex-col">
-          {/* Control bar - above the map, never hidden by Leaflet */}
+        <div className="fixed inset-0 z-[60] bg-slate-900 flex flex-col" style={{ height: '100dvh' }}>
+          {/* Dark control bar */}
           <div
-            className="flex-shrink-0 flex items-center justify-between px-3 py-1.5 bg-white border-b border-slate-100"
-            style={{ paddingTop: 'env(safe-area-inset-top, 0px)' }}
+            className="flex-shrink-0 flex items-center justify-between px-4 py-2 bg-slate-900"
+            style={{ paddingTop: 'calc(env(safe-area-inset-top, 0px) + 0.5rem)' }}
           >
             <button
               onClick={() => setMapExpanded(false)}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-100 active:bg-slate-200 transition-colors"
+              className="flex items-center gap-1 text-slate-300 active:text-white transition-colors"
             >
-              <svg className="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
-              <span className="text-sm font-medium text-slate-700">閉じる</span>
+              <span className="text-sm font-medium">{prefecture.name}</span>
             </button>
             <button
               onClick={() => setShowLabels(!showLabels)}
-              className="flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-100 active:bg-slate-200 transition-colors"
+              className="flex items-center gap-2 active:opacity-70 transition-opacity"
             >
-              <span className="text-sm font-medium text-slate-700">ラベル</span>
-              <div className={`relative w-9 h-5 rounded-full transition-colors ${showLabels ? 'bg-primary' : 'bg-slate-300'}`}>
+              <span className="text-xs text-slate-400">ラベル</span>
+              <div className={`relative w-9 h-5 rounded-full transition-colors ${showLabels ? 'bg-primary' : 'bg-slate-600'}`}>
                 <div className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${showLabels ? 'translate-x-4' : 'translate-x-0.5'}`} />
               </div>
             </button>
