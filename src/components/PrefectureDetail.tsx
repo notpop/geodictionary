@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useMemo } from 'react'
+import { createPortal } from 'react-dom'
 import Link from 'next/link'
 import PrefectureLeafletMap from './PrefectureLeafletMap'
 import { useGeoJson } from '@/lib/useGeoJson'
@@ -122,7 +123,7 @@ export default function PrefectureDetail({ prefecture, onStartQuiz, prevPrefectu
         style={{ top: 'calc(3.5rem + env(safe-area-inset-top, 0px))' }}
       >
         <div className="relative">
-          <div className="bg-white rounded-xl shadow-sm overflow-hidden">
+          <div className="bg-white rounded-xl shadow-sm overflow-hidden" style={{ position: 'relative', zIndex: 0 }}>
             {geoJson ? (
               <PrefectureLeafletMap
                 geojson={geoJson}
@@ -137,11 +138,12 @@ export default function PrefectureDetail({ prefecture, onStartQuiz, prevPrefectu
               </div>
             )}
           </div>
-          {/* Expand button - outside the overflow:hidden Leaflet container */}
+          {/* Expand button - outside Leaflet's stacking context */}
           {geoJson && (
             <button
               onClick={() => setMapExpanded(true)}
-              className="absolute bottom-2 right-2 z-10 bg-white/90 backdrop-blur-sm rounded-lg p-1.5 shadow active:scale-95 transition-transform"
+              className="absolute bottom-2 right-2 bg-white/90 backdrop-blur-sm rounded-lg p-1.5 shadow active:scale-95 transition-transform"
+              style={{ zIndex: 1 }}
               aria-label="地図を拡大"
             >
               <svg className="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -152,9 +154,9 @@ export default function PrefectureDetail({ prefecture, onStartQuiz, prevPrefectu
         </div>
       </div>
 
-      {/* Expanded map overlay */}
-      {mapExpanded && geoJson && (
-        <div className="fixed inset-0 z-[60] bg-slate-900 flex flex-col" style={{ height: '100dvh' }}>
+      {/* Expanded map overlay - rendered via Portal to escape transform containing block */}
+      {mapExpanded && geoJson && createPortal(
+        <div className="fixed inset-0 z-[9999] bg-slate-900 flex flex-col" style={{ height: '100dvh' }}>
           {/* Dark control bar */}
           <div
             className="flex-shrink-0 flex items-center justify-between px-4 py-2 bg-slate-900"
@@ -189,7 +191,8 @@ export default function PrefectureDetail({ prefecture, onStartQuiz, prevPrefectu
               className="w-full h-full"
             />
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
       {/* Type filter chips */}
