@@ -4,7 +4,7 @@ import { Suspense, useState, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 import MunicipalityQuiz from '@/components/MunicipalityQuiz'
 import municipalityData from '@/data/municipalities.json'
-import { getMunicipalityProgress, getMunicipalityAccuracy } from '@/lib/storage'
+import { getMunicipalityProgress } from '@/lib/storage'
 import type { MunicipalityProgress } from '@/lib/types'
 
 type QuizMode = 'multiple_choice' | 'map_click'
@@ -86,75 +86,42 @@ function QuizPageInner() {
   }
 
   return (
-    <div className="space-y-6 animate-fade-in">
-      <div>
-        <h1 className="text-2xl font-bold text-slate-800 mb-1">市区町村クイズ</h1>
-        <p className="text-sm text-slate-500">モードと出題数を選んで開始</p>
-      </div>
-
-      {/* Stats */}
-      {progress && progress.quizzesTaken > 0 && (
-        <div className="bg-gradient-to-r from-primary/10 to-blue-50 rounded-2xl p-4">
-          <div className="grid grid-cols-3 gap-3 text-center">
-            <div>
-              <div className="text-xl font-bold text-primary">{progress.quizzesTaken}</div>
-              <div className="text-xs text-slate-500">解答数</div>
-            </div>
-            <div>
-              <div className="text-xl font-bold text-green-600">{getMunicipalityAccuracy(progress)}%</div>
-              <div className="text-xs text-slate-500">正解率</div>
-            </div>
-            <div>
-              <div className="text-xl font-bold text-amber-600">{progress.masteredPrefectures.length}/47</div>
-              <div className="text-xs text-slate-500">修得県</div>
-            </div>
-          </div>
-        </div>
-      )}
-
+    <div className="space-y-3 animate-fade-in">
       {/* Quiz Mode */}
       <div>
-        <h2 className="text-sm font-semibold text-slate-700 mb-2">クイズモード</h2>
-        <div className="grid grid-cols-2 gap-3">
+        <h2 className="text-sm font-semibold text-slate-700 mb-1.5">モード</h2>
+        <div className="grid grid-cols-2 gap-2">
           <button
             onClick={() => setQuizMode('multiple_choice')}
-            className={`p-4 rounded-xl border-2 transition-all active:scale-[0.98] ${
+            className={`p-2.5 rounded-xl border-2 transition-all active:scale-[0.98] ${
               quizMode === 'multiple_choice'
                 ? 'border-primary bg-primary/5'
                 : 'border-slate-200 bg-white'
             }`}
           >
-            <div className="text-2xl mb-1">✋</div>
-            <div className="font-medium text-slate-800 text-sm">4択モード</div>
-            <div className="text-xs text-slate-500 mt-0.5">
-              {selectedPref ? '県内の市区町村から4択' : '4つの都道府県名から選択'}
-            </div>
+            <div className="font-medium text-slate-800 text-sm">4択</div>
           </button>
           <button
             onClick={() => setQuizMode('map_click')}
-            className={`p-4 rounded-xl border-2 transition-all active:scale-[0.98] ${
+            className={`p-2.5 rounded-xl border-2 transition-all active:scale-[0.98] ${
               quizMode === 'map_click'
                 ? 'border-primary bg-primary/5'
                 : 'border-slate-200 bg-white'
             }`}
           >
-            <div className="text-2xl mb-1">🗺️</div>
             <div className="font-medium text-slate-800 text-sm">地図タップ</div>
-            <div className="text-xs text-slate-500 mt-0.5">
-              {selectedPref ? '県内地図から市区町村を選択' : '地図上で都道府県を選択'}
-            </div>
           </button>
         </div>
       </div>
 
       {/* Question Count */}
       <div>
-        <h2 className="text-sm font-semibold text-slate-700 mb-2">
+        <h2 className="text-sm font-semibold text-slate-700 mb-1.5">
           出題数
           {selectedPrefData ? (
-            <span className="font-normal text-slate-400 ml-2">（{selectedPrefData.name}: {maxMunis}件）</span>
+            <span className="font-normal text-slate-400 ml-1 text-xs">（{selectedPrefData.name}: {maxMunis}件）</span>
           ) : selectedRegion ? (
-            <span className="font-normal text-slate-400 ml-2">（{selectedRegion}: {maxMunis}件）</span>
+            <span className="font-normal text-slate-400 ml-1 text-xs">（{selectedRegion}: {maxMunis}件）</span>
           ) : null}
         </h2>
         <div className="flex gap-2">
@@ -162,7 +129,7 @@ function QuizPageInner() {
             <button
               key={n}
               onClick={() => setQuestionCount(n)}
-              className={`flex-1 py-3 rounded-xl font-medium transition-all active:scale-[0.98] ${
+              className={`flex-1 py-2 rounded-xl font-medium text-sm transition-all active:scale-[0.98] ${
                 questionCount === n && questionCount !== maxMunis
                   ? 'bg-primary text-white'
                   : 'bg-slate-100 text-slate-700'
@@ -174,7 +141,7 @@ function QuizPageInner() {
           {showAllOption && (
             <button
               onClick={() => setQuestionCount(maxMunis)}
-              className={`flex-1 py-3 rounded-xl font-medium transition-all active:scale-[0.98] ${
+              className={`flex-1 py-2 rounded-xl font-medium text-sm transition-all active:scale-[0.98] ${
                 questionCount === maxMunis
                   ? 'bg-primary text-white'
                   : 'bg-slate-100 text-slate-700'
@@ -188,26 +155,25 @@ function QuizPageInner() {
 
       {/* Scope */}
       <div>
-        <h2 className="text-sm font-semibold text-slate-700 mb-2">出題範囲</h2>
+        <h2 className="text-sm font-semibold text-slate-700 mb-1.5">範囲</h2>
 
-        {/* 全国 */}
-        <button
-          onClick={() => { setSelectedPref(null); setSelectedRegion(null) }}
-          className={`w-full p-3 rounded-xl border-2 mb-2 text-left transition-all active:scale-[0.98] ${
-            !selectedPref && !selectedRegion ? 'border-primary bg-primary/5' : 'border-slate-200 bg-white'
-          }`}
-        >
-          <div className="font-medium text-slate-800">全国</div>
-          <div className="text-xs text-slate-500">全都道府県からランダム</div>
-        </button>
-
-        {/* 地方別 */}
-        <div className="flex gap-1.5 overflow-x-auto pb-2 -mx-1 px-1 mb-2" style={{ WebkitOverflowScrolling: 'touch' }}>
+        {/* 全国 + 地方 */}
+        <div className="flex gap-1.5 overflow-x-auto pb-1.5 -mx-1 px-1 mb-1.5" style={{ WebkitOverflowScrolling: 'touch' }}>
+          <button
+            onClick={() => { setSelectedPref(null); setSelectedRegion(null) }}
+            className={`flex-shrink-0 px-3 py-1.5 rounded-lg text-sm font-medium transition-all active:scale-[0.98] ${
+              !selectedPref && !selectedRegion
+                ? 'bg-primary text-white'
+                : 'bg-slate-100 text-slate-700'
+            }`}
+          >
+            全国
+          </button>
           {regions.map((r) => (
             <button
               key={r.id}
               onClick={() => { setSelectedRegion(r.id); setSelectedPref(null) }}
-              className={`flex-shrink-0 px-3 py-2 rounded-lg text-sm font-medium transition-all active:scale-[0.98] ${
+              className={`flex-shrink-0 px-3 py-1.5 rounded-lg text-sm font-medium transition-all active:scale-[0.98] ${
                 selectedRegion === r.id && !selectedPref
                   ? 'bg-primary text-white'
                   : 'bg-slate-100 text-slate-700'
@@ -219,12 +185,12 @@ function QuizPageInner() {
         </div>
 
         {/* 都道府県別 */}
-        <div className="grid grid-cols-3 gap-1.5 max-h-48 overflow-y-auto rounded-xl bg-slate-50 p-2">
+        <div className="grid grid-cols-4 gap-1 max-h-40 overflow-y-auto rounded-xl bg-slate-50 p-1.5">
           {prefectures.map((pref) => (
             <button
               key={pref.code}
               onClick={() => { setSelectedPref(pref.code); setSelectedRegion(null) }}
-              className={`px-2 py-2 rounded-lg text-sm font-medium transition-all active:scale-[0.98] ${
+              className={`px-1 py-1.5 rounded-lg text-xs font-medium transition-all active:scale-[0.98] ${
                 selectedPref === pref.code
                   ? 'bg-primary text-white'
                   : 'bg-white text-slate-700'
@@ -239,9 +205,9 @@ function QuizPageInner() {
       {/* Start button */}
       <button
         onClick={() => setStarted(true)}
-        className="w-full py-4 bg-gradient-to-r from-primary to-blue-600 text-white rounded-2xl font-bold text-lg shadow-lg active:scale-[0.98] transition-transform"
+        className="w-full py-3 bg-gradient-to-r from-primary to-blue-600 text-white rounded-2xl font-bold text-lg shadow-lg active:scale-[0.98] transition-transform"
       >
-        クイズ開始
+        開始
       </button>
     </div>
   )

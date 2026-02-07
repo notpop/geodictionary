@@ -89,7 +89,7 @@ export function getLevelName(level: number): string {
 }
 
 // 市区町村学習の進捗管理
-import type { MunicipalityProgress } from './types'
+import type { MunicipalityProgress, RoadProgress, RiverProgress } from './types'
 
 const MUNICIPALITY_KEY = 'geoguessr-municipality-progress'
 
@@ -155,4 +155,80 @@ export function getPrefectureAccuracy(progress: MunicipalityProgress, prefCode: 
   const score = progress.prefectureScores[prefCode]
   if (!score || score.total === 0) return 0
   return Math.round((score.correct / score.total) * 100)
+}
+
+// 国道マスター進捗管理
+const ROAD_KEY = 'geoguessr-road-progress'
+
+export function getRoadProgress(): RoadProgress {
+  if (typeof window === 'undefined') return getDefaultRoadProgress()
+  const stored = localStorage.getItem(ROAD_KEY)
+  if (!stored) return getDefaultRoadProgress()
+  try {
+    return JSON.parse(stored)
+  } catch {
+    return getDefaultRoadProgress()
+  }
+}
+
+function getDefaultRoadProgress(): RoadProgress {
+  return {
+    quizzesTaken: 0,
+    correctAnswers: 0,
+    masteredRoads: [],
+    lastQuizDate: new Date().toISOString(),
+  }
+}
+
+export function recordRoadQuiz(correct: number, total: number): void {
+  const progress = getRoadProgress()
+  progress.quizzesTaken += total
+  progress.correctAnswers += correct
+  progress.lastQuizDate = new Date().toISOString()
+  if (typeof window !== 'undefined') {
+    localStorage.setItem(ROAD_KEY, JSON.stringify(progress))
+  }
+}
+
+export function getRoadAccuracy(progress: RoadProgress): number {
+  if (progress.quizzesTaken === 0) return 0
+  return Math.round((progress.correctAnswers / progress.quizzesTaken) * 100)
+}
+
+// 川マスター進捗管理
+const RIVER_KEY = 'geoguessr-river-progress'
+
+export function getRiverProgress(): RiverProgress {
+  if (typeof window === 'undefined') return getDefaultRiverProgress()
+  const stored = localStorage.getItem(RIVER_KEY)
+  if (!stored) return getDefaultRiverProgress()
+  try {
+    return JSON.parse(stored)
+  } catch {
+    return getDefaultRiverProgress()
+  }
+}
+
+function getDefaultRiverProgress(): RiverProgress {
+  return {
+    quizzesTaken: 0,
+    correctAnswers: 0,
+    masteredRivers: [],
+    lastQuizDate: new Date().toISOString(),
+  }
+}
+
+export function recordRiverQuiz(correct: number, total: number): void {
+  const progress = getRiverProgress()
+  progress.quizzesTaken += total
+  progress.correctAnswers += correct
+  progress.lastQuizDate = new Date().toISOString()
+  if (typeof window !== 'undefined') {
+    localStorage.setItem(RIVER_KEY, JSON.stringify(progress))
+  }
+}
+
+export function getRiverAccuracy(progress: RiverProgress): number {
+  if (progress.quizzesTaken === 0) return 0
+  return Math.round((progress.correctAnswers / progress.quizzesTaken) * 100)
 }

@@ -53,14 +53,17 @@ export default function LeafletMap({
     const map = L.map(containerRef.current, {
       zoomControl: false,
       scrollWheelZoom: false,
-      dragging: interactive,
-      touchZoom: interactive,
-      doubleClickZoom: false,
+      dragging: true,
+      touchZoom: true,
+      doubleClickZoom: true,
       attributionControl: false,
     })
 
-    // White background - no tile layer (blank map)
-    map.getContainer().style.backgroundColor = '#f8fafc'
+    // Light basemap for geographic context (no labels = no answer leaks)
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+      maxZoom: 19,
+    }).addTo(map)
+    map.getContainer().style.backgroundColor = '#f0f4f8'
 
     mapRef.current = map
 

@@ -1,0 +1,891 @@
+#!/usr/bin/env python3
+"""
+generate-rivers.py
+Generates a JSON file of 60 major Japanese rivers (主要河川) for GeoGuessr study.
+Includes 一級河川 (class 1) and major 二級河川 (class 2).
+
+Output: src/data/rivers.json
+"""
+
+import json
+import os
+
+RIVERS = [
+    # ============================================================
+    # 北海道 (Hokkaido)
+    # ============================================================
+    {
+        "name": "石狩川",
+        "reading": "いしかりがわ",
+        "system": "石狩川水系",
+        "class": 1,
+        "length": 268,
+        "basinArea": 14330,
+        "prefectures": ["01"],
+        "source": "石狩岳（北海道上川郡上川町）",
+        "mouth": "石狩湾（石狩市）",
+        "rank": {"length": 3, "basinArea": 2},
+        "tips": "北海道中央部を流れる大河。蛇行が多く、三日月湖が点在する。石狩平野の広大な水田地帯を潤す。"
+    },
+    {
+        "name": "天塩川",
+        "reading": "てしおがわ",
+        "system": "天塩川水系",
+        "class": 1,
+        "length": 256,
+        "basinArea": 5590,
+        "prefectures": ["01"],
+        "source": "天塩岳（北海道上川郡士別市）",
+        "mouth": "天塩町（日本海）",
+        "rank": {"length": 4, "basinArea": 10},
+        "tips": "北海道北部を北西に流れる。流域は酪農地帯で、牧草地が広がる。名寄盆地を通過する。"
+    },
+    {
+        "name": "十勝川",
+        "reading": "とかちがわ",
+        "system": "十勝川水系",
+        "class": 1,
+        "length": 156,
+        "basinArea": 9010,
+        "prefectures": ["01"],
+        "source": "十勝岳（北海道上川郡美瑛町）",
+        "mouth": "太平洋（豊頃町）",
+        "rank": {"length": 12, "basinArea": 5},
+        "tips": "十勝平野を流れる。流域は日本有数の畑作地帯で、ビート・小麦・じゃがいも畑が広がる。"
+    },
+    {
+        "name": "釧路川",
+        "reading": "くしろがわ",
+        "system": "釧路川水系",
+        "class": 1,
+        "length": 154,
+        "basinArea": 2510,
+        "prefectures": ["01"],
+        "source": "屈斜路湖（北海道弟子屈町）",
+        "mouth": "太平洋（釧路市）",
+        "rank": {"length": 13, "basinArea": 30},
+        "tips": "屈斜路湖を源流とし釧路湿原を蛇行して流れる。流域に広大な湿原が広がるのが特徴。"
+    },
+    {
+        "name": "網走川",
+        "reading": "あばしりがわ",
+        "system": "網走川水系",
+        "class": 1,
+        "length": 115,
+        "basinArea": 1380,
+        "prefectures": ["01"],
+        "source": "阿幌岳（北海道津別町）",
+        "mouth": "オホーツク海（網走市）",
+        "rank": {"length": 24, "basinArea": 48},
+        "tips": "オホーツク海に注ぐ。網走湖を経由する。冬季は流氷の影響を受ける地域を流れる。"
+    },
+    {
+        "name": "沙流川",
+        "reading": "さるがわ",
+        "system": "沙流川水系",
+        "class": 1,
+        "length": 104,
+        "basinArea": 1350,
+        "prefectures": ["01"],
+        "source": "日高山脈（北海道日高町）",
+        "mouth": "太平洋（日高町）",
+        "rank": {"length": 28, "basinArea": 49},
+        "tips": "日高山脈から太平洋に注ぐ清流。二風谷ダムがあり、アイヌ文化の中心地を流れる。"
+    },
+    # ============================================================
+    # 東北 (Tohoku)
+    # ============================================================
+    {
+        "name": "北上川",
+        "reading": "きたかみがわ",
+        "system": "北上川水系",
+        "class": 1,
+        "length": 249,
+        "basinArea": 10150,
+        "prefectures": ["03", "04"],
+        "source": "弓弭の泉（岩手県岩手町）",
+        "mouth": "追波湾（宮城県石巻市）",
+        "rank": {"length": 5, "basinArea": 4},
+        "tips": "東北最大の河川。岩手県を南北に縦断し宮城県で太平洋に注ぐ。北上盆地の水田地帯を潤す。"
+    },
+    {
+        "name": "阿武隈川",
+        "reading": "あぶくまがわ",
+        "system": "阿武隈川水系",
+        "class": 1,
+        "length": 239,
+        "basinArea": 5400,
+        "prefectures": ["07", "04"],
+        "source": "旭岳（福島県西郷村）",
+        "mouth": "太平洋（宮城県岩沼市）",
+        "rank": {"length": 6, "basinArea": 12},
+        "tips": "福島県中通りを北上し宮城県で太平洋に注ぐ。阿武隈高地の西側を流れる。福島市・郡山市を通過。"
+    },
+    {
+        "name": "最上川",
+        "reading": "もがみがわ",
+        "system": "最上川水系",
+        "class": 1,
+        "length": 229,
+        "basinArea": 7040,
+        "prefectures": ["06"],
+        "source": "吾妻山（山形県米沢市）",
+        "mouth": "日本海（山形県酒田市）",
+        "rank": {"length": 7, "basinArea": 7},
+        "tips": "山形県のみを流れる。日本三大急流の一つ。松尾芭蕉の「五月雨をあつめて早し最上川」で有名。"
+    },
+    {
+        "name": "雄物川",
+        "reading": "おものがわ",
+        "system": "雄物川水系",
+        "class": 1,
+        "length": 133,
+        "basinArea": 4710,
+        "prefectures": ["05"],
+        "source": "大仙山（秋田県湯沢市）",
+        "mouth": "日本海（秋田市）",
+        "rank": {"length": 17, "basinArea": 15},
+        "tips": "秋田県を東から西に流れ日本海に注ぐ。横手盆地・秋田平野の水田地帯を潤す重要な河川。"
+    },
+    {
+        "name": "米代川",
+        "reading": "よねしろがわ",
+        "system": "米代川水系",
+        "class": 1,
+        "length": 136,
+        "basinArea": 4100,
+        "prefectures": ["05"],
+        "source": "大葛金山付近（秋田県大館市）",
+        "mouth": "日本海（秋田県能代市）",
+        "rank": {"length": 16, "basinArea": 17},
+        "tips": "秋田県北部を流れる。流域は秋田杉の産地として知られる。能代市で日本海に注ぐ。"
+    },
+    {
+        "name": "岩木川",
+        "reading": "いわきがわ",
+        "system": "岩木川水系",
+        "class": 1,
+        "length": 102,
+        "basinArea": 2540,
+        "prefectures": ["02"],
+        "source": "白神山地（青森県西目屋村）",
+        "mouth": "十三湖・日本海（青森県五所川原市）",
+        "rank": {"length": 29, "basinArea": 29},
+        "tips": "津軽平野を流れる青森県最大の河川。岩木山を望む流域はりんご畑が広がる。十三湖に注ぐ。"
+    },
+    # ============================================================
+    # 関東 (Kanto)
+    # ============================================================
+    {
+        "name": "利根川",
+        "reading": "とねがわ",
+        "system": "利根川水系",
+        "class": 1,
+        "length": 322,
+        "basinArea": 16840,
+        "prefectures": ["10", "11", "08", "12", "13", "09", "15"],
+        "source": "大水上山（群馬県みなかみ町）",
+        "mouth": "太平洋・銚子（千葉県銚子市）",
+        "rank": {"length": 2, "basinArea": 1},
+        "tips": "「坂東太郎」の異名を持つ日本最大の流域面積の河川。関東平野を潤し首都圏の水がめ。"
+    },
+    {
+        "name": "荒川",
+        "reading": "あらかわ",
+        "system": "荒川水系",
+        "class": 1,
+        "length": 173,
+        "basinArea": 2940,
+        "prefectures": ["11", "13"],
+        "source": "甲武信ヶ岳（埼玉県秩父市）",
+        "mouth": "東京湾（東京都江東区・江戸川区）",
+        "rank": {"length": 10, "basinArea": 24},
+        "tips": "埼玉県から東京都を流れ東京湾に注ぐ。荒川放水路は人工的に掘削された。都心部の重要な河川。"
+    },
+    {
+        "name": "那珂川",
+        "reading": "なかがわ",
+        "system": "那珂川水系",
+        "class": 1,
+        "length": 150,
+        "basinArea": 3270,
+        "prefectures": ["09", "08"],
+        "source": "那須岳（栃木県那須町）",
+        "mouth": "太平洋（茨城県ひたちなか市）",
+        "rank": {"length": 14, "basinArea": 22},
+        "tips": "栃木県から茨城県を流れ太平洋に注ぐ。鮎の漁獲量が多く清流として知られる。"
+    },
+    {
+        "name": "久慈川",
+        "reading": "くじがわ",
+        "system": "久慈川水系",
+        "class": 1,
+        "length": 124,
+        "basinArea": 1490,
+        "prefectures": ["08", "07"],
+        "source": "八溝山（福島県棚倉町）",
+        "mouth": "太平洋（茨城県日立市）",
+        "rank": {"length": 21, "basinArea": 44},
+        "tips": "福島県南部から茨城県北部を流れる。清流で鮎釣りの名所。袋田の滝の支流がある。"
+    },
+    {
+        "name": "鬼怒川",
+        "reading": "きぬがわ",
+        "system": "利根川水系",
+        "class": 1,
+        "length": 177,
+        "basinArea": 1760,
+        "prefectures": ["09", "08"],
+        "source": "鬼怒沼（栃木県日光市）",
+        "mouth": "利根川合流（茨城県守谷市）",
+        "rank": {"length": 9, "basinArea": 39},
+        "tips": "利根川の支流。日光・鬼怒川温泉で有名。2015年の関東・東北豪雨で堤防が決壊した。"
+    },
+    {
+        "name": "相模川",
+        "reading": "さがみがわ",
+        "system": "相模川水系",
+        "class": 1,
+        "length": 113,
+        "basinArea": 1680,
+        "prefectures": ["19", "14"],
+        "source": "山中湖（山梨県山中湖村）",
+        "mouth": "相模湾（神奈川県平塚市）",
+        "rank": {"length": 25, "basinArea": 41},
+        "tips": "山梨県では桂川と呼ばれる。相模湖・津久井湖を経て相模湾に注ぐ。神奈川県の重要な水源。"
+    },
+    {
+        "name": "多摩川",
+        "reading": "たまがわ",
+        "system": "多摩川水系",
+        "class": 1,
+        "length": 138,
+        "basinArea": 1240,
+        "prefectures": ["19", "13", "14"],
+        "source": "笠取山（山梨県甲州市）",
+        "mouth": "東京湾（東京都大田区・神奈川県川崎市）",
+        "rank": {"length": 15, "basinArea": 52},
+        "tips": "東京都と神奈川県の境を流れる。二子玉川・調布など沿岸は住宅地。都民の憩いの川。"
+    },
+    # ============================================================
+    # 中部 (Chubu)
+    # ============================================================
+    {
+        "name": "信濃川",
+        "reading": "しなのがわ",
+        "system": "信濃川水系",
+        "class": 1,
+        "length": 367,
+        "basinArea": 11900,
+        "prefectures": ["20", "15"],
+        "source": "甲武信ヶ岳（長野県川上村）",
+        "mouth": "日本海（新潟市）",
+        "rank": {"length": 1, "basinArea": 3},
+        "tips": "日本最長の河川。長野県では「千曲川」と呼ばれる。越後平野の広大な水田地帯を潤す。"
+    },
+    {
+        "name": "木曽川",
+        "reading": "きそがわ",
+        "system": "木曽川水系",
+        "class": 1,
+        "length": 229,
+        "basinArea": 9100,
+        "prefectures": ["20", "21", "23", "24"],
+        "source": "鉢盛山（長野県木祖村）",
+        "mouth": "伊勢湾（三重県桑名市）",
+        "rank": {"length": 7, "basinArea": 5},
+        "tips": "「木曽三川」の一つ。濃尾平野を流れ伊勢湾に注ぐ。揖斐川・長良川と並行して流れる。"
+    },
+    {
+        "name": "天竜川",
+        "reading": "てんりゅうがわ",
+        "system": "天竜川水系",
+        "class": 1,
+        "length": 213,
+        "basinArea": 5090,
+        "prefectures": ["20", "22", "23"],
+        "source": "諏訪湖（長野県岡谷市）",
+        "mouth": "遠州灘（静岡県浜松市）",
+        "rank": {"length": 9, "basinArea": 12},
+        "tips": "「暴れ天竜」の異名を持つ急流河川。諏訪湖から南下し遠州灘に注ぐ。伊那谷を流れる。"
+    },
+    {
+        "name": "阿賀野川",
+        "reading": "あがのがわ",
+        "system": "阿賀野川水系",
+        "class": 1,
+        "length": 210,
+        "basinArea": 7710,
+        "prefectures": ["07", "09", "15"],
+        "source": "荒海山（福島県南会津町）",
+        "mouth": "日本海（新潟市）",
+        "rank": {"length": 10, "basinArea": 7},
+        "tips": "福島県では「阿賀川」と呼ばれる。猪苗代湖からの水を集め新潟市で日本海に注ぐ。"
+    },
+    {
+        "name": "大井川",
+        "reading": "おおいがわ",
+        "system": "大井川水系",
+        "class": 1,
+        "length": 168,
+        "basinArea": 1280,
+        "prefectures": ["22"],
+        "source": "間ノ岳（静岡県静岡市）",
+        "mouth": "駿河湾（静岡県焼津市・吉田町）",
+        "rank": {"length": 11, "basinArea": 50},
+        "tips": "南アルプスから駿河湾に注ぐ。「越すに越されぬ大井川」で東海道の難所として有名。大井川鉄道が走る。"
+    },
+    {
+        "name": "富士川",
+        "reading": "ふじかわ",
+        "system": "富士川水系",
+        "class": 1,
+        "length": 128,
+        "basinArea": 3990,
+        "prefectures": ["19", "22"],
+        "source": "鳳凰三山（山梨県韮崎市付近）",
+        "mouth": "駿河湾（静岡県富士市）",
+        "rank": {"length": 19, "basinArea": 18},
+        "tips": "日本三大急流の一つ。甲府盆地から富士山西側を流れ駿河湾に注ぐ。山梨県では「釜無川」。"
+    },
+    {
+        "name": "九頭竜川",
+        "reading": "くずりゅうがわ",
+        "system": "九頭竜川水系",
+        "class": 1,
+        "length": 116,
+        "basinArea": 2930,
+        "prefectures": ["18", "21"],
+        "source": "油坂峠（福井県大野市）",
+        "mouth": "日本海（福井県坂井市）",
+        "rank": {"length": 23, "basinArea": 25},
+        "tips": "福井県最大の河川。九頭竜湖を経て福井平野を流れる。流域は恐竜化石の産地としても有名。"
+    },
+    {
+        "name": "手取川",
+        "reading": "てどりがわ",
+        "system": "手取川水系",
+        "class": 1,
+        "length": 72,
+        "basinArea": 809,
+        "prefectures": ["17"],
+        "source": "白山（石川県白山市）",
+        "mouth": "日本海（石川県川北町）",
+        "rank": {"length": 46, "basinArea": 58},
+        "tips": "白山を源流とする急流河川。手取峡谷は景勝地。扇状地上に金沢平野南部の水田が広がる。"
+    },
+    {
+        "name": "神通川",
+        "reading": "じんづうがわ",
+        "system": "神通川水系",
+        "class": 1,
+        "length": 120,
+        "basinArea": 2720,
+        "prefectures": ["21", "16"],
+        "source": "川上岳（岐阜県高山市）",
+        "mouth": "富山湾（富山市）",
+        "rank": {"length": 22, "basinArea": 27},
+        "tips": "岐阜県では「宮川」と呼ばれる。イタイイタイ病の原因となった歴史を持つ。富山市を貫流。"
+    },
+    {
+        "name": "常願寺川",
+        "reading": "じょうがんじがわ",
+        "system": "常願寺川水系",
+        "class": 1,
+        "length": 56,
+        "basinArea": 368,
+        "prefectures": ["16"],
+        "source": "立山連峰（富山県立山町）",
+        "mouth": "富山湾（富山市）",
+        "rank": {"length": 55, "basinArea": 60},
+        "tips": "日本屈指の急流河川。立山カルデラからの土砂で扇状地を形成。河床勾配が非常に急。"
+    },
+    {
+        "name": "庄川",
+        "reading": "しょうがわ",
+        "system": "庄川水系",
+        "class": 1,
+        "length": 115,
+        "basinArea": 1189,
+        "prefectures": ["21", "16"],
+        "source": "烏帽子岳（岐阜県高山市）",
+        "mouth": "富山湾（富山県射水市）",
+        "rank": {"length": 24, "basinArea": 53},
+        "tips": "五箇山の合掌造り集落の近くを流れる。砺波平野の散居村地帯を潤す。"
+    },
+    {
+        "name": "黒部川",
+        "reading": "くろべがわ",
+        "system": "黒部川水系",
+        "class": 1,
+        "length": 85,
+        "basinArea": 682,
+        "prefectures": ["16"],
+        "source": "鷲羽岳（富山県黒部市）",
+        "mouth": "富山湾（富山県入善町）",
+        "rank": {"length": 37, "basinArea": 59},
+        "tips": "黒部ダム（黒四ダム）で有名。黒部峡谷は日本有数のV字谷。扇状地が発達。"
+    },
+    {
+        "name": "長良川",
+        "reading": "ながらがわ",
+        "system": "木曽川水系",
+        "class": 1,
+        "length": 166,
+        "basinArea": 1985,
+        "prefectures": ["21", "24"],
+        "source": "大日ヶ岳（岐阜県郡上市）",
+        "mouth": "伊勢湾（三重県桑名市）",
+        "rank": {"length": 12, "basinArea": 35},
+        "tips": "木曽三川の一つ。「日本の清流」として名高い。長良川鵜飼は1300年の伝統を持つ。"
+    },
+    {
+        "name": "揖斐川",
+        "reading": "いびがわ",
+        "system": "木曽川水系",
+        "class": 1,
+        "length": 121,
+        "basinArea": 1840,
+        "prefectures": ["21", "24"],
+        "source": "冠山（岐阜県揖斐川町）",
+        "mouth": "伊勢湾（三重県桑名市）",
+        "rank": {"length": 21, "basinArea": 37},
+        "tips": "木曽三川の一つ。木曽川・長良川と合流し伊勢湾に注ぐ。輪中地帯が有名。"
+    },
+    # ============================================================
+    # 近畿 (Kinki)
+    # ============================================================
+    {
+        "name": "淀川",
+        "reading": "よどがわ",
+        "system": "淀川水系",
+        "class": 1,
+        "length": 75,
+        "basinArea": 8240,
+        "prefectures": ["25", "26", "27", "24", "29"],
+        "source": "琵琶湖（滋賀県大津市）",
+        "mouth": "大阪湾（大阪市）",
+        "rank": {"length": 44, "basinArea": 6},
+        "tips": "琵琶湖を水源とし大阪湾に注ぐ。京都では「鴨川」「桂川」等の支流がある。近畿圏の水がめ。"
+    },
+    {
+        "name": "大和川",
+        "reading": "やまとがわ",
+        "system": "大和川水系",
+        "class": 1,
+        "length": 68,
+        "basinArea": 1070,
+        "prefectures": ["29", "27"],
+        "source": "笠置山地（奈良県桜井市付近）",
+        "mouth": "大阪湾（大阪府堺市）",
+        "rank": {"length": 48, "basinArea": 55},
+        "tips": "奈良盆地から大阪湾に注ぐ。かつて水質が悪いことで有名だったが改善が進む。"
+    },
+    {
+        "name": "紀の川",
+        "reading": "きのかわ",
+        "system": "紀の川水系",
+        "class": 1,
+        "length": 136,
+        "basinArea": 1750,
+        "prefectures": ["29", "30"],
+        "source": "大台ヶ原（奈良県川上村）",
+        "mouth": "紀伊水道（和歌山市）",
+        "rank": {"length": 16, "basinArea": 40},
+        "tips": "奈良県では「吉野川」と呼ばれる。紀ノ川平野の果樹園地帯（みかん・柿）を流れる。"
+    },
+    {
+        "name": "熊野川",
+        "reading": "くまのがわ",
+        "system": "新宮川水系",
+        "class": 1,
+        "length": 183,
+        "basinArea": 2360,
+        "prefectures": ["29", "24", "30"],
+        "source": "大台ヶ原山系（奈良県上北山村）",
+        "mouth": "熊野灘（和歌山県新宮市）",
+        "rank": {"length": 8, "basinArea": 31},
+        "tips": "紀伊半島南部を流れ熊野灘に注ぐ。熊野古道沿いの聖地を流れる。「新宮川」が正式名称。"
+    },
+    {
+        "name": "由良川",
+        "reading": "ゆらがわ",
+        "system": "由良川水系",
+        "class": 1,
+        "length": 146,
+        "basinArea": 1880,
+        "prefectures": ["26"],
+        "source": "三国岳（京都府南丹市）",
+        "mouth": "日本海・若狭湾（京都府舞鶴市）",
+        "rank": {"length": 14, "basinArea": 36},
+        "tips": "京都府北部（丹波・丹後）を流れる。福知山市では水害が多い。日本海側に注ぐ京都の川。"
+    },
+    # ============================================================
+    # 中国 (Chugoku)
+    # ============================================================
+    {
+        "name": "太田川",
+        "reading": "おおたがわ",
+        "system": "太田川水系",
+        "class": 1,
+        "length": 103,
+        "basinArea": 1710,
+        "prefectures": ["34"],
+        "source": "冠山（広島県安芸太田町）",
+        "mouth": "広島湾（広島市）",
+        "rank": {"length": 28, "basinArea": 41},
+        "tips": "広島市内で6本に分かれるデルタを形成。原爆ドーム前を流れる。広島の「水の都」を象徴。"
+    },
+    {
+        "name": "江の川",
+        "reading": "ごうのかわ",
+        "system": "江の川水系",
+        "class": 1,
+        "length": 194,
+        "basinArea": 3900,
+        "prefectures": ["34", "32"],
+        "source": "阿佐山（広島県北広島町）",
+        "mouth": "日本海（島根県江津市）",
+        "rank": {"length": 8, "basinArea": 19},
+        "tips": "中国地方最大の河川。中国山地を横断し日本海に注ぐ珍しい流路。「中国太郎」の異名。"
+    },
+    {
+        "name": "高梁川",
+        "reading": "たかはしがわ",
+        "system": "高梁川水系",
+        "class": 1,
+        "length": 111,
+        "basinArea": 2670,
+        "prefectures": ["33"],
+        "source": "花見山（岡山県新見市）",
+        "mouth": "瀬戸内海（岡山県倉敷市）",
+        "rank": {"length": 26, "basinArea": 28},
+        "tips": "岡山県西部を流れ水島灘に注ぐ。備中松山城下の高梁市を通過する。"
+    },
+    {
+        "name": "旭川",
+        "reading": "あさひがわ",
+        "system": "旭川水系",
+        "class": 1,
+        "length": 142,
+        "basinArea": 1810,
+        "prefectures": ["33"],
+        "source": "蒜山（岡山県真庭市）",
+        "mouth": "瀬戸内海（岡山市）",
+        "rank": {"length": 15, "basinArea": 37},
+        "tips": "岡山県中央部を南流。後楽園（日本三名園）の横を流れる。岡山市の景観を形成する川。"
+    },
+    {
+        "name": "吉井川",
+        "reading": "よしいがわ",
+        "system": "吉井川水系",
+        "class": 1,
+        "length": 133,
+        "basinArea": 2110,
+        "prefectures": ["33"],
+        "source": "三国山（岡山県津山市付近）",
+        "mouth": "瀬戸内海（岡山県瀬戸内市）",
+        "rank": {"length": 17, "basinArea": 33},
+        "tips": "岡山県東部を流れる。津山市を通過し瀬戸内海に注ぐ。岡山三大河川の一つ。"
+    },
+    {
+        "name": "斐伊川",
+        "reading": "ひいかわ",
+        "system": "斐伊川水系",
+        "class": 1,
+        "length": 153,
+        "basinArea": 2070,
+        "prefectures": ["34", "32"],
+        "source": "船通山（島根県奥出雲町）",
+        "mouth": "日本海（島根県出雲市）",
+        "rank": {"length": 13, "basinArea": 34},
+        "tips": "出雲神話のヤマタノオロチ伝説の舞台。宍道湖に注ぐ。たたら製鉄の歴史がある流域。"
+    },
+    # ============================================================
+    # 四国 (Shikoku)
+    # ============================================================
+    {
+        "name": "吉野川",
+        "reading": "よしのがわ",
+        "system": "吉野川水系",
+        "class": 1,
+        "length": 194,
+        "basinArea": 3750,
+        "prefectures": ["39", "36"],
+        "source": "瓶ヶ森（高知県いの町）",
+        "mouth": "紀伊水道（徳島市）",
+        "rank": {"length": 8, "basinArea": 19},
+        "tips": "「四国三郎」の異名を持つ四国最大の河川。大歩危・小歩危峡は有名な景勝地。藍染の産地を流れる。"
+    },
+    {
+        "name": "四万十川",
+        "reading": "しまんとがわ",
+        "system": "渡川水系",
+        "class": 1,
+        "length": 196,
+        "basinArea": 2270,
+        "prefectures": ["39"],
+        "source": "不入山（高知県津野町）",
+        "mouth": "太平洋（高知県四万十市）",
+        "rank": {"length": 7, "basinArea": 32},
+        "tips": "「日本最後の清流」として名高い。沈下橋が多数残り独特の景観を形成。高知県西部を流れる。"
+    },
+    {
+        "name": "仁淀川",
+        "reading": "によどがわ",
+        "system": "仁淀川水系",
+        "class": 1,
+        "length": 124,
+        "basinArea": 1560,
+        "prefectures": ["36", "39"],
+        "source": "石鎚山系（愛媛県久万高原町）",
+        "mouth": "太平洋（高知県土佐市）",
+        "rank": {"length": 20, "basinArea": 43},
+        "tips": "「仁淀ブルー」と呼ばれる透明度の高い水で有名。水質日本一に選ばれたことがある。"
+    },
+    {
+        "name": "那賀川",
+        "reading": "なかがわ",
+        "system": "那賀川水系",
+        "class": 1,
+        "length": 125,
+        "basinArea": 874,
+        "prefectures": ["36"],
+        "source": "剣山系（徳島県那賀町）",
+        "mouth": "紀伊水道（徳島県阿南市）",
+        "rank": {"length": 20, "basinArea": 57},
+        "tips": "徳島県南部を流れる。長安口ダムがある。流域は林業が盛んで、杉の美林地帯。"
+    },
+    # ============================================================
+    # 九州 (Kyushu)
+    # ============================================================
+    {
+        "name": "筑後川",
+        "reading": "ちくごがわ",
+        "system": "筑後川水系",
+        "class": 1,
+        "length": 143,
+        "basinArea": 2860,
+        "prefectures": ["44", "43", "40", "41"],
+        "source": "瀬の本高原（大分県九重町）",
+        "mouth": "有明海（佐賀県・福岡県）",
+        "rank": {"length": 14, "basinArea": 25},
+        "tips": "「筑紫次郎」の異名を持つ九州最大の河川。筑後平野の水田地帯を潤し有明海に注ぐ。"
+    },
+    {
+        "name": "球磨川",
+        "reading": "くまがわ",
+        "system": "球磨川水系",
+        "class": 1,
+        "length": 115,
+        "basinArea": 1880,
+        "prefectures": ["43"],
+        "source": "銚子笠（熊本県あさぎり町）",
+        "mouth": "八代海（熊本県八代市）",
+        "rank": {"length": 24, "basinArea": 36},
+        "tips": "日本三大急流の一つ。球磨焼酎の産地を流れる。2020年の豪雨で甚大な被害を受けた。"
+    },
+    {
+        "name": "遠賀川",
+        "reading": "おんががわ",
+        "system": "遠賀川水系",
+        "class": 1,
+        "length": 61,
+        "basinArea": 1026,
+        "prefectures": ["40"],
+        "source": "馬見山（福岡県嘉麻市）",
+        "mouth": "響灘（福岡県遠賀町）",
+        "rank": {"length": 52, "basinArea": 56},
+        "tips": "北九州地域を流れる。かつて筑豊炭田の石炭運搬に利用された。直方市を通過。"
+    },
+    {
+        "name": "大淀川",
+        "reading": "おおよどがわ",
+        "system": "大淀川水系",
+        "class": 1,
+        "length": 107,
+        "basinArea": 2230,
+        "prefectures": ["45", "43"],
+        "source": "鰐塚山系（宮崎県都城市付近）",
+        "mouth": "日向灘（宮崎市）",
+        "rank": {"length": 27, "basinArea": 33},
+        "tips": "宮崎平野を流れ日向灘に注ぐ。宮崎市の中心部を貫流する。都城盆地が上流。"
+    },
+    {
+        "name": "川内川",
+        "reading": "せんだいがわ",
+        "system": "川内川水系",
+        "class": 1,
+        "length": 137,
+        "basinArea": 1600,
+        "prefectures": ["45", "46"],
+        "source": "白鳥山（宮崎県えびの市）",
+        "mouth": "東シナ海（鹿児島県薩摩川内市）",
+        "rank": {"length": 16, "basinArea": 42},
+        "tips": "九州南部を横断し東シナ海に注ぐ。川内原子力発電所のそば。薩摩川内市で河口を迎える。"
+    },
+    {
+        "name": "肝属川",
+        "reading": "きもつきがわ",
+        "system": "肝属川水系",
+        "class": 1,
+        "length": 34,
+        "basinArea": 485,
+        "prefectures": ["46"],
+        "source": "高隈山（鹿児島県鹿屋市）",
+        "mouth": "志布志湾（鹿児島県東串良町）",
+        "rank": {"length": 58, "basinArea": 60},
+        "tips": "大隅半島を流れる。肝付町はJAXAの内之浦宇宙空間観測所がある。シラス台地を流れる。"
+    },
+    {
+        "name": "白川",
+        "reading": "しらかわ",
+        "system": "白川水系",
+        "class": 1,
+        "length": 74,
+        "basinArea": 480,
+        "prefectures": ["43"],
+        "source": "阿蘇山（熊本県南阿蘇村）",
+        "mouth": "有明海（熊本市）",
+        "rank": {"length": 47, "basinArea": 60},
+        "tips": "阿蘇山のカルデラ内から流れ出す。熊本市を貫流し有明海に注ぐ。阿蘇の火山灰台地を流れる。"
+    },
+    {
+        "name": "緑川",
+        "reading": "みどりかわ",
+        "system": "緑川水系",
+        "class": 1,
+        "length": 76,
+        "basinArea": 1100,
+        "prefectures": ["43"],
+        "source": "向坂山（熊本県山都町）",
+        "mouth": "有明海（熊本市・宇土市）",
+        "rank": {"length": 45, "basinArea": 54},
+        "tips": "熊本県中部を流れ有明海に注ぐ。通潤橋で有名な上流部。熊本平野の水田を潤す。"
+    },
+    {
+        "name": "五ヶ瀬川",
+        "reading": "ごかせがわ",
+        "system": "五ヶ瀬川水系",
+        "class": 1,
+        "length": 106,
+        "basinArea": 1820,
+        "prefectures": ["45", "44"],
+        "source": "向坂山（宮崎県五ヶ瀬町）",
+        "mouth": "日向灘（宮崎県延岡市）",
+        "rank": {"length": 27, "basinArea": 38},
+        "tips": "高千穂峡を流れる。延岡市で日向灘に注ぐ。鮎やな漁が有名。"
+    },
+    {
+        "name": "大野川",
+        "reading": "おおのがわ",
+        "system": "大野川水系",
+        "class": 1,
+        "length": 107,
+        "basinArea": 1465,
+        "prefectures": ["43", "44"],
+        "source": "祖母山系（熊本県竹田市付近）",
+        "mouth": "別府湾（大分市）",
+        "rank": {"length": 27, "basinArea": 45},
+        "tips": "大分県中部を流れ別府湾に注ぐ。岡城址で有名な竹田市を通過する。原尻の滝がある。"
+    },
+    # ============================================================
+    # Additional rivers to reach 60
+    # ============================================================
+    {
+        "name": "矢作川",
+        "reading": "やはぎがわ",
+        "system": "矢作川水系",
+        "class": 1,
+        "length": 118,
+        "basinArea": 1830,
+        "prefectures": ["20", "21", "23"],
+        "source": "大川入山（長野県根羽村）",
+        "mouth": "三河湾（愛知県西尾市）",
+        "rank": {"length": 23, "basinArea": 37},
+        "tips": "愛知県の三河地方を流れる。豊田市を通過し三河湾に注ぐ。トヨタ自動車の本社近くを流れる。"
+    },
+    {
+        "name": "狩野川",
+        "reading": "かのがわ",
+        "system": "狩野川水系",
+        "class": 1,
+        "length": 46,
+        "basinArea": 852,
+        "prefectures": ["22"],
+        "source": "天城山（静岡県伊豆市）",
+        "mouth": "駿河湾（静岡県沼津市）",
+        "rank": {"length": 56, "basinArea": 57},
+        "tips": "伊豆半島を北流し駿河湾に注ぐ珍しい南から北への流路。狩野川台風(1958年)で有名。"
+    },
+]
+
+def main():
+    output_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "src", "data")
+    os.makedirs(output_dir, exist_ok=True)
+    output_path = os.path.join(output_dir, "rivers.json")
+
+    data = {"rivers": RIVERS}
+
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+
+    print(f"Generated {len(RIVERS)} rivers to {output_path}")
+
+    # Validate
+    with open(output_path, "r", encoding="utf-8") as f:
+        loaded = json.load(f)
+    assert len(loaded["rivers"]) == len(RIVERS)
+
+    # Check required rivers are present
+    required = [
+        "信濃川", "利根川", "石狩川", "天塩川", "北上川", "阿武隈川", "最上川",
+        "木曽川", "天竜川", "阿賀野川", "荒川", "大井川", "富士川", "那珂川",
+        "久慈川", "鬼怒川", "吉野川", "四万十川", "仁淀川", "球磨川", "筑後川",
+        "遠賀川", "大淀川", "川内川", "肝属川", "淀川", "大和川", "紀の川",
+        "熊野川", "太田川", "江の川", "高梁川", "旭川", "吉井川", "九頭竜川",
+        "手取川", "神通川", "常願寺川", "庄川", "黒部川", "雄物川", "米代川",
+        "岩木川", "十勝川", "釧路川", "網走川", "相模川", "多摩川",
+    ]
+    river_names = [r["name"] for r in loaded["rivers"]]
+    missing = [r for r in required if r not in river_names]
+    if missing:
+        print(f"WARNING: Missing required rivers: {missing}")
+    else:
+        print("All required rivers are present.")
+
+    # Check for required fields
+    required_fields = ["name", "reading", "system", "class", "length", "basinArea",
+                       "prefectures", "source", "mouth", "rank", "tips"]
+    for river in loaded["rivers"]:
+        for field in required_fields:
+            if field not in river:
+                print(f"WARNING: River {river.get('name', '?')} missing field: {field}")
+
+    # Summary by class
+    class1 = [r for r in loaded["rivers"] if r["class"] == 1]
+    class2 = [r for r in loaded["rivers"] if r["class"] == 2]
+    print(f"  一級河川: {len(class1)}")
+    print(f"  二級河川: {len(class2)}")
+
+    # Summary by region
+    regions = {
+        "北海道": ["01"],
+        "東北": ["02", "03", "04", "05", "06", "07"],
+        "関東": ["08", "09", "10", "11", "12", "13", "14"],
+        "中部": ["15", "16", "17", "18", "19", "20", "21", "22", "23"],
+        "近畿": ["24", "25", "26", "27", "28", "29", "30"],
+        "中国": ["31", "32", "33", "34", "35"],
+        "四国": ["36", "37", "38", "39"],
+        "九州": ["40", "41", "42", "43", "44", "45", "46", "47"],
+    }
+    for region_name, codes in regions.items():
+        count = sum(1 for r in loaded["rivers"]
+                    if any(p in codes for p in r["prefectures"]))
+        print(f"  {region_name}: {count} rivers")
+
+    print("\nDone. JSON is valid.")
+
+
+if __name__ == "__main__":
+    main()

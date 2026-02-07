@@ -88,7 +88,7 @@ export default function MunicipalitiesPage() {
           size="full"
           showLabels={true}
         />
-        <div className="flex justify-center gap-4 mt-3 text-xs text-slate-500">
+        <div className="flex justify-center gap-3 mt-3 text-xs text-slate-500">
           <div className="flex items-center gap-1">
             <span className="w-3 h-3 rounded bg-green-300 inline-block" />
             <span>修得</span>
@@ -96,6 +96,10 @@ export default function MunicipalitiesPage() {
           <div className="flex items-center gap-1">
             <span className="w-3 h-3 rounded bg-yellow-200 inline-block" />
             <span>学習中</span>
+          </div>
+          <div className="flex items-center gap-1">
+            <span className="w-3 h-3 rounded bg-red-200 inline-block" />
+            <span>要復習</span>
           </div>
           <div className="flex items-center gap-1">
             <span className="w-3 h-3 rounded bg-slate-200 inline-block" />

@@ -29,6 +29,18 @@ const mainNavItems = [
     description: <><Ruby reading="ちず">地図</Ruby>で<Ruby reading="おぼ">覚</Ruby>える1,900+</>,
   },
   {
+    title: <><Ruby reading="こくどう">国道</Ruby>マスター</>,
+    href: '/roads',
+    icon: '🛣️',
+    description: <><Ruby reading="しゅよう">主要</Ruby><Ruby reading="こくどう">国道</Ruby>を<Ruby reading="ちず">地図</Ruby>で<Ruby reading="おぼ">覚</Ruby>える</>,
+  },
+  {
+    title: <><Ruby reading="かわ">川</Ruby>マスター</>,
+    href: '/rivers',
+    icon: '🏞️',
+    description: <><Ruby reading="しゅよう">主要</Ruby><Ruby reading="かせん">河川</Ruby>を<Ruby reading="ちず">地図</Ruby>で<Ruby reading="おぼ">覚</Ruby>える</>,
+  },
+  {
     title: <><Ruby reading="がくしゅう">学習</Ruby>カリキュラム</>,
     href: '/learn',
     icon: '📖',
