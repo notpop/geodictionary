@@ -94,7 +94,8 @@ export default function Navigation() {
   return (
     <nav
       id="mobile-nav"
-      className="fixed left-0 top-16 bottom-0 w-64 bg-white border-r border-slate-200 overflow-y-auto z-40 nav-closed md:nav-open transition-transform duration-300"
+      className="fixed left-0 bottom-0 w-64 bg-white border-r border-slate-200 overflow-y-auto z-40 nav-closed md:nav-open transition-transform duration-300"
+      style={{ top: 'calc(3.5rem + env(safe-area-inset-top, 0px))' }}
     >
       <div className="p-4">
         {/* Main features */}

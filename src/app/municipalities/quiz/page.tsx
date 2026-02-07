@@ -24,7 +24,26 @@ function QuizPageInner() {
     setProgress(getMunicipalityProgress())
   }, [])
 
+  // 県切替時に出題数が市区町村数を超えていたらリセット
+  useEffect(() => {
+    if (selectedPref) {
+      const pref = prefectures.find((p) => p.code === selectedPref)
+      if (pref && questionCount > pref.municipalities.length) {
+        setQuestionCount(Math.min(10, pref.municipalities.length))
+      }
+    }
+  }, [selectedPref]) // eslint-disable-line react-hooks/exhaustive-deps
+
   const prefectures = municipalityData.prefectures
+
+  // 選択中の県の市区町村数
+  const selectedPrefData = selectedPref ? prefectures.find((p) => p.code === selectedPref) : null
+  const maxMunis = selectedPrefData ? selectedPrefData.municipalities.length : 1900
+
+  // 出題数の選択肢を動的に生成
+  const countOptions = [10, 20, 50].filter((n) => n <= maxMunis)
+  // 「全て」は市区町村数が選択肢の最大より多い場合、または県選択時に常に表示
+  const showAllOption = selectedPref ? true : maxMunis > 50
 
   if (started) {
     return (
@@ -107,14 +126,19 @@ function QuizPageInner() {
 
       {/* Question Count */}
       <div>
-        <h2 className="text-sm font-semibold text-slate-700 mb-2">出題数</h2>
+        <h2 className="text-sm font-semibold text-slate-700 mb-2">
+          出題数
+          {selectedPrefData && (
+            <span className="font-normal text-slate-400 ml-2">（{selectedPrefData.name}: {maxMunis}件）</span>
+          )}
+        </h2>
         <div className="flex gap-2">
-          {[10, 20, 50].map((n) => (
+          {countOptions.map((n) => (
             <button
               key={n}
               onClick={() => setQuestionCount(n)}
               className={`flex-1 py-3 rounded-xl font-medium transition-all active:scale-[0.98] ${
-                questionCount === n
+                questionCount === n && questionCount !== maxMunis
                   ? 'bg-primary text-white'
                   : 'bg-slate-100 text-slate-700'
               }`}
@@ -122,6 +146,18 @@ function QuizPageInner() {
               {n}問
             </button>
           ))}
+          {showAllOption && (
+            <button
+              onClick={() => setQuestionCount(maxMunis)}
+              className={`flex-1 py-3 rounded-xl font-medium transition-all active:scale-[0.98] ${
+                questionCount === maxMunis
+                  ? 'bg-primary text-white'
+                  : 'bg-slate-100 text-slate-700'
+              }`}
+            >
+              全て{selectedPref ? `(${maxMunis})` : ''}
+            </button>
+          )}
         </div>
       </div>
 

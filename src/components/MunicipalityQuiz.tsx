@@ -253,18 +253,27 @@ export default function MunicipalityQuiz({
   // Quiz screen - compact layout for 100dvh
   return (
     <div className="flex flex-col" style={{ height: 'calc(100dvh - 3.5rem - env(safe-area-inset-top, 0px))' }}>
+      {/* Header row with quit button */}
+      <div className="flex items-center justify-between py-2 flex-shrink-0 px-1">
+        <button
+          onClick={onBack}
+          className="flex items-center gap-1 text-slate-400 active:text-slate-600 px-2 py-1 -ml-2 rounded-lg"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+          <span className="text-xs font-medium">中止</span>
+        </button>
+        <span className="text-xs text-slate-500">Q{currentIndex + 1}/{questions.length}</span>
+        <span className="text-xs font-medium text-primary">正解 {correctCount}</span>
+      </div>
+
       {/* Progress bar */}
       <div className="h-1 bg-slate-100 rounded-full overflow-hidden flex-shrink-0">
         <div
           className="h-full bg-primary rounded-full transition-all duration-500"
           style={{ width: `${progress}%` }}
         />
-      </div>
-
-      {/* Header row */}
-      <div className="flex items-center justify-between text-xs text-slate-500 py-1.5 flex-shrink-0">
-        <span>Q{currentIndex + 1}/{questions.length}</span>
-        <span className="font-medium text-primary">正解: {correctCount}</span>
       </div>
 
       {/* Question */}
