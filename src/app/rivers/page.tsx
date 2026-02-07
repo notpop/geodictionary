@@ -43,7 +43,7 @@ export default function RiversPage() {
   }, [selectedRiver])
 
   return (
-    <div className="space-y-4 animate-fade-in overflow-x-hidden">
+    <div className="space-y-4 animate-fade-in w-full max-w-full" style={{ overflowX: 'clip' }}>
       <div className="text-center">
         <h1 className="text-2xl font-bold text-slate-800 mb-1">川マスター</h1>
         <p className="text-sm text-slate-500">主要河川{rivers.length}本を地図で覚える</p>

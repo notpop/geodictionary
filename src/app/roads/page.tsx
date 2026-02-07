@@ -44,7 +44,7 @@ export default function RoadsPage() {
   }, [selectedRoad])
 
   return (
-    <div className="space-y-4 animate-fade-in overflow-x-hidden">
+    <div className="space-y-4 animate-fade-in w-full max-w-full" style={{ overflowX: 'clip' }}>
       <div className="text-center">
         <h1 className="text-2xl font-bold text-slate-800 mb-1">国道マスター</h1>
         <p className="text-sm text-slate-500">主要国道{roads.length}本を地図で覚える</p>
