@@ -36,11 +36,11 @@ export default function RootLayout({
       <head>
         <link rel="apple-touch-icon" href="/icons/icon-192.png" />
       </head>
-      <body className="antialiased">
+      <body className="antialiased overflow-x-hidden">
         <Header />
         <div className="flex">
           <Navigation />
-          <main className="flex-1 md:ml-64 min-h-screen pb-safe" style={{ paddingTop: 'calc(3.5rem + env(safe-area-inset-top, 0px))' }}>
+          <main className="flex-1 md:ml-64 min-h-screen pb-safe overflow-x-hidden" style={{ paddingTop: 'calc(3.5rem + env(safe-area-inset-top, 0px))' }}>
             <div className="container mx-auto px-4 py-6 max-w-4xl">
               {children}
             </div>
