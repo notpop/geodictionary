@@ -8,11 +8,13 @@ const zenMaru = Zen_Maru_Gothic({
 })
 
 const tiles = [
+  // 上部: 地図系（市区町村・国道・河川）
   { href: '/municipalities', label: '市区\n町村', color: 'bg-violet-600', area: '1 / 1 / 3 / 3', textClass: 'text-[76px] leading-[1.1]' },
-  { href: '/quiz', label: 'ク\nイ\nズ', color: 'bg-orange-500', area: '1 / 3 / 2 / 4', textClass: 'text-[54px] leading-[1.05]' },
-  { href: '/learn', label: '学習', color: 'bg-emerald-600', area: '1 / 4 / 2 / 5', textClass: 'text-[38px]' },
-  { href: '/roads', label: '国道', color: 'bg-blue-600', area: '2 / 3 / 3 / 5', textClass: 'text-[76px]' },
-  { href: '/rivers', label: '河川', color: 'bg-teal-500', area: '3 / 1 / 4 / 3', textClass: 'text-[76px]' },
+  { href: '/roads', label: '国道', color: 'bg-blue-600', area: '1 / 3 / 2 / 5', textClass: 'text-[76px]' },
+  { href: '/rivers', label: '河川', color: 'bg-teal-500', area: '2 / 3 / 3 / 5', textClass: 'text-[76px]' },
+  // 下部: 学習・リファレンス系
+  { href: '/quiz', label: 'ク\nイ\nズ', color: 'bg-orange-500', area: '3 / 1 / 4 / 2', textClass: 'text-[54px] leading-[1.05]' },
+  { href: '/learn', label: '学習', color: 'bg-emerald-600', area: '3 / 2 / 4 / 3', textClass: 'text-[38px]' },
   { href: '/regions', label: '地域別', color: 'bg-rose-500', area: '3 / 3 / 4 / 4', textClass: 'text-[26px]' },
   { href: '/power-companies', label: '電柱', color: 'bg-amber-500', area: '3 / 4 / 4 / 5', textClass: 'text-[38px]' },
   { href: '/common', label: '共通\n知識', color: 'bg-slate-700', area: '4 / 1 / 5 / 3', textClass: 'text-[68px] leading-[1.1]' },
