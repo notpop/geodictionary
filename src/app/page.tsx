@@ -24,9 +24,9 @@ const tiles = [
 export default function Home() {
   return (
     <>
-      <style>{`body{background:#0f172a!important;overflow:hidden!important}`}</style>
+      <style>{`html,body{background:#0f172a!important;overflow:hidden!important;height:100dvh!important}`}</style>
       <div
-        className={`grid grid-cols-4 gap-[2px] -mx-4 -mt-6 bg-slate-900 ${zenMaru.className}`}
+        className={`grid grid-cols-4 gap-[2px] -mx-4 -mt-6 -mb-6 bg-slate-900 ${zenMaru.className}`}
         style={{
           height: 'calc(100dvh - 3.5rem - env(safe-area-inset-top, 0px))',
           gridTemplateRows: 'repeat(5, 1fr)',
