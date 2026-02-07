@@ -59,12 +59,12 @@ export default function RoadsPage() {
           zoomable={true}
         />
         {selectedRoad && (
-          <div className="mt-2 p-3 bg-blue-50 rounded-xl">
+          <div className="mt-2 p-3 bg-blue-50 rounded-xl overflow-hidden">
             <div className="font-bold text-slate-800">{selectedRoad.name}</div>
-            <div className="text-xs text-slate-600 mt-1">
+            <div className="text-xs text-slate-600 mt-1 break-words">
               {selectedRoad.startPoint} → {selectedRoad.endPoint} ({selectedRoad.length}km)
             </div>
-            <div className="text-xs text-slate-500 mt-1">{selectedRoad.tips}</div>
+            <div className="text-xs text-slate-500 mt-1 break-words">{selectedRoad.tips}</div>
             <div className="flex flex-wrap gap-1 mt-2">
               {selectedRoad.prefectures.map((code) => (
                 <span key={code} className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">
@@ -128,14 +128,14 @@ export default function RoadsPage() {
         {filteredRoads.map((road) => (
           <button
             key={road.number}
-            className={`w-full text-left px-3 py-2.5 bg-white rounded-xl border transition-all active:scale-[0.98] ${
+            className={`w-full text-left px-3 py-2.5 bg-white rounded-xl border transition-all active:scale-[0.98] overflow-hidden ${
               selectedRoad?.number === road.number
                 ? 'border-primary bg-primary/5 shadow-sm'
                 : 'border-slate-100'
             }`}
             onClick={() => setSelectedRoad(selectedRoad?.number === road.number ? null : road)}
           >
-            <div className="flex items-center gap-2 min-w-0">
+            <div className="flex items-center gap-2 min-w-0 overflow-hidden">
               <span className={`flex-shrink-0 text-xs font-bold px-2 py-0.5 rounded ${
                 road.category === '主要幹線' ? 'bg-purple-100 text-purple-700' :
                 road.category === '一般国道' ? 'bg-blue-100 text-blue-700' :
@@ -143,7 +143,7 @@ export default function RoadsPage() {
               }`}>
                 {road.number}
               </span>
-              <div className="min-w-0 flex-1">
+              <div className="min-w-0 flex-1 overflow-hidden">
                 <div className="text-sm font-medium text-slate-800 truncate">
                   {road.startPoint} → {road.endPoint}
                 </div>
