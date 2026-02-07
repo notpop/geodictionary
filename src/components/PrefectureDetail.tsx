@@ -131,30 +131,29 @@ export default function PrefectureDetail({ prefecture, onStartQuiz, prevPrefectu
               <span className="text-slate-400 text-sm">地図を読み込み中...</span>
             </div>
           )}
+          {/* Type filter chips - inside sticky card */}
+          <div className="flex gap-2 overflow-x-auto pt-2 pb-1 -mx-1 px-1" style={{ WebkitOverflowScrolling: 'touch' }}>
+            <button
+              onClick={() => setSelectedType('all')}
+              className={`flex-shrink-0 px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                selectedType === 'all' ? 'bg-primary text-white' : 'bg-slate-100 text-slate-600'
+              }`}
+            >
+              全て ({allEntries.length})
+            </button>
+            {Object.entries(typeCounts).map(([type, count]) => (
+              <button
+                key={type}
+                onClick={() => setSelectedType(type)}
+                className={`flex-shrink-0 px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                  selectedType === type ? 'bg-primary text-white' : 'bg-slate-100 text-slate-600'
+                }`}
+              >
+                {typeLabels[type] || type} ({count})
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
-
-      {/* Type filter chips */}
-      <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1" style={{ WebkitOverflowScrolling: 'touch' }}>
-        <button
-          onClick={() => setSelectedType('all')}
-          className={`flex-shrink-0 px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
-            selectedType === 'all' ? 'bg-primary text-white' : 'bg-slate-100 text-slate-600'
-          }`}
-        >
-          全て ({allEntries.length})
-        </button>
-        {Object.entries(typeCounts).map(([type, count]) => (
-          <button
-            key={type}
-            onClick={() => setSelectedType(type)}
-            className={`flex-shrink-0 px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
-              selectedType === type ? 'bg-primary text-white' : 'bg-slate-100 text-slate-600'
-            }`}
-          >
-            {typeLabels[type] || type} ({count})
-          </button>
-        ))}
       </div>
 
       {/* Search */}
