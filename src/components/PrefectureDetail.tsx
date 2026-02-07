@@ -150,10 +150,35 @@ export default function PrefectureDetail({ prefecture, onStartQuiz, prevPrefectu
         </div>
       </div>
 
-      {/* Expanded map overlay */}
+      {/* Expanded map overlay - controls are separate flex row, not overlaid on Leaflet */}
       {mapExpanded && geoJson && (
-        <div className="fixed inset-0 z-[60] bg-white">
-          <div className="w-full h-full">
+        <div className="fixed inset-0 z-[60] bg-white flex flex-col">
+          {/* Control bar - above the map, never hidden by Leaflet */}
+          <div
+            className="flex-shrink-0 flex items-center justify-between px-4 pb-2 bg-white border-b border-slate-100"
+            style={{ paddingTop: 'calc(env(safe-area-inset-top, 0px) + 0.5rem)' }}
+          >
+            <button
+              onClick={() => setMapExpanded(false)}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-100 active:bg-slate-200 transition-colors"
+            >
+              <svg className="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+              <span className="text-sm font-medium text-slate-700">閉じる</span>
+            </button>
+            <button
+              onClick={() => setShowLabels(!showLabels)}
+              className="flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-100 active:bg-slate-200 transition-colors"
+            >
+              <span className="text-sm font-medium text-slate-700">ラベル</span>
+              <div className={`relative w-9 h-5 rounded-full transition-colors ${showLabels ? 'bg-primary' : 'bg-slate-300'}`}>
+                <div className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${showLabels ? 'translate-x-4' : 'translate-x-0.5'}`} />
+              </div>
+            </button>
+          </div>
+          {/* Map fills remaining space */}
+          <div className="flex-1 min-h-0">
             <PrefectureLeafletMap
               geojson={geoJson}
               interactive={false}
@@ -161,30 +186,6 @@ export default function PrefectureDetail({ prefecture, onStartQuiz, prevPrefectu
               showLabels={showLabels}
               className="w-full h-full"
             />
-          </div>
-          {/* Overlay controls - z-[1000] above Leaflet */}
-          <div
-            className="absolute left-3 right-3 z-[1000] flex justify-between items-start"
-            style={{ top: 'calc(env(safe-area-inset-top, 0px) + 0.75rem)' }}
-          >
-            <button
-              onClick={() => setMapExpanded(false)}
-              className="bg-white/95 backdrop-blur-sm rounded-xl px-3 py-2.5 shadow-lg flex items-center gap-1.5 active:scale-95 transition-transform"
-            >
-              <svg className="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-              <span className="text-sm font-medium text-slate-700">閉じる</span>
-            </button>
-            <button
-              onClick={() => setShowLabels(!showLabels)}
-              className="bg-white/95 backdrop-blur-sm rounded-xl px-3 py-2.5 shadow-lg flex items-center gap-2 active:scale-95 transition-transform"
-            >
-              <span className="text-sm font-medium text-slate-700">ラベル</span>
-              <div className={`relative w-9 h-5 rounded-full transition-colors ${showLabels ? 'bg-primary' : 'bg-slate-300'}`}>
-                <div className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${showLabels ? 'translate-x-4' : 'translate-x-0.5'}`} />
-              </div>
-            </button>
           </div>
         </div>
       )}
