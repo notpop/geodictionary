@@ -97,13 +97,13 @@ export default function PrefectureDetail({ prefecture, onStartQuiz, prevPrefectu
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
               </Link>
               {prevPrefecture ? (
-                <Link href={`/municipalities/${prevPrefecture.nameEn}`} className="text-slate-300 active:text-primary p-1">
+                <Link href={`/municipalities/${prevPrefecture.nameEn}`} scroll={true} onClick={() => window.scrollTo(0, 0)} className="text-slate-300 active:text-primary p-1">
                   <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
                 </Link>
               ) : <div className="w-5" />}
               <h2 className="text-lg font-bold text-slate-800">{prefecture.name}</h2>
               {nextPrefecture ? (
-                <Link href={`/municipalities/${nextPrefecture.nameEn}`} className="text-slate-300 active:text-primary p-1">
+                <Link href={`/municipalities/${nextPrefecture.nameEn}`} scroll={true} onClick={() => window.scrollTo(0, 0)} className="text-slate-300 active:text-primary p-1">
                   <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
                 </Link>
               ) : <div className="w-5" />}

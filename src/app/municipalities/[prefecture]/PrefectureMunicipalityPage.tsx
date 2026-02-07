@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import PrefectureDetail from '@/components/PrefectureDetail'
 import MunicipalityQuiz from '@/components/MunicipalityQuiz'
 import municipalityData from '@/data/municipalities.json'
@@ -14,6 +14,11 @@ interface Props {
 
 export default function PrefectureMunicipalityPage({ prefecture, prevPrefecture, nextPrefecture }: Props) {
   const [mode, setMode] = useState<'learn' | 'quiz_map'>('learn')
+
+  // 遷移時にページトップへスクロール
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [prefecture.code])
 
   if (mode === 'quiz_map') {
     return (

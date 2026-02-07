@@ -150,6 +150,8 @@ export default function MunicipalitiesPage() {
               <Link
                 key={pref.code}
                 href={`/municipalities/${pref.nameEn}`}
+                scroll={true}
+                onClick={() => window.scrollTo(0, 0)}
                 className={`block p-3 rounded-xl border transition-all active:scale-[0.98] ${
                   isMastered ? 'border-green-300 bg-green-50' : 'border-slate-100 bg-white'
                 }`}
