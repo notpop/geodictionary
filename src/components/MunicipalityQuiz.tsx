@@ -258,7 +258,7 @@ export default function MunicipalityQuiz({
 
   // Quiz screen - compact layout for 100dvh
   return (
-    <div className="flex flex-col" style={{ height: 'calc(100dvh - 3.5rem - env(safe-area-inset-top, 0px))' }}>
+    <div className="flex flex-col relative" style={{ height: 'calc(100dvh - 3.5rem - env(safe-area-inset-top, 0px))' }}>
       {/* Header row with quit button */}
       <div className="flex items-center justify-between py-2 flex-shrink-0 px-1">
         <button
@@ -401,14 +401,16 @@ export default function MunicipalityQuiz({
         )}
       </div>
 
-      {/* Next button - fixed at bottom */}
+      {/* Next button - overlay at bottom */}
       {isAnswered && (
-        <button
-          onClick={handleNext}
-          className="w-full py-3 bg-primary text-white rounded-xl font-bold active:scale-[0.98] transition-transform flex-shrink-0 mb-1"
-        >
-          {currentIndex < questions.length - 1 ? '次へ' : '結果を見る'}
-        </button>
+        <div className="absolute bottom-0 left-0 right-0 z-10 px-1 pb-1 pt-8 bg-gradient-to-t from-slate-50 via-slate-50/95 to-transparent pointer-events-none">
+          <button
+            onClick={handleNext}
+            className="w-full py-3 bg-primary text-white rounded-xl font-bold active:scale-[0.98] transition-transform pointer-events-auto"
+          >
+            {currentIndex < questions.length - 1 ? '次へ' : '結果を見る'}
+          </button>
+        </div>
       )}
     </div>
   )
