@@ -194,4 +194,17 @@ body {
   will-change: transform, opacity;
 }
 
+/* Leaflet municipality labels */
+.leaflet-municipality-label {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: #334155;
+  font-size: 10px;
+  font-weight: 600;
+  text-shadow: 0 0 3px #fff, 0 0 3px #fff, 0 0 3px #fff;
+  white-space: nowrap;
+  padding: 0 !important;
+}
+
 /* Standalone PWA - safe area handled by Header + main paddingTop */

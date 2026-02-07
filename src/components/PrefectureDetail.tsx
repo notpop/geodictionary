@@ -94,7 +94,7 @@ export default function PrefectureDetail({ prefecture, onStartQuiz }: Prefecture
               geojson={geoJson}
               interactive={false}
               highlightedName={highlightedMuni}
-              showTileLabels={true}
+              showLabels={true}
               className="h-48"
             />
           ) : (

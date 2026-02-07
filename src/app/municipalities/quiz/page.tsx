@@ -170,11 +170,11 @@ function QuizPageInner() {
       <div>
         <h2 className="text-sm font-semibold text-slate-700 mb-1.5">範囲</h2>
 
-        {/* 全国 + 地方 */}
-        <div className="flex gap-1.5 overflow-x-auto pb-1.5 -mx-1 px-1 mb-1.5" style={{ WebkitOverflowScrolling: 'touch' }}>
+        {/* 全国 + 地方 (2行で折返し) */}
+        <div className="flex flex-wrap gap-1.5 mb-1.5">
           <button
             onClick={() => { setSelectedPref(null); setSelectedRegion(null) }}
-            className={`flex-shrink-0 px-3 py-1.5 rounded-lg text-sm font-medium transition-all active:scale-[0.98] ${
+            className={`px-3 py-1 rounded-lg text-sm font-medium transition-all active:scale-[0.98] ${
               !selectedPref && !selectedRegion
                 ? 'bg-primary text-white'
                 : 'bg-slate-100 text-slate-700'
@@ -186,7 +186,7 @@ function QuizPageInner() {
             <button
               key={r.id}
               onClick={() => { setSelectedRegion(r.id); setSelectedPref(null) }}
-              className={`flex-shrink-0 px-3 py-1.5 rounded-lg text-sm font-medium transition-all active:scale-[0.98] ${
+              className={`px-3 py-1 rounded-lg text-sm font-medium transition-all active:scale-[0.98] ${
                 selectedRegion === r.id && !selectedPref
                   ? 'bg-primary text-white'
                   : 'bg-slate-100 text-slate-700'
@@ -197,19 +197,19 @@ function QuizPageInner() {
           ))}
         </div>
 
-        {/* 都道府県別 */}
-        <div className="grid grid-cols-4 gap-1 max-h-40 overflow-y-auto rounded-xl bg-slate-50 p-1.5">
+        {/* 都道府県別 (全表示) */}
+        <div className="grid grid-cols-6 gap-1 rounded-xl bg-slate-50 p-1.5">
           {prefectures.map((pref) => (
             <button
               key={pref.code}
               onClick={() => { setSelectedPref(pref.code); setSelectedRegion(null); setQuizMode('map_click') }}
-              className={`px-1 py-1.5 rounded-lg text-xs font-medium transition-all active:scale-[0.98] ${
+              className={`px-0.5 py-1 rounded-lg text-[11px] font-medium transition-all active:scale-[0.98] ${
                 selectedPref === pref.code
                   ? 'bg-primary text-white'
                   : 'bg-white text-slate-700'
               }`}
             >
-              {pref.name}
+              {pref.name.replace(/[都府県]$/, '')}
             </button>
           ))}
         </div>

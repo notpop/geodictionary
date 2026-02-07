@@ -11,7 +11,7 @@ interface LeafletMapProps {
   highlightedName?: string | null
   wrongName?: string | null
   interactive?: boolean
-  showTileLabels?: boolean
+  showLabels?: boolean
   className?: string
 }
 
@@ -21,7 +21,7 @@ export default function LeafletMap({
   highlightedName,
   wrongName,
   interactive = true,
-  showTileLabels = false,
+  showLabels = false,
   className = '',
 }: LeafletMapProps) {
   const mapRef = useRef<L.Map | null>(null)
@@ -40,12 +40,12 @@ export default function LeafletMap({
       }
       return {
         fillColor: '#ffffff',
-        fillOpacity: showTileLabels ? 0.4 : 1,
+        fillOpacity: showLabels ? 0.5 : 1,
         color: '#94a3b8',
         weight: 1.5,
       }
     },
-    [highlightedName, wrongName, showTileLabels]
+    [highlightedName, wrongName, showLabels]
   )
 
   // Initialize map
@@ -64,9 +64,8 @@ export default function LeafletMap({
     // Add zoom controls at bottom-right
     L.control.zoom({ position: 'bottomright' }).addTo(map)
 
-    // Light basemap for geographic context
-    const tileVariant = showTileLabels ? 'light_all' : 'light_nolabels'
-    L.tileLayer(`https://{s}.basemaps.cartocdn.com/${tileVariant}/{z}/{x}/{y}{r}.png`, {
+    // Light basemap for geographic context (no labels - we add our own in Japanese)
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
       maxZoom: 19,
     }).addTo(map)
     map.getContainer().style.backgroundColor = '#f0f4f8'
@@ -77,7 +76,7 @@ export default function LeafletMap({
       map.remove()
       mapRef.current = null
     }
-  }, [interactive, showTileLabels])
+  }, [interactive])
 
   // Update GeoJSON layer
   useEffect(() => {
@@ -96,6 +95,14 @@ export default function LeafletMap({
             onFeatureClick(feature.properties.name)
           })
         }
+        // Add Japanese labels from GeoJSON properties
+        if (showLabels && feature.properties?.name) {
+          lyr.bindTooltip(feature.properties.name, {
+            permanent: true,
+            direction: 'center',
+            className: 'leaflet-municipality-label',
+          })
+        }
       },
     }).addTo(map)
 
@@ -105,7 +112,7 @@ export default function LeafletMap({
     if (bounds.isValid()) {
       map.fitBounds(bounds, { padding: [20, 20], maxZoom: 12 })
     }
-  }, [geojson, getStyle, interactive, onFeatureClick])
+  }, [geojson, getStyle, interactive, onFeatureClick, showLabels])
 
   // Update styles when highlight changes
   useEffect(() => {
