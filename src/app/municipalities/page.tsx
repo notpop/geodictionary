@@ -45,11 +45,6 @@ export default function MunicipalitiesPage() {
 
   return (
     <div className="space-y-6 animate-fade-in">
-      <div className="text-center">
-        <h1 className="text-2xl font-bold text-slate-800 mb-1">市区町村マスター</h1>
-        <p className="text-sm text-slate-500">全{totalMunicipalities.toLocaleString()}市区町村を地図で覚える</p>
-      </div>
-
       {/* Stats */}
       {progress && progress.quizzesTaken > 0 && (
         <div className="bg-gradient-to-r from-primary/10 to-blue-50 rounded-2xl p-4">
