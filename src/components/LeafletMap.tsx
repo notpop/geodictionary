@@ -107,7 +107,7 @@ export default function LeafletMap({
 
     const bounds = layer.getBounds()
     if (bounds.isValid()) {
-      map.fitBounds(bounds, { padding: [20, 20], maxZoom: 14 })
+      map.fitBounds(bounds, { padding: [20, 20], maxZoom: 16 })
     }
   }, [geojson, getStyle, interactive, onFeatureClick, showLabels])
 
