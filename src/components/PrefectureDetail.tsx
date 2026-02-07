@@ -93,8 +93,9 @@ export default function PrefectureDetail({ prefecture, onStartQuiz, prevPrefectu
         <div className="p-3 pb-2">
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-1">
-              <Link href="/municipalities" className="text-slate-400 active:text-primary p-1 -ml-1">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+              <Link href="/municipalities" className="text-xs text-slate-500 bg-slate-100 active:bg-slate-200 px-2 py-1 rounded-full flex items-center gap-0.5 -ml-1">
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+                一覧
               </Link>
               {prevPrefecture ? (
                 <Link href={`/municipalities/${prevPrefecture.nameEn}`} scroll={true} onClick={() => window.scrollTo(0, 0)} className="text-slate-300 active:text-primary p-1">
