@@ -401,12 +401,15 @@ export default function MunicipalityQuiz({
         )}
       </div>
 
-      {/* Next button - overlay at bottom */}
+      {/* Next button - fixed at screen bottom */}
       {isAnswered && (
-        <div className="absolute bottom-0 left-0 right-0 z-10 px-1 pb-1 pt-8 bg-gradient-to-t from-slate-50 via-slate-50/95 to-transparent pointer-events-none">
+        <div
+          className="fixed bottom-0 left-0 right-0 md:left-64 z-50 px-4 pt-6 bg-gradient-to-t from-white via-white/90 to-transparent"
+          style={{ paddingBottom: 'calc(0.75rem + env(safe-area-inset-bottom, 0px))' }}
+        >
           <button
             onClick={handleNext}
-            className="w-full py-3 bg-primary text-white rounded-xl font-bold active:scale-[0.98] transition-transform pointer-events-auto"
+            className="w-full max-w-4xl mx-auto py-4 bg-primary text-white rounded-2xl font-bold text-lg shadow-lg active:scale-[0.98] transition-transform"
           >
             {currentIndex < questions.length - 1 ? '次へ' : '結果を見る'}
           </button>
