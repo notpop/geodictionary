@@ -157,8 +157,8 @@ export default function PrefectureDetail({ prefecture, onStartQuiz, prevPrefectu
         <div className="fixed inset-0 z-[60] bg-white flex flex-col">
           {/* Control bar - above the map, never hidden by Leaflet */}
           <div
-            className="flex-shrink-0 flex items-center justify-between px-4 pb-2 bg-white border-b border-slate-100"
-            style={{ paddingTop: 'calc(env(safe-area-inset-top, 0px) + 0.5rem)' }}
+            className="flex-shrink-0 flex items-center justify-between px-3 py-1.5 bg-white border-b border-slate-100"
+            style={{ paddingTop: 'env(safe-area-inset-top, 0px)' }}
           >
             <button
               onClick={() => setMapExpanded(false)}

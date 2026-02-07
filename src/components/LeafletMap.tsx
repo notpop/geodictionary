@@ -107,7 +107,13 @@ export default function LeafletMap({
 
     const bounds = layer.getBounds()
     if (bounds.isValid()) {
+      map.invalidateSize()
       map.fitBounds(bounds, { padding: [20, 20], maxZoom: 16 })
+      // Re-fit after layout settles (fixes expanded overlay sizing)
+      requestAnimationFrame(() => {
+        map.invalidateSize()
+        map.fitBounds(bounds, { padding: [20, 20], maxZoom: 16 })
+      })
     }
   }, [geojson, getStyle, interactive, onFeatureClick, showLabels])
 
