@@ -79,22 +79,25 @@ export default function PrefectureDetail({ prefecture, onStartQuiz }: Prefecture
 
   return (
     <div className="space-y-4 animate-fade-in">
-      {/* Header with map */}
-      <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
-        <div className="p-4">
-          <div className="flex items-center justify-between mb-3">
-            <h2 className="text-xl font-bold text-slate-800">{prefecture.name}</h2>
-            <span className="text-sm text-slate-500">{allEntries.length}件</span>
+      {/* Header with map - sticky */}
+      <div
+        className="bg-white rounded-2xl shadow-sm overflow-hidden sticky z-20"
+        style={{ top: 'calc(3.5rem + env(safe-area-inset-top, 0px))' }}
+      >
+        <div className="p-3">
+          <div className="flex items-center justify-between mb-2">
+            <h2 className="text-lg font-bold text-slate-800">{prefecture.name}</h2>
+            <span className="text-xs text-slate-500">{allEntries.length}件</span>
           </div>
           {geoJson ? (
             <PrefectureLeafletMap
               geojson={geoJson}
               interactive={false}
               highlightedName={highlightedMuni}
-              className="h-48"
+              className="h-40"
             />
           ) : (
-            <div className="h-48 bg-slate-100 rounded-xl flex items-center justify-center">
+            <div className="h-40 bg-slate-100 rounded-xl flex items-center justify-center">
               <span className="text-slate-400 text-sm">地図を読み込み中...</span>
             </div>
           )}
