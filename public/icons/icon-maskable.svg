@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
   <rect width="512" height="512" fill="#2563eb"/>
   <text x="256" y="280" text-anchor="middle" font-family="system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif" font-weight="800" font-size="160" fill="white" letter-spacing="-6">
-    Geo<tspan fill="#ef4444">JP</tspan>
+    GeoJP
   </text>
 </svg>
