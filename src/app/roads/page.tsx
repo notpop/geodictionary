@@ -8,6 +8,10 @@ import type { Road } from '@/lib/types'
 
 const categories = ['全て', '主要幹線', '一般国道', '補助国道']
 
+function shortName(s: string) {
+  return s.replace(/（.*?）/g, '')
+}
+
 export default function RoadsPage() {
   const [selectedRoad, setSelectedRoad] = useState<Road | null>(null)
   const [filterCategory, setFilterCategory] = useState('全て')
@@ -145,7 +149,7 @@ export default function RoadsPage() {
               </span>
               <div className="min-w-0 flex-1">
                 <div className="text-sm font-medium text-slate-800 truncate">
-                  {road.startPoint} → {road.endPoint}
+                  {shortName(road.startPoint)} → {shortName(road.endPoint)}
                 </div>
               </div>
               <span className="flex-shrink-0 text-xs text-slate-400">{road.length}km</span>
