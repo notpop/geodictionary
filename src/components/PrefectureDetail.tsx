@@ -116,30 +116,32 @@ export default function PrefectureDetail({ prefecture, onStartQuiz, prevPrefectu
         </button>
       </div>
 
-      {/* Map - sticky */}
+      {/* Map - sticky, with expand button outside Leaflet's stacking context */}
       <div
-        className="bg-white rounded-xl shadow-sm sticky z-30 mb-3"
+        className="sticky z-30 mb-3"
         style={{ top: 'calc(3.5rem + env(safe-area-inset-top, 0px))' }}
       >
         <div className="relative">
-          {geoJson ? (
-            <PrefectureLeafletMap
-              geojson={geoJson}
-              interactive={false}
-              highlightedName={highlightedMuni}
-              showLabels={showLabels}
-              className="h-44 rounded-xl"
-            />
-          ) : (
-            <div className="h-44 bg-slate-100 rounded-xl flex items-center justify-center">
-              <span className="text-slate-400 text-sm">地図を読み込み中...</span>
-            </div>
-          )}
-          {/* Expand button - z-[1000] to stay above Leaflet layers */}
+          <div className="bg-white rounded-xl shadow-sm overflow-hidden">
+            {geoJson ? (
+              <PrefectureLeafletMap
+                geojson={geoJson}
+                interactive={false}
+                highlightedName={highlightedMuni}
+                showLabels={showLabels}
+                className="h-44"
+              />
+            ) : (
+              <div className="h-44 bg-slate-100 flex items-center justify-center">
+                <span className="text-slate-400 text-sm">地図を読み込み中...</span>
+              </div>
+            )}
+          </div>
+          {/* Expand button - outside the overflow:hidden Leaflet container */}
           {geoJson && (
             <button
               onClick={() => setMapExpanded(true)}
-              className="absolute bottom-2 right-2 z-[1000] bg-white/90 backdrop-blur-sm rounded-lg p-1.5 shadow active:scale-95 transition-transform"
+              className="absolute bottom-2 right-2 z-10 bg-white/90 backdrop-blur-sm rounded-lg p-1.5 shadow active:scale-95 transition-transform"
               aria-label="地図を拡大"
             >
               <svg className="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
