@@ -106,11 +106,12 @@ export default function PrefectureDetail({ prefecture, onStartQuiz, prevPrefectu
         </div>
         <button
           onClick={() => setShowLabels(!showLabels)}
-          className={`text-xs px-2 py-0.5 rounded-full transition-colors ${
-            showLabels ? 'bg-primary text-white' : 'bg-slate-100 text-slate-500'
-          }`}
+          className="flex items-center gap-1.5 active:scale-[0.96] transition-transform"
         >
-          ラベル
+          <span className="text-xs text-slate-500">ラベル</span>
+          <div className={`relative w-9 h-5 rounded-full transition-colors ${showLabels ? 'bg-primary' : 'bg-slate-300'}`}>
+            <div className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${showLabels ? 'translate-x-4' : 'translate-x-0.5'}`} />
+          </div>
         </button>
       </div>
 
