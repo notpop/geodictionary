@@ -85,34 +85,37 @@ export default function PrefectureDetail({ prefecture, onStartQuiz, prevPrefectu
 
   return (
     <div className="space-y-4 animate-fade-in">
-      {/* Header with map */}
-      <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
+      {/* Header with map - sticky */}
+      <div
+        className="bg-white rounded-2xl shadow-sm overflow-hidden sticky z-20"
+        style={{ top: 'calc(3.5rem + env(safe-area-inset-top, 0px))' }}
+      >
         <div className="p-3 pb-2">
           <div className="flex items-center justify-between mb-2">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1">
+              <Link href="/municipalities" className="text-slate-400 active:text-primary p-1 -ml-1">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+              </Link>
               {prevPrefecture ? (
-                <Link href={`/municipalities/${prevPrefecture.nameEn}`} className="text-slate-400 active:text-primary p-1">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+                <Link href={`/municipalities/${prevPrefecture.nameEn}`} className="text-slate-300 active:text-primary p-1">
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
                 </Link>
-              ) : <div className="w-6" />}
+              ) : <div className="w-5" />}
               <h2 className="text-lg font-bold text-slate-800">{prefecture.name}</h2>
               {nextPrefecture ? (
-                <Link href={`/municipalities/${nextPrefecture.nameEn}`} className="text-slate-400 active:text-primary p-1">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                <Link href={`/municipalities/${nextPrefecture.nameEn}`} className="text-slate-300 active:text-primary p-1">
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
                 </Link>
-              ) : <div className="w-6" />}
+              ) : <div className="w-5" />}
             </div>
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => setShowLabels(!showLabels)}
-                className={`text-xs px-2 py-0.5 rounded-full transition-colors ${
-                  showLabels ? 'bg-primary text-white' : 'bg-slate-100 text-slate-500'
-                }`}
-              >
-                ラベル
-              </button>
-              <span className="text-xs text-slate-500">{allEntries.length}件</span>
-            </div>
+            <button
+              onClick={() => setShowLabels(!showLabels)}
+              className={`text-xs px-2 py-0.5 rounded-full transition-colors ${
+                showLabels ? 'bg-primary text-white' : 'bg-slate-100 text-slate-500'
+              }`}
+            >
+              ラベル
+            </button>
           </div>
           {geoJson ? (
             <PrefectureLeafletMap
