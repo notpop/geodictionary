@@ -304,7 +304,7 @@ export default function MunicipalityQuiz({
                 onFeatureClick={!isAnswered ? handleAnswer : undefined}
                 highlightedName={isAnswered ? currentQuestion.correctMuniName : null}
                 wrongName={isAnswered && !isCorrect ? selectedAnswer : null}
-                className="h-full"
+                className="h-full rounded-xl overflow-hidden"
               />
             ) : (
               <JapanMap
@@ -376,7 +376,7 @@ export default function MunicipalityQuiz({
                     interactive={false}
                     highlightedName={currentQuestion.correctMuniName}
                     wrongName={!isCorrect ? selectedAnswer : null}
-                    className="h-full"
+                    className="h-full rounded-xl overflow-hidden"
                   />
                 ) : (
                   <JapanMap

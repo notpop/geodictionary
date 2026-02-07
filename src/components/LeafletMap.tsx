@@ -59,6 +59,8 @@ export default function LeafletMap({
       touchZoom: true,
       doubleClickZoom: true,
       attributionControl: false,
+      center: [36.5, 137.5],
+      zoom: 5,
     })
 
     // Light basemap for geographic context (no labels - we add our own in Japanese)
@@ -110,10 +112,14 @@ export default function LeafletMap({
       map.invalidateSize()
       map.fitBounds(bounds, { padding: [20, 20], maxZoom: 16 })
       // Re-fit after layout settles (fixes expanded overlay sizing)
-      requestAnimationFrame(() => {
+      // Use multiple retries with increasing delays for reliability
+      const retryFit = () => {
         map.invalidateSize()
         map.fitBounds(bounds, { padding: [20, 20], maxZoom: 16 })
-      })
+      }
+      requestAnimationFrame(retryFit)
+      setTimeout(retryFit, 100)
+      setTimeout(retryFit, 300)
     }
   }, [geojson, getStyle, interactive, onFeatureClick, showLabels])
 
@@ -127,8 +133,7 @@ export default function LeafletMap({
   return (
     <div
       ref={containerRef}
-      className={`w-full rounded-xl overflow-hidden ${className}`}
-      style={{ minHeight: 200 }}
+      className={`w-full ${className}`}
     />
   )
 }
