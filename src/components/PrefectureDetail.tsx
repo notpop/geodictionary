@@ -84,86 +84,87 @@ export default function PrefectureDetail({ prefecture, onStartQuiz, prevPrefectu
   }, [allEntries])
 
   return (
-    <div className="space-y-4 animate-fade-in">
-      {/* Header with map - sticky */}
+    <div className="animate-fade-in" style={{ marginTop: '-0.75rem' }}>
+      {/* Navigation bar */}
+      <div className="flex items-center justify-between mb-2">
+        <div className="flex items-center gap-1.5">
+          <Link href="/municipalities" className="text-xs text-slate-500 bg-slate-100 active:bg-slate-200 px-2 py-1 rounded-full flex items-center gap-0.5">
+            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+            一覧
+          </Link>
+          {prevPrefecture ? (
+            <Link href={`/municipalities/${prevPrefecture.nameEn}`} scroll={true} onClick={() => window.scrollTo(0, 0)} className="text-slate-300 active:text-primary p-1">
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+            </Link>
+          ) : <div className="w-5" />}
+          <h2 className="text-lg font-bold text-slate-800">{prefecture.name}</h2>
+          {nextPrefecture ? (
+            <Link href={`/municipalities/${nextPrefecture.nameEn}`} scroll={true} onClick={() => window.scrollTo(0, 0)} className="text-slate-300 active:text-primary p-1">
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+            </Link>
+          ) : <div className="w-5" />}
+        </div>
+        <button
+          onClick={() => setShowLabels(!showLabels)}
+          className={`text-xs px-2 py-0.5 rounded-full transition-colors ${
+            showLabels ? 'bg-primary text-white' : 'bg-slate-100 text-slate-500'
+          }`}
+        >
+          ラベル
+        </button>
+      </div>
+
+      {/* Map - sticky */}
       <div
-        className="bg-white rounded-2xl shadow-sm overflow-hidden sticky z-30"
+        className="bg-white rounded-xl shadow-sm sticky z-30 mb-3"
         style={{ top: 'calc(3.5rem + env(safe-area-inset-top, 0px))' }}
       >
-        <div className="p-3 pb-2">
-          <div className="flex items-center justify-between mb-2">
-            <div className="flex items-center gap-1">
-              <Link href="/municipalities" className="text-xs text-slate-500 bg-slate-100 active:bg-slate-200 px-2 py-1 rounded-full flex items-center gap-0.5 -ml-1">
-                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
-                一覧
-              </Link>
-              {prevPrefecture ? (
-                <Link href={`/municipalities/${prevPrefecture.nameEn}`} scroll={true} onClick={() => window.scrollTo(0, 0)} className="text-slate-300 active:text-primary p-1">
-                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
-                </Link>
-              ) : <div className="w-5" />}
-              <h2 className="text-lg font-bold text-slate-800">{prefecture.name}</h2>
-              {nextPrefecture ? (
-                <Link href={`/municipalities/${nextPrefecture.nameEn}`} scroll={true} onClick={() => window.scrollTo(0, 0)} className="text-slate-300 active:text-primary p-1">
-                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-                </Link>
-              ) : <div className="w-5" />}
-            </div>
-            <button
-              onClick={() => setShowLabels(!showLabels)}
-              className={`text-xs px-2 py-0.5 rounded-full transition-colors ${
-                showLabels ? 'bg-primary text-white' : 'bg-slate-100 text-slate-500'
-              }`}
-            >
-              ラベル
-            </button>
+        {geoJson ? (
+          <PrefectureLeafletMap
+            geojson={geoJson}
+            interactive={false}
+            highlightedName={highlightedMuni}
+            showLabels={showLabels}
+            className="h-44 rounded-xl"
+          />
+        ) : (
+          <div className="h-44 bg-slate-100 rounded-xl flex items-center justify-center">
+            <span className="text-slate-400 text-sm">地図を読み込み中...</span>
           </div>
-          {geoJson ? (
-            <PrefectureLeafletMap
-              geojson={geoJson}
-              interactive={false}
-              highlightedName={highlightedMuni}
-              showLabels={showLabels}
-              className="h-48"
-            />
-          ) : (
-            <div className="h-48 bg-slate-100 rounded-xl flex items-center justify-center">
-              <span className="text-slate-400 text-sm">地図を読み込み中...</span>
-            </div>
-          )}
-          {/* Type filter chips - inside sticky card */}
-          <div className="flex gap-2 overflow-x-auto pt-2 pb-1 -mx-1 px-1" style={{ WebkitOverflowScrolling: 'touch' }}>
-            <button
-              onClick={() => setSelectedType('all')}
-              className={`flex-shrink-0 px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
-                selectedType === 'all' ? 'bg-primary text-white' : 'bg-slate-100 text-slate-600'
-              }`}
-            >
-              全て ({allEntries.length})
-            </button>
-            {Object.entries(typeCounts).map(([type, count]) => (
-              <button
-                key={type}
-                onClick={() => setSelectedType(type)}
-                className={`flex-shrink-0 px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
-                  selectedType === type ? 'bg-primary text-white' : 'bg-slate-100 text-slate-600'
-                }`}
-              >
-                {typeLabels[type] || type} ({count})
-              </button>
-            ))}
-          </div>
-        </div>
+        )}
+      </div>
+
+      {/* Type filter chips */}
+      <div className="flex gap-2 overflow-x-auto pb-2 -mx-1 px-1" style={{ WebkitOverflowScrolling: 'touch' }}>
+        <button
+          onClick={() => setSelectedType('all')}
+          className={`flex-shrink-0 px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
+            selectedType === 'all' ? 'bg-primary text-white' : 'bg-slate-100 text-slate-600'
+          }`}
+        >
+          全て ({allEntries.length})
+        </button>
+        {Object.entries(typeCounts).map(([type, count]) => (
+          <button
+            key={type}
+            onClick={() => setSelectedType(type)}
+            className={`flex-shrink-0 px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
+              selectedType === type ? 'bg-primary text-white' : 'bg-slate-100 text-slate-600'
+            }`}
+          >
+            {typeLabels[type] || type} ({count})
+          </button>
+        ))}
       </div>
 
       {/* Search */}
-      <div className="relative">
+      <div className="relative mb-3">
         <input
           type="text"
           placeholder="市区町村を検索..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full px-4 py-3 bg-white rounded-xl border border-slate-200 text-base focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
+          className="w-full px-4 py-2.5 bg-white rounded-xl border border-slate-200 text-base focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
           style={{ fontSize: '16px' }}
         />
         {searchQuery && (
@@ -208,7 +209,7 @@ export default function PrefectureDetail({ prefecture, onStartQuiz, prevPrefectu
 
       {/* Quiz CTA */}
       {onStartQuiz && (
-        <div className="sticky bottom-4 pt-2">
+        <div className="sticky bottom-4 pt-4">
           <button
             onClick={onStartQuiz}
             className="w-full py-4 bg-gradient-to-r from-primary to-blue-600 text-white rounded-2xl font-bold text-lg shadow-lg active:scale-[0.98] transition-transform"

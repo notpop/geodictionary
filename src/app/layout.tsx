@@ -41,7 +41,7 @@ export default function RootLayout({
         <div className="flex">
           <Navigation />
           <main className="flex-1 md:ml-64 min-h-screen pb-safe" style={{ overflowX: 'clip', paddingTop: 'calc(3.5rem + env(safe-area-inset-top, 0px))' }}>
-            <div className="container mx-auto px-4 py-6 max-w-4xl overflow-hidden">
+            <div className="container mx-auto px-4 py-6 max-w-4xl" style={{ overflowX: 'clip' }}>
               {children}
             </div>
           </main>
