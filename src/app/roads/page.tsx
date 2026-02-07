@@ -44,7 +44,7 @@ export default function RoadsPage() {
   }, [selectedRoad])
 
   return (
-    <div className="space-y-4 animate-fade-in">
+    <div className="space-y-4 animate-fade-in overflow-x-hidden">
       <div className="text-center">
         <h1 className="text-2xl font-bold text-slate-800 mb-1">国道マスター</h1>
         <p className="text-sm text-slate-500">主要国道{roads.length}本を地図で覚える</p>
@@ -128,27 +128,27 @@ export default function RoadsPage() {
         {filteredRoads.map((road) => (
           <button
             key={road.number}
-            className={`w-full text-left px-4 py-3 bg-white rounded-xl border transition-all active:scale-[0.98] ${
+            className={`w-full text-left px-3 py-2.5 bg-white rounded-xl border transition-all active:scale-[0.98] ${
               selectedRoad?.number === road.number
                 ? 'border-primary bg-primary/5 shadow-sm'
                 : 'border-slate-100'
             }`}
             onClick={() => setSelectedRoad(selectedRoad?.number === road.number ? null : road)}
           >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="font-bold text-primary text-sm w-16">{road.name}</span>
-                <span className="text-xs text-slate-500 truncate">
-                  {road.startPoint} → {road.endPoint}
-                </span>
-              </div>
-              <span className={`text-xs px-2 py-0.5 rounded-full ${
+            <div className="flex items-center gap-2 min-w-0">
+              <span className={`flex-shrink-0 text-xs font-bold px-2 py-0.5 rounded ${
                 road.category === '主要幹線' ? 'bg-purple-100 text-purple-700' :
                 road.category === '一般国道' ? 'bg-blue-100 text-blue-700' :
                 'bg-slate-100 text-slate-600'
               }`}>
-                {road.category}
+                {road.number}
               </span>
+              <div className="min-w-0 flex-1">
+                <div className="text-sm font-medium text-slate-800 truncate">
+                  {road.startPoint} → {road.endPoint}
+                </div>
+              </div>
+              <span className="flex-shrink-0 text-xs text-slate-400">{road.length}km</span>
             </div>
           </button>
         ))}

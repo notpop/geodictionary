@@ -5,13 +5,13 @@ import RoadQuiz from '@/components/RoadQuiz'
 import roadData from '@/data/roads.json'
 import type { Road } from '@/lib/types'
 
-type QuizMode = 'multiple_choice' | 'map_click'
+type QuizMode = 'multiple_choice' | 'map_click' | 'identify'
 
 const categories = ['全て', '主要幹線', '一般国道', '補助国道']
 
 function RoadQuizPageInner() {
   const [started, setStarted] = useState(false)
-  const [quizMode, setQuizMode] = useState<QuizMode>('multiple_choice')
+  const [quizMode, setQuizMode] = useState<QuizMode>('identify')
   const [questionCount, setQuestionCount] = useState(10)
   const [filterCategory, setFilterCategory] = useState('全て')
 
@@ -40,11 +40,30 @@ function RoadQuizPageInner() {
   }
 
   return (
-    <div className="space-y-3 animate-fade-in">
+    <div className="space-y-3 animate-fade-in overflow-x-hidden">
+      {/* Back button */}
+      <button
+        onClick={() => window.history.back()}
+        className="flex items-center gap-1 text-sm text-slate-500 active:text-primary transition-colors"
+      >
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+        </svg>
+        戻る
+      </button>
+
       {/* Mode */}
       <div>
         <h2 className="text-sm font-semibold text-slate-700 mb-1.5">モード</h2>
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-3 gap-2">
+          <button
+            onClick={() => setQuizMode('identify')}
+            className={`p-2.5 rounded-xl border-2 transition-all active:scale-[0.98] ${
+              quizMode === 'identify' ? 'border-primary bg-primary/5' : 'border-slate-200 bg-white'
+            }`}
+          >
+            <div className="font-medium text-slate-800 text-sm">名前当て</div>
+          </button>
           <button
             onClick={() => setQuizMode('multiple_choice')}
             className={`p-2.5 rounded-xl border-2 transition-all active:scale-[0.98] ${

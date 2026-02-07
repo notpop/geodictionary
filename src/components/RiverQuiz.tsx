@@ -15,7 +15,7 @@ interface QuizQuestion {
 interface RiverQuizProps {
   rivers: River[]
   prefectureNames: Record<string, string>
-  mode: 'multiple_choice' | 'map_click'
+  mode: 'multiple_choice' | 'map_click' | 'identify'
   questionCount: number
   onComplete?: (correct: number, total: number) => void
   onBack?: () => void
@@ -33,17 +33,30 @@ function shuffle<T>(arr: T[]): T[] {
 function generateQuestions(
   rivers: River[],
   prefectureNames: Record<string, string>,
-  count: number
+  count: number,
+  mode: 'multiple_choice' | 'map_click' | 'identify'
 ): QuizQuestion[] {
   const picked = shuffle(rivers).slice(0, count)
-  const allPrefs = Object.entries(prefectureNames).map(([code, name]) => ({ code, name }))
 
+  if (mode === 'identify') {
+    return picked.map((river) => {
+      const wrong = shuffle(rivers.filter((r) => r.name !== river.name)).slice(0, 3)
+      const opts = shuffle([river, ...wrong])
+      return {
+        river,
+        options: opts.map((r) => r.name),
+        optionCodes: opts.map((r) => r.name),
+        correctCodes: river.prefectures,
+      }
+    })
+  }
+
+  const allPrefs = Object.entries(prefectureNames).map(([code, name]) => ({ code, name }))
   return picked.map((river) => {
     const correctCode = river.prefectures[Math.floor(Math.random() * river.prefectures.length)]
     const correctName = prefectureNames[correctCode] || correctCode
     const wrong = shuffle(allPrefs.filter((p) => !river.prefectures.includes(p.code))).slice(0, 3)
     const opts = shuffle([{ code: correctCode, name: correctName }, ...wrong])
-
     return {
       river,
       options: opts.map((o) => o.name),
@@ -70,31 +83,51 @@ export default function RiverQuiz({
   const [animState, setAnimState] = useState<'idle' | 'correct' | 'wrong'>('idle')
 
   useEffect(() => {
-    setQuestions(generateQuestions(rivers, prefectureNames, questionCount))
-  }, [rivers, prefectureNames, questionCount])
+    setQuestions(generateQuestions(rivers, prefectureNames, questionCount, mode))
+  }, [rivers, prefectureNames, questionCount, mode])
 
   const currentQuestion = questions[currentIndex]
   const progress = questions.length > 0 ? ((currentIndex + 1) / questions.length) * 100 : 0
-  const isCorrect = selectedAnswer ? currentQuestion?.river.prefectures.includes(selectedAnswer) : false
+
+  const isCorrectAnswer = useCallback(
+    (answer: string) => {
+      if (!currentQuestion) return false
+      if (mode === 'identify') {
+        return answer === currentQuestion.river.name
+      }
+      return currentQuestion.river.prefectures.includes(answer)
+    },
+    [currentQuestion, mode]
+  )
+
+  const isCorrect = selectedAnswer ? isCorrectAnswer(selectedAnswer) : false
 
   const highlightColors = useMemo(() => {
-    if (!isAnswered || !currentQuestion) return {}
+    if (!currentQuestion) return {}
+    if (mode === 'identify') {
+      const colors: Record<string, string> = {}
+      for (const code of currentQuestion.river.prefectures) {
+        colors[code] = '#3b82f6'
+      }
+      return colors
+    }
+    if (!isAnswered) return {}
     const colors: Record<string, string> = {}
     for (const code of currentQuestion.river.prefectures) {
-      colors[code] = '#3b82f6' // blue for rivers
+      colors[code] = '#3b82f6'
     }
     if (selectedAnswer && !currentQuestion.river.prefectures.includes(selectedAnswer)) {
       colors[selectedAnswer] = '#ef4444'
     }
     return colors
-  }, [isAnswered, currentQuestion, selectedAnswer])
+  }, [isAnswered, currentQuestion, selectedAnswer, mode])
 
   const handleAnswer = useCallback(
     (answer: string) => {
       if (isAnswered || !currentQuestion) return
       setSelectedAnswer(answer)
       setIsAnswered(true)
-      const correct = currentQuestion.river.prefectures.includes(answer)
+      const correct = isCorrectAnswer(answer)
       if (correct) {
         setCorrectCount((prev) => prev + 1)
         setAnimState('correct')
@@ -103,7 +136,7 @@ export default function RiverQuiz({
       }
       setTimeout(() => setAnimState('idle'), 600)
     },
-    [isAnswered, currentQuestion]
+    [isAnswered, currentQuestion, isCorrectAnswer]
   )
 
   const handleNext = useCallback(() => {
@@ -120,14 +153,14 @@ export default function RiverQuiz({
   }, [currentIndex, questions.length, correctCount, onComplete])
 
   const handleRetry = useCallback(() => {
-    setQuestions(generateQuestions(rivers, prefectureNames, questionCount))
+    setQuestions(generateQuestions(rivers, prefectureNames, questionCount, mode))
     setCurrentIndex(0)
     setSelectedAnswer(null)
     setIsAnswered(false)
     setCorrectCount(0)
     setIsComplete(false)
     setAnimState('idle')
-  }, [rivers, prefectureNames, questionCount])
+  }, [rivers, prefectureNames, questionCount, mode])
 
   if (questions.length === 0) {
     return <div className="text-center py-12 text-slate-500">問題を生成中...</div>
@@ -183,15 +216,29 @@ export default function RiverQuiz({
       </div>
 
       <div className={`rounded-xl p-3 flex-shrink-0 ${animState === 'correct' ? 'animate-pulse-green' : animState === 'wrong' ? 'animate-shake' : ''}`}>
-        <h2 className="text-lg font-bold text-slate-800 text-center">
-          「{currentQuestion.river.name}」が流れる都道府県は？
-        </h2>
-        <p className="text-xs text-slate-400 text-center mt-0.5">
-          {currentQuestion.river.reading} / {currentQuestion.river.length}km
-        </p>
+        {mode === 'identify' ? (
+          <>
+            <h2 className="text-lg font-bold text-slate-800 text-center">
+              この川は何？
+            </h2>
+            <p className="text-xs text-slate-400 text-center mt-0.5">
+              青く表示された都道府県を流れる川を選んでください
+            </p>
+          </>
+        ) : (
+          <>
+            <h2 className="text-lg font-bold text-slate-800 text-center">
+              「{currentQuestion.river.name}」が流れる都道府県は？
+            </h2>
+            <p className="text-xs text-slate-400 text-center mt-0.5">
+              {currentQuestion.river.reading} / {currentQuestion.river.length}km
+            </p>
+          </>
+        )}
       </div>
 
       <div className="flex-1 min-h-0 flex flex-col gap-2 py-1">
+        {/* Map click mode */}
         {mode === 'map_click' && (
           <div className="flex-1 min-h-0">
             <JapanMap
@@ -205,6 +252,56 @@ export default function RiverQuiz({
           </div>
         )}
 
+        {/* Identify mode: map always shown + 4 river name choices */}
+        {mode === 'identify' && (
+          <>
+            <div className="flex-1 min-h-0">
+              <JapanMap
+                prefectureColors={highlightColors}
+                showLabels={true}
+                size="full"
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-1.5 flex-shrink-0">
+              {currentQuestion.options.map((option, i) => {
+                const code = currentQuestion.optionCodes[i]
+                const isThisCorrect = code === currentQuestion.river.name
+                const isSelected = code === selectedAnswer
+
+                let btnClass = 'text-center px-2 py-2.5 rounded-xl border-2 transition-all active:scale-[0.98] '
+                if (!isAnswered) {
+                  btnClass += 'border-slate-200 bg-white'
+                } else if (isThisCorrect) {
+                  btnClass += 'border-green-500 bg-green-50'
+                } else if (isSelected) {
+                  btnClass += 'border-red-500 bg-red-50'
+                } else {
+                  btnClass += 'border-slate-100 bg-white opacity-50'
+                }
+
+                return (
+                  <button
+                    key={`${code}-${i}`}
+                    onClick={() => handleAnswer(code)}
+                    disabled={isAnswered}
+                    className={btnClass}
+                  >
+                    <span className="font-medium text-slate-800 text-sm">{option}</span>
+                  </button>
+                )
+              })}
+            </div>
+            {isAnswered && (
+              <div className="text-center flex-shrink-0 animate-fade-in">
+                <div className="text-xs text-slate-500">
+                  {currentQuestion.river.source} → {currentQuestion.river.mouth} ({currentQuestion.river.length}km)
+                </div>
+              </div>
+            )}
+          </>
+        )}
+
+        {/* Multiple choice mode */}
         {mode === 'multiple_choice' && (
           <>
             <div className="space-y-2 flex-shrink-0">

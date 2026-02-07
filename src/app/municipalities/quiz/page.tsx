@@ -15,7 +15,7 @@ function QuizPageInner() {
   const initialPref = searchParams.get('pref') || null
 
   const [started, setStarted] = useState(false)
-  const [quizMode, setQuizMode] = useState<QuizMode>(initialMode || 'multiple_choice')
+  const [quizMode, setQuizMode] = useState<QuizMode>(initialMode || (initialPref ? 'map_click' : 'multiple_choice'))
   const [questionCount, setQuestionCount] = useState(10)
   const [selectedPref, setSelectedPref] = useState<string | null>(initialPref)
   const [selectedRegion, setSelectedRegion] = useState<string | null>(null)
@@ -86,33 +86,46 @@ function QuizPageInner() {
   }
 
   return (
-    <div className="space-y-3 animate-fade-in">
-      {/* Quiz Mode */}
-      <div>
-        <h2 className="text-sm font-semibold text-slate-700 mb-1.5">モード</h2>
-        <div className="grid grid-cols-2 gap-2">
-          <button
-            onClick={() => setQuizMode('multiple_choice')}
-            className={`p-2.5 rounded-xl border-2 transition-all active:scale-[0.98] ${
-              quizMode === 'multiple_choice'
-                ? 'border-primary bg-primary/5'
-                : 'border-slate-200 bg-white'
-            }`}
-          >
-            <div className="font-medium text-slate-800 text-sm">4択</div>
-          </button>
-          <button
-            onClick={() => setQuizMode('map_click')}
-            className={`p-2.5 rounded-xl border-2 transition-all active:scale-[0.98] ${
-              quizMode === 'map_click'
-                ? 'border-primary bg-primary/5'
-                : 'border-slate-200 bg-white'
-            }`}
-          >
-            <div className="font-medium text-slate-800 text-sm">地図タップ</div>
-          </button>
+    <div className="space-y-3 animate-fade-in overflow-x-hidden">
+      {/* Back button */}
+      <button
+        onClick={() => window.history.back()}
+        className="flex items-center gap-1 text-sm text-slate-500 active:text-primary transition-colors"
+      >
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+        </svg>
+        戻る
+      </button>
+
+      {/* Quiz Mode - hide when single prefecture selected (4択 makes no sense) */}
+      {!selectedPref && (
+        <div>
+          <h2 className="text-sm font-semibold text-slate-700 mb-1.5">モード</h2>
+          <div className="grid grid-cols-2 gap-2">
+            <button
+              onClick={() => setQuizMode('multiple_choice')}
+              className={`p-2.5 rounded-xl border-2 transition-all active:scale-[0.98] ${
+                quizMode === 'multiple_choice'
+                  ? 'border-primary bg-primary/5'
+                  : 'border-slate-200 bg-white'
+              }`}
+            >
+              <div className="font-medium text-slate-800 text-sm">4択</div>
+            </button>
+            <button
+              onClick={() => setQuizMode('map_click')}
+              className={`p-2.5 rounded-xl border-2 transition-all active:scale-[0.98] ${
+                quizMode === 'map_click'
+                  ? 'border-primary bg-primary/5'
+                  : 'border-slate-200 bg-white'
+              }`}
+            >
+              <div className="font-medium text-slate-800 text-sm">地図タップ</div>
+            </button>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Question Count */}
       <div>
@@ -189,7 +202,7 @@ function QuizPageInner() {
           {prefectures.map((pref) => (
             <button
               key={pref.code}
-              onClick={() => { setSelectedPref(pref.code); setSelectedRegion(null) }}
+              onClick={() => { setSelectedPref(pref.code); setSelectedRegion(null); setQuizMode('map_click') }}
               className={`px-1 py-1.5 rounded-lg text-xs font-medium transition-all active:scale-[0.98] ${
                 selectedPref === pref.code
                   ? 'bg-primary text-white'

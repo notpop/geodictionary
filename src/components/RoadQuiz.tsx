@@ -7,15 +7,15 @@ import type { Road } from '@/lib/types'
 
 interface QuizQuestion {
   road: Road
-  options: string[] // prefecture names
-  optionCodes: string[]
+  options: string[] // prefecture names (for mc/map_click) or road names (for identify)
+  optionCodes: string[] // prefecture codes (for mc/map_click) or road numbers as string (for identify)
   correctCodes: string[] // all prefectures the road passes through
 }
 
 interface RoadQuizProps {
   roads: Road[]
   prefectureNames: Record<string, string>
-  mode: 'multiple_choice' | 'map_click'
+  mode: 'multiple_choice' | 'map_click' | 'identify'
   questionCount: number
   filterCategory?: string
   onComplete?: (correct: number, total: number) => void
@@ -35,21 +35,31 @@ function generateQuestions(
   roads: Road[],
   prefectureNames: Record<string, string>,
   count: number,
+  mode: 'multiple_choice' | 'map_click' | 'identify',
   filterCategory?: string
 ): QuizQuestion[] {
   const filtered = filterCategory ? roads.filter((r) => r.category === filterCategory) : roads
   const picked = shuffle(filtered).slice(0, count)
-  const allPrefs = Object.entries(prefectureNames).map(([code, name]) => ({ code, name }))
 
+  if (mode === 'identify') {
+    return picked.map((road) => {
+      const wrong = shuffle(filtered.filter((r) => r.number !== road.number)).slice(0, 3)
+      const opts = shuffle([road, ...wrong])
+      return {
+        road,
+        options: opts.map((r) => r.name),
+        optionCodes: opts.map((r) => String(r.number)),
+        correctCodes: road.prefectures,
+      }
+    })
+  }
+
+  const allPrefs = Object.entries(prefectureNames).map(([code, name]) => ({ code, name }))
   return picked.map((road) => {
-    // Pick one correct prefecture as the "answer"
     const correctCode = road.prefectures[Math.floor(Math.random() * road.prefectures.length)]
     const correctName = prefectureNames[correctCode] || correctCode
-
-    // Pick 3 wrong prefectures (not in this road's list)
     const wrong = shuffle(allPrefs.filter((p) => !road.prefectures.includes(p.code))).slice(0, 3)
     const opts = shuffle([{ code: correctCode, name: correctName }, ...wrong])
-
     return {
       road,
       options: opts.map((o) => o.name),
@@ -77,32 +87,52 @@ export default function RoadQuiz({
   const [animState, setAnimState] = useState<'idle' | 'correct' | 'wrong'>('idle')
 
   useEffect(() => {
-    setQuestions(generateQuestions(roads, prefectureNames, questionCount, filterCategory))
-  }, [roads, prefectureNames, questionCount, filterCategory])
+    setQuestions(generateQuestions(roads, prefectureNames, questionCount, mode, filterCategory))
+  }, [roads, prefectureNames, questionCount, mode, filterCategory])
 
   const currentQuestion = questions[currentIndex]
   const progress = questions.length > 0 ? ((currentIndex + 1) / questions.length) * 100 : 0
 
-  const isCorrect = selectedAnswer ? currentQuestion?.road.prefectures.includes(selectedAnswer) : false
+  const isCorrectAnswer = useCallback(
+    (answer: string) => {
+      if (!currentQuestion) return false
+      if (mode === 'identify') {
+        return answer === String(currentQuestion.road.number)
+      }
+      return currentQuestion.road.prefectures.includes(answer)
+    },
+    [currentQuestion, mode]
+  )
+
+  const isCorrect = selectedAnswer ? isCorrectAnswer(selectedAnswer) : false
 
   const highlightColors = useMemo(() => {
-    if (!isAnswered || !currentQuestion) return {}
+    if (!currentQuestion) return {}
+    if (mode === 'identify') {
+      // Always show highlighted prefectures in identify mode
+      const colors: Record<string, string> = {}
+      for (const code of currentQuestion.road.prefectures) {
+        colors[code] = '#3b82f6'
+      }
+      return colors
+    }
+    if (!isAnswered) return {}
     const colors: Record<string, string> = {}
     for (const code of currentQuestion.road.prefectures) {
-      colors[code] = '#22c55e' // green
+      colors[code] = '#22c55e'
     }
     if (selectedAnswer && !currentQuestion.road.prefectures.includes(selectedAnswer)) {
-      colors[selectedAnswer] = '#ef4444' // red for wrong answer
+      colors[selectedAnswer] = '#ef4444'
     }
     return colors
-  }, [isAnswered, currentQuestion, selectedAnswer])
+  }, [isAnswered, currentQuestion, selectedAnswer, mode])
 
   const handleAnswer = useCallback(
     (answer: string) => {
       if (isAnswered || !currentQuestion) return
       setSelectedAnswer(answer)
       setIsAnswered(true)
-      const correct = currentQuestion.road.prefectures.includes(answer)
+      const correct = isCorrectAnswer(answer)
       if (correct) {
         setCorrectCount((prev) => prev + 1)
         setAnimState('correct')
@@ -111,7 +141,7 @@ export default function RoadQuiz({
       }
       setTimeout(() => setAnimState('idle'), 600)
     },
-    [isAnswered, currentQuestion]
+    [isAnswered, currentQuestion, isCorrectAnswer]
   )
 
   const handleNext = useCallback(() => {
@@ -128,14 +158,14 @@ export default function RoadQuiz({
   }, [currentIndex, questions.length, correctCount, onComplete])
 
   const handleRetry = useCallback(() => {
-    setQuestions(generateQuestions(roads, prefectureNames, questionCount, filterCategory))
+    setQuestions(generateQuestions(roads, prefectureNames, questionCount, mode, filterCategory))
     setCurrentIndex(0)
     setSelectedAnswer(null)
     setIsAnswered(false)
     setCorrectCount(0)
     setIsComplete(false)
     setAnimState('idle')
-  }, [roads, prefectureNames, questionCount, filterCategory])
+  }, [roads, prefectureNames, questionCount, mode, filterCategory])
 
   if (questions.length === 0) {
     return <div className="text-center py-12 text-slate-500">問題を生成中...</div>
@@ -203,16 +233,30 @@ export default function RoadQuiz({
 
       {/* Question */}
       <div className={`rounded-xl p-3 flex-shrink-0 ${animState === 'correct' ? 'animate-pulse-green' : animState === 'wrong' ? 'animate-shake' : ''}`}>
-        <h2 className="text-lg font-bold text-slate-800 text-center">
-          {currentQuestion.road.name}が通る都道府県は？
-        </h2>
-        <p className="text-xs text-slate-400 text-center mt-0.5">
-          {currentQuestion.road.startPoint} → {currentQuestion.road.endPoint}
-        </p>
+        {mode === 'identify' ? (
+          <>
+            <h2 className="text-lg font-bold text-slate-800 text-center">
+              この道はどの国道？
+            </h2>
+            <p className="text-xs text-slate-400 text-center mt-0.5">
+              青く表示された都道府県を通る国道を選んでください
+            </p>
+          </>
+        ) : (
+          <>
+            <h2 className="text-lg font-bold text-slate-800 text-center">
+              {currentQuestion.road.name}が通る都道府県は？
+            </h2>
+            <p className="text-xs text-slate-400 text-center mt-0.5">
+              {currentQuestion.road.startPoint} → {currentQuestion.road.endPoint}
+            </p>
+          </>
+        )}
       </div>
 
       {/* Main content */}
       <div className="flex-1 min-h-0 flex flex-col gap-2 py-1">
+        {/* Map click mode */}
         {mode === 'map_click' && (
           <div className="flex-1 min-h-0">
             <JapanMap
@@ -226,6 +270,56 @@ export default function RoadQuiz({
           </div>
         )}
 
+        {/* Identify mode: map always shown + 4 road name choices */}
+        {mode === 'identify' && (
+          <>
+            <div className="flex-1 min-h-0">
+              <JapanMap
+                prefectureColors={highlightColors}
+                showLabels={true}
+                size="full"
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-1.5 flex-shrink-0">
+              {currentQuestion.options.map((option, i) => {
+                const code = currentQuestion.optionCodes[i]
+                const isThisCorrect = code === String(currentQuestion.road.number)
+                const isSelected = code === selectedAnswer
+
+                let btnClass = 'text-center px-2 py-2.5 rounded-xl border-2 transition-all active:scale-[0.98] '
+                if (!isAnswered) {
+                  btnClass += 'border-slate-200 bg-white'
+                } else if (isThisCorrect) {
+                  btnClass += 'border-green-500 bg-green-50'
+                } else if (isSelected) {
+                  btnClass += 'border-red-500 bg-red-50'
+                } else {
+                  btnClass += 'border-slate-100 bg-white opacity-50'
+                }
+
+                return (
+                  <button
+                    key={`${code}-${i}`}
+                    onClick={() => handleAnswer(code)}
+                    disabled={isAnswered}
+                    className={btnClass}
+                  >
+                    <span className="font-medium text-slate-800 text-sm">{option}</span>
+                  </button>
+                )
+              })}
+            </div>
+            {isAnswered && (
+              <div className="text-center flex-shrink-0 animate-fade-in">
+                <div className="text-xs text-slate-500">
+                  {currentQuestion.road.startPoint} → {currentQuestion.road.endPoint} ({currentQuestion.road.length}km)
+                </div>
+              </div>
+            )}
+          </>
+        )}
+
+        {/* Multiple choice mode */}
         {mode === 'multiple_choice' && (
           <>
             <div className="space-y-2 flex-shrink-0">

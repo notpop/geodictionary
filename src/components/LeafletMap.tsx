@@ -59,6 +59,9 @@ export default function LeafletMap({
       attributionControl: false,
     })
 
+    // Add zoom controls at bottom-right
+    L.control.zoom({ position: 'bottomright' }).addTo(map)
+
     // Light basemap for geographic context (no labels = no answer leaks)
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
       maxZoom: 19,

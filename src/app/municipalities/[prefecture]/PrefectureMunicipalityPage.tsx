@@ -14,14 +14,14 @@ interface Props {
 }
 
 export default function PrefectureMunicipalityPage({ prefecture, prevPrefecture, nextPrefecture }: Props) {
-  const [mode, setMode] = useState<'learn' | 'quiz_mc' | 'quiz_map'>('learn')
+  const [mode, setMode] = useState<'learn' | 'quiz_map'>('learn')
 
-  if (mode === 'quiz_mc' || mode === 'quiz_map') {
+  if (mode === 'quiz_map') {
     return (
       <div className="-mx-4 -mt-6">
         <MunicipalityQuiz
           prefectures={municipalityData.prefectures as any}
-          mode={mode === 'quiz_mc' ? 'multiple_choice' : 'map_click'}
+          mode="map_click"
           questionCount={10}
           filterPrefecture={prefecture.code}
           onBack={() => setMode('learn')}
@@ -41,24 +41,8 @@ export default function PrefectureMunicipalityPage({ prefecture, prevPrefecture,
 
       <PrefectureDetail
         prefecture={prefecture}
-        onStartQuiz={() => setMode('quiz_mc')}
+        onStartQuiz={() => setMode('quiz_map')}
       />
-
-      {/* Quiz mode buttons */}
-      <div className="grid grid-cols-2 gap-3">
-        <button
-          onClick={() => setMode('quiz_mc')}
-          className="p-4 bg-primary text-white rounded-xl font-medium active:scale-[0.98] transition-transform"
-        >
-          4択クイズ
-        </button>
-        <button
-          onClick={() => setMode('quiz_map')}
-          className="p-4 bg-emerald-500 text-white rounded-xl font-medium active:scale-[0.98] transition-transform"
-        >
-          地図クイズ
-        </button>
-      </div>
 
       {/* Prev/Next navigation */}
       <div className="flex gap-3">

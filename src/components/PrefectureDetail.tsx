@@ -81,10 +81,10 @@ export default function PrefectureDetail({ prefecture, onStartQuiz }: Prefecture
     <div className="space-y-4 animate-fade-in">
       {/* Header with map - sticky */}
       <div
-        className="bg-white rounded-2xl shadow-sm overflow-hidden sticky z-20"
+        className="bg-white rounded-2xl shadow-sm overflow-hidden sticky z-20 mb-1"
         style={{ top: 'calc(3.5rem + env(safe-area-inset-top, 0px))' }}
       >
-        <div className="p-3">
+        <div className="p-3 pb-2">
           <div className="flex items-center justify-between mb-2">
             <h2 className="text-lg font-bold text-slate-800">{prefecture.name}</h2>
             <span className="text-xs text-slate-500">{allEntries.length}件</span>
@@ -94,10 +94,10 @@ export default function PrefectureDetail({ prefecture, onStartQuiz }: Prefecture
               geojson={geoJson}
               interactive={false}
               highlightedName={highlightedMuni}
-              className="h-40"
+              className="h-48"
             />
           ) : (
-            <div className="h-40 bg-slate-100 rounded-xl flex items-center justify-center">
+            <div className="h-48 bg-slate-100 rounded-xl flex items-center justify-center">
               <span className="text-slate-400 text-sm">地図を読み込み中...</span>
             </div>
           )}
@@ -184,7 +184,7 @@ export default function PrefectureDetail({ prefecture, onStartQuiz }: Prefecture
             onClick={onStartQuiz}
             className="w-full py-4 bg-gradient-to-r from-primary to-blue-600 text-white rounded-2xl font-bold text-lg shadow-lg active:scale-[0.98] transition-transform"
           >
-            {prefecture.name}をクイズする
+            {prefecture.name}を地図クイズする
           </button>
         </div>
       )}
