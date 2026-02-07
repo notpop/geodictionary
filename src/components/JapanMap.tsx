@@ -267,8 +267,9 @@ export default function JapanMap({
 
   const handleClick = useCallback(
     (code: string) => {
-      // Don't fire click if we just dragged
+      // Don't fire click if we just dragged or pinched
       if (dragRef.current.moved) return
+      if (touchRef.current.isPinching) return
       if (interactive && onPrefectureClick) {
         onPrefectureClick(code)
       }
@@ -344,6 +345,13 @@ export default function JapanMap({
                 setHoveredCode(pref.code)
                 setHoveredName(pref.name)
               }
+            }}
+            onTouchEnd={() => {
+              // Clear hover after touch to avoid sticky highlight
+              setTimeout(() => {
+                setHoveredCode(null)
+                setHoveredName('')
+              }, 300)
             }}
           />
         ))}
