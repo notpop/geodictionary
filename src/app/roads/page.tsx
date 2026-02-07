@@ -51,7 +51,7 @@ export default function RoadsPage() {
       </div>
 
       {/* Map */}
-      <div className="bg-white rounded-2xl shadow-sm p-3">
+      <div className="bg-white rounded-2xl shadow-sm p-3 overflow-hidden">
         <JapanMap
           prefectureColors={highlightColors}
           showLabels={!!selectedRoad}
@@ -90,7 +90,7 @@ export default function RoadsPage() {
       </Link>
 
       {/* Filter */}
-      <div className="flex gap-1.5 overflow-x-auto pb-1 -mx-1 px-1" style={{ WebkitOverflowScrolling: 'touch' }}>
+      <div className="flex gap-1.5 pb-1">
         {categories.map((cat) => (
           <button
             key={cat}
@@ -128,14 +128,14 @@ export default function RoadsPage() {
         {filteredRoads.map((road) => (
           <button
             key={road.number}
-            className={`w-full text-left px-3 py-2.5 bg-white rounded-xl border transition-all active:scale-[0.98] overflow-hidden ${
+            className={`w-full text-left px-3 py-2.5 bg-white rounded-xl border transition-colors active:scale-[0.98] ${
               selectedRoad?.number === road.number
                 ? 'border-primary bg-primary/5 shadow-sm'
                 : 'border-slate-100'
             }`}
             onClick={() => setSelectedRoad(selectedRoad?.number === road.number ? null : road)}
           >
-            <div className="flex items-center gap-2 min-w-0 overflow-hidden">
+            <div className="flex items-center gap-2 min-w-0">
               <span className={`flex-shrink-0 text-xs font-bold px-2 py-0.5 rounded ${
                 road.category === '主要幹線' ? 'bg-purple-100 text-purple-700' :
                 road.category === '一般国道' ? 'bg-blue-100 text-blue-700' :
@@ -143,7 +143,7 @@ export default function RoadsPage() {
               }`}>
                 {road.number}
               </span>
-              <div className="min-w-0 flex-1 overflow-hidden">
+              <div className="min-w-0 flex-1">
                 <div className="text-sm font-medium text-slate-800 truncate">
                   {road.startPoint} → {road.endPoint}
                 </div>
