@@ -401,15 +401,12 @@ export default function MunicipalityQuiz({
         )}
       </div>
 
-      {/* Next button - fixed at screen bottom */}
+      {/* Next button - part of flex layout so map shrinks to make room */}
       {isAnswered && (
-        <div
-          className="fixed bottom-0 left-0 right-0 md:left-64 z-50 px-4 pt-6 bg-gradient-to-t from-white via-white/90 to-transparent"
-          style={{ paddingBottom: 'calc(0.75rem + env(safe-area-inset-bottom, 0px))' }}
-        >
+        <div className="flex-shrink-0 px-1 pt-2 pb-1">
           <button
             onClick={handleNext}
-            className="w-full max-w-4xl mx-auto py-4 bg-primary text-white rounded-2xl font-bold text-lg shadow-lg active:scale-[0.98] transition-transform"
+            className="w-full py-4 bg-primary text-white rounded-2xl font-bold text-lg shadow-lg active:scale-[0.98] transition-transform"
           >
             {currentIndex < questions.length - 1 ? '次へ' : '結果を見る'}
           </button>
