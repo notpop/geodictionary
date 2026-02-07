@@ -25,6 +25,7 @@ interface MunicipalityQuizProps {
   mode: 'multiple_choice' | 'map_click'
   questionCount: number
   filterPrefecture?: string
+  filterRegion?: string
   onComplete?: (correct: number, total: number) => void
   onBack?: () => void
 }
@@ -68,11 +69,15 @@ function collectEntries(prefs: MunicipalityPrefecture[], filterPref?: string): E
 function generateNationalQuestions(
   prefectures: MunicipalityPrefecture[],
   count: number,
-  filterPref?: string
+  filterRegion?: string
 ): QuizQuestion[] {
-  const entries = collectEntries(prefectures, filterPref)
+  const targetPrefs = filterRegion
+    ? prefectures.filter((p) => p.region === filterRegion)
+    : prefectures
+  const entries = collectEntries(targetPrefs)
   const picked = shuffle(entries).slice(0, count)
-  const allPrefs = prefectures.map((p) => ({ code: p.code, name: p.name }))
+  // Options come from the same scope (region or all)
+  const allPrefs = targetPrefs.map((p) => ({ code: p.code, name: p.name }))
 
   return picked.map((entry) => {
     const wrong = shuffle(allPrefs.filter((p) => p.code !== entry.prefCode)).slice(0, 3)
@@ -132,6 +137,7 @@ export default function MunicipalityQuiz({
   mode,
   questionCount,
   filterPrefecture,
+  filterRegion,
   onComplete,
   onBack,
 }: MunicipalityQuizProps) {
@@ -149,9 +155,9 @@ export default function MunicipalityQuiz({
   useEffect(() => {
     const q = isIntraPref
       ? generateIntraPrefQuestions(prefectures, questionCount, filterPrefecture!)
-      : generateNationalQuestions(prefectures, questionCount)
+      : generateNationalQuestions(prefectures, questionCount, filterRegion)
     setQuestions(q)
-  }, [prefectures, questionCount, filterPrefecture, isIntraPref])
+  }, [prefectures, questionCount, filterPrefecture, filterRegion, isIntraPref])
 
   const currentQuestion = questions[currentIndex]
   const progress = questions.length > 0 ? ((currentIndex + 1) / questions.length) * 100 : 0
@@ -197,7 +203,7 @@ export default function MunicipalityQuiz({
   const handleRetry = useCallback(() => {
     const q = isIntraPref
       ? generateIntraPrefQuestions(prefectures, questionCount, filterPrefecture!)
-      : generateNationalQuestions(prefectures, questionCount)
+      : generateNationalQuestions(prefectures, questionCount, filterRegion)
     setQuestions(q)
     setCurrentIndex(0)
     setSelectedAnswer(null)
@@ -205,7 +211,7 @@ export default function MunicipalityQuiz({
     setCorrectCount(0)
     setIsComplete(false)
     setAnimState('idle')
-  }, [prefectures, questionCount, filterPrefecture, isIntraPref])
+  }, [prefectures, questionCount, filterPrefecture, filterRegion, isIntraPref])
 
   if (questions.length === 0) {
     return <div className="text-center py-12 text-slate-500">問題を生成中...</div>

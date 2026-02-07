@@ -77,6 +77,7 @@ export default function MunicipalitiesPage() {
         <p className="text-xs text-slate-500 text-center mb-2">都道府県をタップして学習</p>
         <JapanMap
           interactive={true}
+          zoomable={true}
           onPrefectureClick={(code) => {
             const pref = prefectures.find((p) => p.code === code)
             if (pref) {
