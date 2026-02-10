@@ -179,6 +179,7 @@ export default function AreaCodeQuiz({ areaCodes, questionCount, filterRegion, o
       <div className="flex-1 min-h-0 flex flex-col gap-2 py-1">
         <div className="flex-1 min-h-0">
           <JapanMap
+            key={`q-${currentIndex}`}
             interactive={!isAnswered}
             onPrefectureClick={!isAnswered ? handleAnswer : undefined}
             prefectureColors={isAnswered ? highlightColors : undefined}

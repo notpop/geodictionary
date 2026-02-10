@@ -83,6 +83,8 @@ export default function JapanMap({
 
   // Zoom/pan state (viewBox)
   const [vb, setVb] = useState({ x: VB_X, y: VB_Y, w: VB_W, h: VB_H })
+  const vbRef = useRef(vb)
+  vbRef.current = vb
   const svgRef = useRef<SVGSVGElement>(null)
   const touchRef = useRef<{
     startDist: number
@@ -112,15 +114,16 @@ export default function JapanMap({
     full: 'w-full',
   }
 
-  // Convert screen coords to SVG coords
+  // Convert screen coords to SVG coords (uses ref to avoid stale closure)
   const screenToSvg = useCallback((clientX: number, clientY: number) => {
     const svg = svgRef.current
     if (!svg) return { x: 0, y: 0 }
     const rect = svg.getBoundingClientRect()
+    const v = vbRef.current
     const sx = (clientX - rect.left) / rect.width
     const sy = (clientY - rect.top) / rect.height
-    return { x: vb.x + sx * vb.w, y: vb.y + sy * vb.h }
-  }, [vb])
+    return { x: v.x + sx * v.w, y: v.y + sy * v.h }
+  }, [])
 
   const zoomTo = useCallback((factor: number, cx?: number, cy?: number) => {
     setVb((prev) => {
@@ -132,7 +135,6 @@ export default function JapanMap({
       const ratioY = (focusY - prev.y) / prev.h
       let newX = focusX - ratioX * newW
       let newY = focusY - ratioY * newH
-      // Clamp to bounds
       newX = clamp(newX, VB_X - newW * 0.1, VB_X + VB_W - newW * 0.9)
       newY = clamp(newY, VB_Y - newH * 0.1, VB_Y + VB_H - newH * 0.9)
       return { x: newX, y: newY, w: newW, h: newH }
@@ -143,7 +145,7 @@ export default function JapanMap({
     setVb({ x: VB_X, y: VB_Y, w: VB_W, h: VB_H })
   }, [])
 
-  // Touch handlers for zoom/pan
+  // Touch handlers for zoom/pan (uses refs to avoid stale closures)
   useEffect(() => {
     if (!zoomable) return
     const svg = svgRef.current
@@ -161,20 +163,22 @@ export default function JapanMap({
     })
 
     const onTouchStart = (e: TouchEvent) => {
+      const v = vbRef.current
+      const zoomed = v.w < VB_W * 0.95
+
       if (e.touches.length === 2) {
         e.preventDefault()
         touchRef.current.isPinching = true
         touchRef.current.startDist = getTouchDist(e.touches)
-        touchRef.current.startVb = { ...vb }
-        const mid = getTouchMid(e.touches)
-        touchRef.current.startMid = mid
-      } else if (e.touches.length === 1 && isZoomed) {
-        // Check for double-tap
+        touchRef.current.startVb = { ...v }
+        touchRef.current.startMid = getTouchMid(e.touches)
+      } else if (e.touches.length === 1) {
         const now = Date.now()
+        // Double-tap detection
         if (now - touchRef.current.lastTap < 300) {
           e.preventDefault()
           const svgPt = screenToSvg(e.touches[0].clientX, e.touches[0].clientY)
-          if (vb.w < VB_W * 0.5) {
+          if (zoomed && v.w < VB_W * 0.5) {
             resetZoom()
           } else {
             zoomTo(0.4, svgPt.x, svgPt.y)
@@ -184,25 +188,16 @@ export default function JapanMap({
         }
         touchRef.current.lastTap = now
 
-        // Start drag
-        dragRef.current = {
-          dragging: true,
-          startX: e.touches[0].clientX,
-          startY: e.touches[0].clientY,
-          startVb: { ...vb },
-          moved: false,
+        // Start drag (only when zoomed)
+        if (zoomed) {
+          dragRef.current = {
+            dragging: true,
+            startX: e.touches[0].clientX,
+            startY: e.touches[0].clientY,
+            startVb: { ...v },
+            moved: false,
+          }
         }
-      } else if (e.touches.length === 1 && !isZoomed) {
-        // Double-tap to zoom in
-        const now = Date.now()
-        if (now - touchRef.current.lastTap < 300) {
-          e.preventDefault()
-          const svgPt = screenToSvg(e.touches[0].clientX, e.touches[0].clientY)
-          zoomTo(0.4, svgPt.x, svgPt.y)
-          touchRef.current.lastTap = 0
-          return
-        }
-        touchRef.current.lastTap = now
       }
     }
 
@@ -215,14 +210,17 @@ export default function JapanMap({
         const newW = clamp(sv.w * scale, VB_W * 0.15, VB_W)
         const newH = clamp(sv.h * scale, VB_H * 0.15, VB_H)
 
+        // Use current mid position for smooth pinch-to-pan
+        const curMid = getTouchMid(e.touches)
         const rect = svg.getBoundingClientRect()
-        const mid = touchRef.current.startMid
-        const sx = (mid.x - rect.left) / rect.width
-        const sy = (mid.y - rect.top) / rect.height
-        const focusX = sv.x + sx * sv.w
-        const focusY = sv.y + sy * sv.h
-        let newX = focusX - sx * newW
-        let newY = focusY - sy * newH
+        const startSx = (touchRef.current.startMid.x - rect.left) / rect.width
+        const startSy = (touchRef.current.startMid.y - rect.top) / rect.height
+        const curSx = (curMid.x - rect.left) / rect.width
+        const curSy = (curMid.y - rect.top) / rect.height
+        const focusX = sv.x + startSx * sv.w
+        const focusY = sv.y + startSy * sv.h
+        let newX = focusX - curSx * newW
+        let newY = focusY - curSy * newH
         newX = clamp(newX, VB_X - newW * 0.1, VB_X + VB_W - newW * 0.9)
         newY = clamp(newY, VB_Y - newH * 0.1, VB_Y + VB_H - newH * 0.9)
         setVb({ x: newX, y: newY, w: newW, h: newH })
@@ -265,7 +263,7 @@ export default function JapanMap({
       svg.removeEventListener('touchmove', onTouchMove)
       svg.removeEventListener('touchend', onTouchEnd)
     }
-  }, [zoomable, vb, isZoomed, screenToSvg, zoomTo, resetZoom])
+  }, [zoomable, screenToSvg, zoomTo, resetZoom])
 
   const handleClick = useCallback(
     (code: string) => {
