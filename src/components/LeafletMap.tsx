@@ -4,6 +4,26 @@ import { useEffect, useRef, useCallback } from 'react'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
+// ラベルモード用パステルカラーパレット（隣接区域が区別しやすいよう多めに用意）
+const LABEL_COLORS = [
+  '#dbeafe', // blue-100
+  '#fce7f3', // pink-100
+  '#d1fae5', // emerald-100
+  '#fef3c7', // amber-100
+  '#e0e7ff', // indigo-100
+  '#ffe4e6', // rose-100
+  '#ccfbf1', // teal-100
+  '#fef9c3', // yellow-100
+  '#ede9fe', // violet-100
+  '#ffedd5', // orange-100
+  '#cffafe', // cyan-100
+  '#f3e8ff', // purple-100
+  '#dcfce7', // green-100
+  '#fce4ec', // pink-50ish
+  '#e8eaf6', // indigo-50ish
+  '#fff3e0', // orange-50ish
+]
+
 interface LeafletMapProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   geojson: any
@@ -15,6 +35,7 @@ interface LeafletMapProps {
   interactive?: boolean
   showLabels?: boolean
   readingMap?: Record<string, string>
+  parentMap?: Record<string, string>
   className?: string
 }
 
@@ -28,6 +49,7 @@ export default function LeafletMap({
   interactive = true,
   showLabels = false,
   readingMap,
+  parentMap,
   className = '',
 }: LeafletMapProps) {
   const mapRef = useRef<L.Map | null>(null)
@@ -47,9 +69,19 @@ export default function LeafletMap({
       if (isWrong) {
         return { fillColor: '#ef4444', fillOpacity: 0.6, color: '#dc2626', weight: 2 }
       }
+      if (showLabels && code) {
+        // codeのハッシュで色を割り当て（隣接が異なる色になるよう素数で散らす）
+        const idx = (parseInt(code, 10) * 7) % LABEL_COLORS.length
+        return {
+          fillColor: LABEL_COLORS[idx],
+          fillOpacity: 0.6,
+          color: '#94a3b8',
+          weight: 1.5,
+        }
+      }
       return {
         fillColor: '#ffffff',
-        fillOpacity: showLabels ? 0.5 : 1,
+        fillOpacity: 1,
         color: '#94a3b8',
         weight: 1.5,
       }
@@ -106,8 +138,12 @@ export default function LeafletMap({
         // Add Japanese labels from GeoJSON properties
         if (showLabels && feature.properties?.name) {
           const name = feature.properties.name
+          const parent = parentMap?.[feature.properties.code]
           const reading = readingMap?.[name]
-          const label = reading ? `${name}<br><span style="font-size:0.7em;opacity:0.7">${reading}</span>` : name
+          let label = parent ? `${name}（${parent}）` : name
+          if (reading) {
+            label += `<br><span style="font-size:0.7em;opacity:0.7">${reading}</span>`
+          }
           lyr.bindTooltip(label, {
             permanent: true,
             direction: 'center',
@@ -132,7 +168,7 @@ export default function LeafletMap({
       setTimeout(retryFit, 100)
       setTimeout(retryFit, 300)
     }
-  }, [geojson, getStyle, interactive, onFeatureClick, showLabels, readingMap])
+  }, [geojson, getStyle, interactive, onFeatureClick, showLabels, readingMap, parentMap])
 
   // Update styles when highlight changes
   useEffect(() => {
