@@ -159,8 +159,8 @@ export default function MunicipalitiesPage() {
                 {acc > 0 && (
                   <div className="mt-1.5 h-1 bg-slate-100 rounded-full overflow-hidden">
                     <div
-                      className={`h-full rounded-full ${acc >= 80 ? 'bg-green-400' : acc >= 60 ? 'bg-yellow-400' : 'bg-red-400'}`}
-                      style={{ width: `${acc}%` }}
+                      className={`h-full rounded-full ${isMastered ? 'bg-green-400' : acc >= 60 ? 'bg-yellow-400' : 'bg-red-400'}`}
+                      style={{ width: `${isMastered ? 100 : acc}%` }}
                     />
                   </div>
                 )}
