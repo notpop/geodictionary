@@ -204,6 +204,8 @@ export default function RiverQuiz({
   if (!currentQuestion) return null
 
   return (
+    <>
+    <style>{`html,body{overflow:hidden!important}`}</style>
     <div className="flex flex-col relative" style={{ height: 'calc(100dvh - 3.5rem - env(safe-area-inset-top, 0px))' }}>
       <div className="flex items-center justify-between py-2 flex-shrink-0 px-1">
         <button onClick={onBack} className="flex items-center gap-1 text-slate-400 active:text-slate-600 px-2 py-1 -ml-2 rounded-lg">
@@ -372,5 +374,6 @@ export default function RiverQuiz({
         </div>
       )}
     </div>
+    </>
   )
 }

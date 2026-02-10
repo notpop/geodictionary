@@ -146,6 +146,8 @@ export default function AreaCodeQuiz({ areaCodes, questionCount, filterRegion, c
   }
 
   return (
+    <>
+    <style>{`html,body{overflow:hidden!important}`}</style>
     <div className="flex flex-col relative" style={{ height: 'calc(100dvh - 3.5rem - env(safe-area-inset-top, 0px))' }}>
       {/* Header */}
       <div className="flex items-center justify-between py-2 flex-shrink-0 px-1">
@@ -218,5 +220,6 @@ export default function AreaCodeQuiz({ areaCodes, questionCount, filterRegion, c
         </div>
       )}
     </div>
+    </>
   )
 }
