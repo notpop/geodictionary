@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import JapanMap from './JapanMap'
-import { recordAreaCodeQuiz } from '@/lib/storage'
+import { recordAreaCodeQuiz, recordQuizClear } from '@/lib/storage'
 import type { AreaCode } from '@/lib/types'
 
 interface QuizQuestion {
@@ -14,6 +14,7 @@ interface AreaCodeQuizProps {
   areaCodes: AreaCode[]
   questionCount: number
   filterRegion?: string
+  clearKey?: string
   onBack?: () => void
 }
 
@@ -35,7 +36,7 @@ function generateQuestions(areaCodes: AreaCode[], count: number, filterRegion?: 
   }))
 }
 
-export default function AreaCodeQuiz({ areaCodes, questionCount, filterRegion, onBack }: AreaCodeQuizProps) {
+export default function AreaCodeQuiz({ areaCodes, questionCount, filterRegion, clearKey, onBack }: AreaCodeQuizProps) {
   const [questions, setQuestions] = useState<QuizQuestion[]>([])
   const [currentIndex, setCurrentIndex] = useState(0)
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
@@ -78,6 +79,9 @@ export default function AreaCodeQuiz({ areaCodes, questionCount, filterRegion, o
     } else {
       setIsComplete(true)
       recordAreaCodeQuiz(correctCount, questions.length)
+      if (correctCount === questions.length && clearKey) {
+        recordQuizClear(clearKey)
+      }
     }
   }, [currentIndex, questions.length, correctCount])
 

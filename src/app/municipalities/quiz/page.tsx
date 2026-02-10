@@ -4,7 +4,7 @@ import { Suspense, useState, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 import MunicipalityQuiz from '@/components/MunicipalityQuiz'
 import municipalityData from '@/data/municipalities.json'
-import { getMunicipalityProgress } from '@/lib/storage'
+import { getMunicipalityProgress, getQuizClears } from '@/lib/storage'
 import type { MunicipalityProgress } from '@/lib/types'
 
 type QuizMode = 'multiple_choice' | 'map_click'
@@ -20,10 +20,19 @@ function QuizPageInner() {
   const [selectedPref, setSelectedPref] = useState<string | null>(initialPref)
   const [selectedRegion, setSelectedRegion] = useState<string | null>(null)
   const [progress, setProgress] = useState<MunicipalityProgress | null>(null)
+  const [clears, setClears] = useState<Record<string, boolean>>({})
 
   useEffect(() => {
     setProgress(getMunicipalityProgress())
+    setClears(getQuizClears())
   }, [])
+
+  // クイズから戻った時にクリア状態を再読み込み
+  useEffect(() => {
+    if (!started) {
+      setClears(getQuizClears())
+    }
+  }, [started])
 
   // 範囲切替時に出題数が市区町村数を超えていたらリセット
   useEffect(() => {
@@ -83,6 +92,10 @@ function QuizPageInner() {
   const countOptions = [10, 20, 50].filter((n) => n <= maxMunis)
   const showAllOption = (selectedPref || selectedRegion) ? true : maxMunis > 50
 
+  // クリアキー prefix
+  const clearPrefix = selectedPref ? `muni:pref_${selectedPref}` : selectedRegion ? `muni:region_${selectedRegion}` : 'muni:all'
+  const clearKey = `${clearPrefix}:${questionCount}`
+
   if (started) {
     return (
       <div className="-mx-4 -mt-6">
@@ -93,6 +106,7 @@ function QuizPageInner() {
           filterPrefecture={selectedPref || undefined}
           filterRegion={selectedRegion || undefined}
           isFullQuiz={questionCount === maxMunis}
+          clearKey={clearKey}
           onComplete={() => {
             setProgress(getMunicipalityProgress())
           }}
@@ -155,31 +169,57 @@ function QuizPageInner() {
           ) : null}
         </h2>
         <div className="flex gap-2">
-          {countOptions.map((n) => (
-            <button
-              key={n}
-              onClick={() => setQuestionCount(n)}
-              className={`flex-1 py-2 rounded-xl font-medium text-sm transition-all active:scale-[0.98] ${
-                questionCount === n && questionCount !== maxMunis
-                  ? 'bg-primary text-white'
-                  : 'bg-slate-100 text-slate-700'
-              }`}
-            >
-              {n}問
-            </button>
-          ))}
-          {showAllOption && (
-            <button
-              onClick={() => setQuestionCount(maxMunis)}
-              className={`flex-1 py-2 rounded-xl font-medium text-sm transition-all active:scale-[0.98] ${
-                questionCount === maxMunis
-                  ? 'bg-primary text-white'
-                  : 'bg-slate-100 text-slate-700'
-              }`}
-            >
-              全て{selectedPref ? `(${maxMunis})` : ''}
-            </button>
-          )}
+          {countOptions.map((n) => {
+            const isSelected = questionCount === n && questionCount !== maxMunis
+            const isCleared = !!clears[`${clearPrefix}:${n}`]
+            return (
+              <button
+                key={n}
+                onClick={() => setQuestionCount(n)}
+                className={`flex-1 py-2 rounded-xl font-medium text-sm transition-all active:scale-[0.98] ${
+                  isSelected
+                    ? 'bg-primary text-white'
+                    : isCleared
+                    ? 'bg-green-50 text-slate-700 ring-2 ring-green-400'
+                    : 'bg-slate-100 text-slate-700'
+                }`}
+              >
+                <span className="flex items-center justify-center gap-1">
+                  {isCleared && (
+                    <svg className={`w-3.5 h-3.5 ${isSelected ? 'text-white' : 'text-green-500'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                    </svg>
+                  )}
+                  {n}問
+                </span>
+              </button>
+            )
+          })}
+          {showAllOption && (() => {
+            const isSelected = questionCount === maxMunis
+            const isCleared = !!clears[`${clearPrefix}:${maxMunis}`]
+            return (
+              <button
+                onClick={() => setQuestionCount(maxMunis)}
+                className={`flex-1 py-2 rounded-xl font-medium text-sm transition-all active:scale-[0.98] ${
+                  isSelected
+                    ? 'bg-primary text-white'
+                    : isCleared
+                    ? 'bg-green-50 text-slate-700 ring-2 ring-green-400'
+                    : 'bg-slate-100 text-slate-700'
+                }`}
+              >
+                <span className="flex items-center justify-center gap-1">
+                  {isCleared && (
+                    <svg className={`w-3.5 h-3.5 ${isSelected ? 'text-white' : 'text-green-500'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                    </svg>
+                  )}
+                  全て{selectedPref ? `(${maxMunis})` : ''}
+                </span>
+              </button>
+            )
+          })()}
         </div>
       </div>
 

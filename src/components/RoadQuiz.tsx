@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useMemo } from 'react'
 import JapanMap from './JapanMap'
-import { recordRoadQuiz } from '@/lib/storage'
+import { recordRoadQuiz, recordQuizClear } from '@/lib/storage'
 import type { Road } from '@/lib/types'
 
 interface QuizQuestion {
@@ -18,6 +18,7 @@ interface RoadQuizProps {
   mode: 'multiple_choice' | 'map_click' | 'identify'
   questionCount: number
   filterCategory?: string
+  clearKey?: string
   onComplete?: (correct: number, total: number) => void
   onBack?: () => void
 }
@@ -75,6 +76,7 @@ export default function RoadQuiz({
   mode,
   questionCount,
   filterCategory,
+  clearKey,
   onComplete,
   onBack,
 }: RoadQuizProps) {
@@ -153,6 +155,9 @@ export default function RoadQuiz({
     } else {
       setIsComplete(true)
       recordRoadQuiz(correctCount, questions.length)
+      if (correctCount === questions.length && clearKey) {
+        recordQuizClear(clearKey)
+      }
       onComplete?.(correctCount, questions.length)
     }
   }, [currentIndex, questions.length, correctCount, onComplete])

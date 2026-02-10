@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useMemo } from 'react'
 import JapanMap from './JapanMap'
-import { recordRiverQuiz } from '@/lib/storage'
+import { recordRiverQuiz, recordQuizClear } from '@/lib/storage'
 import type { River } from '@/lib/types'
 
 interface QuizQuestion {
@@ -17,6 +17,7 @@ interface RiverQuizProps {
   prefectureNames: Record<string, string>
   mode: 'multiple_choice' | 'map_click' | 'identify'
   questionCount: number
+  clearKey?: string
   onComplete?: (correct: number, total: number) => void
   onBack?: () => void
 }
@@ -71,6 +72,7 @@ export default function RiverQuiz({
   prefectureNames,
   mode,
   questionCount,
+  clearKey,
   onComplete,
   onBack,
 }: RiverQuizProps) {
@@ -148,6 +150,9 @@ export default function RiverQuiz({
     } else {
       setIsComplete(true)
       recordRiverQuiz(correctCount, questions.length)
+      if (correctCount === questions.length && clearKey) {
+        recordQuizClear(clearKey)
+      }
       onComplete?.(correctCount, questions.length)
     }
   }, [currentIndex, questions.length, correctCount, onComplete])

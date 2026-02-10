@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useMemo } from 'react'
 import JapanMap from './JapanMap'
 import PrefectureLeafletMap from './PrefectureLeafletMap'
 import { useGeoJson } from '@/lib/useGeoJson'
-import { recordMunicipalityQuiz } from '@/lib/storage'
+import { recordMunicipalityQuiz, recordQuizClear } from '@/lib/storage'
 import type { MunicipalityPrefecture } from '@/lib/types'
 
 interface QuizQuestion {
@@ -28,6 +28,7 @@ interface MunicipalityQuizProps {
   filterPrefecture?: string
   filterRegion?: string
   isFullQuiz?: boolean
+  clearKey?: string
   onComplete?: (correct: number, total: number) => void
   onBack?: () => void
 }
@@ -212,6 +213,7 @@ export default function MunicipalityQuiz({
   filterPrefecture,
   filterRegion,
   isFullQuiz,
+  clearKey,
   onComplete,
   onBack,
 }: MunicipalityQuizProps) {
@@ -308,6 +310,9 @@ export default function MunicipalityQuiz({
     } else {
       setIsComplete(true)
       recordMunicipalityQuiz(correctCount, questions.length, filterPrefecture, isFullQuiz)
+      if (correctCount === questions.length && clearKey) {
+        recordQuizClear(clearKey)
+      }
       onComplete?.(correctCount, questions.length)
     }
   }, [currentIndex, questions.length, correctCount, filterPrefecture, onComplete])

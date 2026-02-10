@@ -286,3 +286,20 @@ export function getAreaCodeAccuracy(progress: AreaCodeProgress): number {
   if (progress.quizzesTaken === 0) return 0
   return Math.round((progress.correctAnswers / progress.quizzesTaken) * 100)
 }
+
+// ========== クイズクリア記録（全クイズ共通） ==========
+const QUIZ_CLEARS_KEY = 'geoguessr-quiz-clears'
+
+export function getQuizClears(): Record<string, boolean> {
+  if (typeof window === 'undefined') return {}
+  const raw = localStorage.getItem(QUIZ_CLEARS_KEY)
+  if (!raw) return {}
+  try { return JSON.parse(raw) } catch { return {} }
+}
+
+export function recordQuizClear(key: string): void {
+  if (typeof window === 'undefined') return
+  const clears = getQuizClears()
+  clears[key] = true
+  localStorage.setItem(QUIZ_CLEARS_KEY, JSON.stringify(clears))
+}

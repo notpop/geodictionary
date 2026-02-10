@@ -1,9 +1,10 @@
 'use client'
 
-import { Suspense, useState } from 'react'
+import { Suspense, useState, useEffect } from 'react'
 import RiverQuiz from '@/components/RiverQuiz'
 import riverData from '@/data/rivers.json'
 import roadData from '@/data/roads.json'
+import { getQuizClears } from '@/lib/storage'
 import type { River } from '@/lib/types'
 
 type QuizMode = 'multiple_choice' | 'map_click' | 'identify'
@@ -12,11 +13,23 @@ function RiverQuizPageInner() {
   const [started, setStarted] = useState(false)
   const [quizMode, setQuizMode] = useState<QuizMode>('identify')
   const [questionCount, setQuestionCount] = useState(10)
+  const [clears, setClears] = useState<Record<string, boolean>>({})
+
+  useEffect(() => {
+    setClears(getQuizClears())
+  }, [])
+
+  useEffect(() => {
+    if (!started) setClears(getQuizClears())
+  }, [started])
 
   const rivers = riverData.rivers as River[]
   const prefectureNames = roadData.prefectureNames as Record<string, string>
   const totalRivers = rivers.length
   const countOptions = [10, 20].filter((n) => n <= totalRivers)
+
+  const clearPrefix = 'river:all'
+  const clearKey = `${clearPrefix}:${questionCount}`
 
   if (started) {
     return (
@@ -26,6 +39,7 @@ function RiverQuizPageInner() {
           prefectureNames={prefectureNames}
           mode={quizMode}
           questionCount={questionCount}
+          clearKey={clearKey}
           onBack={() => setStarted(false)}
         />
       </div>
@@ -83,27 +97,57 @@ function RiverQuizPageInner() {
           <span className="font-normal text-slate-400 ml-1 text-xs">（{totalRivers}本）</span>
         </h2>
         <div className="flex gap-2">
-          {countOptions.map((n) => (
-            <button
-              key={n}
-              onClick={() => setQuestionCount(n)}
-              className={`flex-1 py-2 rounded-xl font-medium text-sm transition-all active:scale-[0.98] ${
-                questionCount === n && questionCount !== totalRivers
-                  ? 'bg-primary text-white'
-                  : 'bg-slate-100 text-slate-700'
-              }`}
-            >
-              {n}問
-            </button>
-          ))}
-          <button
-            onClick={() => setQuestionCount(totalRivers)}
-            className={`flex-1 py-2 rounded-xl font-medium text-sm transition-all active:scale-[0.98] ${
-              questionCount === totalRivers ? 'bg-primary text-white' : 'bg-slate-100 text-slate-700'
-            }`}
-          >
-            全て({totalRivers})
-          </button>
+          {countOptions.map((n) => {
+            const isSelected = questionCount === n && questionCount !== totalRivers
+            const isCleared = !!clears[`${clearPrefix}:${n}`]
+            return (
+              <button
+                key={n}
+                onClick={() => setQuestionCount(n)}
+                className={`flex-1 py-2 rounded-xl font-medium text-sm transition-all active:scale-[0.98] ${
+                  isSelected
+                    ? 'bg-primary text-white'
+                    : isCleared
+                    ? 'bg-green-50 text-slate-700 ring-2 ring-green-400'
+                    : 'bg-slate-100 text-slate-700'
+                }`}
+              >
+                <span className="flex items-center justify-center gap-1">
+                  {isCleared && (
+                    <svg className={`w-3.5 h-3.5 ${isSelected ? 'text-white' : 'text-green-500'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                    </svg>
+                  )}
+                  {n}問
+                </span>
+              </button>
+            )
+          })}
+          {(() => {
+            const isSelected = questionCount === totalRivers
+            const isCleared = !!clears[`${clearPrefix}:${totalRivers}`]
+            return (
+              <button
+                onClick={() => setQuestionCount(totalRivers)}
+                className={`flex-1 py-2 rounded-xl font-medium text-sm transition-all active:scale-[0.98] ${
+                  isSelected
+                    ? 'bg-primary text-white'
+                    : isCleared
+                    ? 'bg-green-50 text-slate-700 ring-2 ring-green-400'
+                    : 'bg-slate-100 text-slate-700'
+                }`}
+              >
+                <span className="flex items-center justify-center gap-1">
+                  {isCleared && (
+                    <svg className={`w-3.5 h-3.5 ${isSelected ? 'text-white' : 'text-green-500'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                    </svg>
+                  )}
+                  全て({totalRivers})
+                </span>
+              </button>
+            )
+          })()}
         </div>
       </div>
 
