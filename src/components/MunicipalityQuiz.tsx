@@ -147,8 +147,8 @@ function generateIntraPrefQuestions(
       const name = f.properties?.name
       const code = f.properties?.code
       if (!name || !code) return null
-      const parent = parentLookup[name]
-      const hasDuplicate = (nameCounts[name] || 0) > 1
+      // Use GeoJSON parent property (accurate per-feature), fallback to lookup
+      const parent = f.properties?.parent || parentLookup[name]
       return {
         name,
         code,
