@@ -39,7 +39,7 @@ function RoadQuizPageInner() {
 
   if (started) {
     return (
-      <div className="-mx-4 -mt-6">
+      <div className="-mx-4 -mt-6 -mb-6">
         <RoadQuiz
           roads={roads}
           prefectureNames={prefectureNames}

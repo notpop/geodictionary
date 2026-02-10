@@ -98,7 +98,7 @@ function QuizPageInner() {
 
   if (started) {
     return (
-      <div className="-mx-4 -mt-6">
+      <div className="-mx-4 -mt-6 -mb-6">
         <MunicipalityQuiz
           prefectures={prefectures as any}
           mode={quizMode}
