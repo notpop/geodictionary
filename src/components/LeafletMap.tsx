@@ -4,24 +4,24 @@ import { useEffect, useRef, useCallback } from 'react'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
-// ラベルモード用パステルカラーパレット（隣接区域が区別しやすいよう多めに用意）
+// ラベルモード用カラーパレット（隣接区域が区別しやすいよう多めに用意）
 const LABEL_COLORS = [
-  '#dbeafe', // blue-100
-  '#fce7f3', // pink-100
-  '#d1fae5', // emerald-100
-  '#fef3c7', // amber-100
-  '#e0e7ff', // indigo-100
-  '#ffe4e6', // rose-100
-  '#ccfbf1', // teal-100
-  '#fef9c3', // yellow-100
-  '#ede9fe', // violet-100
-  '#ffedd5', // orange-100
-  '#cffafe', // cyan-100
-  '#f3e8ff', // purple-100
-  '#dcfce7', // green-100
-  '#fce4ec', // pink-50ish
-  '#e8eaf6', // indigo-50ish
-  '#fff3e0', // orange-50ish
+  '#93c5fd', // blue-300
+  '#f9a8d4', // pink-300
+  '#6ee7b7', // emerald-300
+  '#fcd34d', // amber-300
+  '#a5b4fc', // indigo-300
+  '#fda4af', // rose-300
+  '#5eead4', // teal-300
+  '#fde047', // yellow-300
+  '#c4b5fd', // violet-300
+  '#fdba74', // orange-300
+  '#67e8f9', // cyan-300
+  '#d8b4fe', // purple-300
+  '#86efac', // green-300
+  '#f0abfc', // fuchsia-300
+  '#7dd3fc', // sky-300
+  '#a5f3fc', // cyan-200
 ]
 
 interface LeafletMapProps {
