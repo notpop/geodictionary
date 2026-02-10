@@ -115,7 +115,7 @@ function RoadQuizPageInner() {
                   isSelected
                     ? 'bg-primary text-white'
                     : isCleared
-                    ? 'bg-green-50 text-green-700'
+                    ? 'bg-green-50 text-green-700 ring-2 ring-inset ring-green-400'
                     : 'bg-slate-100 text-slate-700'
                 }`}
               >
@@ -140,7 +140,7 @@ function RoadQuizPageInner() {
                   isSelected
                     ? 'bg-primary text-white'
                     : isCleared
-                    ? 'bg-green-50 text-green-700'
+                    ? 'bg-green-50 text-green-700 ring-2 ring-inset ring-green-400'
                     : 'bg-slate-100 text-slate-700'
                 }`}
               >
