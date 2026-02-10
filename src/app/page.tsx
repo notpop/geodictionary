@@ -26,11 +26,11 @@ const tiles = [
 export default function Home() {
   return (
     <>
-      <style>{`html,body{background:#0f172a!important;overflow:hidden!important;height:100dvh!important}main.pb-safe{padding-bottom:0!important}`}</style>
+      <style>{`html,body{background:#0f172a!important;overflow:hidden!important}`}</style>
       <div
-        className={`grid grid-cols-4 gap-[2px] -mx-4 -mt-6 -mb-6 bg-slate-900 ${zenMaru.className}`}
+        className={`fixed left-0 right-0 bottom-0 grid grid-cols-4 gap-[2px] bg-slate-900 ${zenMaru.className}`}
         style={{
-          height: 'calc(100dvh - 3.5rem - env(safe-area-inset-top, 0px))',
+          top: 'calc(3.5rem + env(safe-area-inset-top, 0px))',
           gridTemplateRows: 'repeat(5, 1fr)',
         }}
       >
