@@ -108,7 +108,7 @@ function RiverQuizPageInner() {
                   isSelected
                     ? 'bg-primary text-white'
                     : isCleared
-                    ? 'bg-green-50 text-slate-700 ring-2 ring-green-400'
+                    ? 'bg-green-50 text-green-700'
                     : 'bg-slate-100 text-slate-700'
                 }`}
               >
@@ -133,7 +133,7 @@ function RiverQuizPageInner() {
                   isSelected
                     ? 'bg-primary text-white'
                     : isCleared
-                    ? 'bg-green-50 text-slate-700 ring-2 ring-green-400'
+                    ? 'bg-green-50 text-green-700'
                     : 'bg-slate-100 text-slate-700'
                 }`}
               >
