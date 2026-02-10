@@ -66,12 +66,12 @@ export default function AreaCodesPage() {
       </Link>
 
       {/* Region filter */}
-      <div className="flex gap-1.5 mb-3 overflow-x-auto pb-1" style={{ WebkitOverflowScrolling: 'touch' }}>
+      <div className="flex flex-wrap gap-1.5 mb-3">
         {regions.map((r) => (
           <button
             key={r}
             onClick={() => setFilterRegion(r)}
-            className={`flex-shrink-0 px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
+            className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
               filterRegion === r ? 'bg-primary text-white' : 'bg-slate-100 text-slate-600'
             }`}
           >
