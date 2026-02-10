@@ -263,14 +263,68 @@ export default function JapanMap({
       }
     }
 
+    // Mouse wheel zoom
+    const onWheel = (e: WheelEvent) => {
+      e.preventDefault()
+      const svgPt = screenToSvg(e.clientX, e.clientY)
+      const factor = e.deltaY > 0 ? 1.15 : 0.85
+      zoomTo(factor, svgPt.x, svgPt.y)
+    }
+
+    // Mouse drag pan
+    const onMouseDown = (e: MouseEvent) => {
+      if (e.button !== 0) return // left click only
+      const v = vbRef.current
+      if (v.w >= VB_W * 0.95) return // not zoomed
+      dragRef.current = {
+        dragging: true,
+        startX: e.clientX,
+        startY: e.clientY,
+        startVb: { ...v },
+        moved: false,
+      }
+    }
+
+    const onMouseMove = (e: MouseEvent) => {
+      if (!dragRef.current.dragging) return
+      const dx = e.clientX - dragRef.current.startX
+      const dy = e.clientY - dragRef.current.startY
+      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
+        dragRef.current.moved = true
+      }
+      if (dragRef.current.moved) {
+        const rect = svg.getBoundingClientRect()
+        const sv = dragRef.current.startVb
+        const svgDx = -(dx / rect.width) * sv.w
+        const svgDy = -(dy / rect.height) * sv.h
+        let newX = sv.x + svgDx
+        let newY = sv.y + svgDy
+        newX = clamp(newX, VB_X - sv.w * 0.1, VB_X + VB_W - sv.w * 0.9)
+        newY = clamp(newY, VB_Y - sv.h * 0.1, VB_Y + VB_H - sv.h * 0.9)
+        setVb({ x: newX, y: newY, w: sv.w, h: sv.h })
+      }
+    }
+
+    const onMouseUp = () => {
+      dragRef.current.dragging = false
+    }
+
     svg.addEventListener('touchstart', onTouchStart, { passive: false })
     svg.addEventListener('touchmove', onTouchMove, { passive: false })
     svg.addEventListener('touchend', onTouchEnd)
+    svg.addEventListener('wheel', onWheel, { passive: false })
+    svg.addEventListener('mousedown', onMouseDown)
+    window.addEventListener('mousemove', onMouseMove)
+    window.addEventListener('mouseup', onMouseUp)
 
     return () => {
       svg.removeEventListener('touchstart', onTouchStart)
       svg.removeEventListener('touchmove', onTouchMove)
       svg.removeEventListener('touchend', onTouchEnd)
+      svg.removeEventListener('wheel', onWheel)
+      svg.removeEventListener('mousedown', onMouseDown)
+      window.removeEventListener('mousemove', onMouseMove)
+      window.removeEventListener('mouseup', onMouseUp)
     }
   }, [zoomable, screenToSvg, zoomTo, resetZoom])
 

@@ -271,6 +271,7 @@ export default function RoadQuiz({
               showLabels={isAnswered}
               size="full"
               zoomable={true}
+              defaultScale={0.45}
             />
           </div>
         )}

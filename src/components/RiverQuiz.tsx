@@ -253,6 +253,7 @@ export default function RiverQuiz({
               showLabels={isAnswered}
               size="full"
               zoomable={true}
+              defaultScale={0.45}
             />
           </div>
         )}
