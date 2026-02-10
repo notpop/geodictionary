@@ -123,7 +123,8 @@ export function getDefaultMunicipalityProgress(): MunicipalityProgress {
 export function recordMunicipalityQuiz(
   correct: number,
   total: number,
-  prefCode?: string
+  prefCode?: string,
+  isFullQuiz?: boolean
 ): void {
   const progress = getMunicipalityProgress()
   progress.quizzesTaken += total
@@ -140,6 +141,16 @@ export function recordMunicipalityQuiz(
     const accuracy = score.correct / score.total
     if (score.total >= 10 && accuracy >= 0.8 && !progress.masteredPrefectures.includes(prefCode)) {
       progress.masteredPrefectures.push(prefCode)
+    }
+
+    // 全問モードのベストスコアを記録
+    if (isFullQuiz) {
+      if (!progress.bestFullScores) progress.bestFullScores = {}
+      const pct = Math.round((correct / total) * 100)
+      const prev = progress.bestFullScores[prefCode] ?? 0
+      if (pct > prev) {
+        progress.bestFullScores[prefCode] = pct
+      }
     }
   }
 

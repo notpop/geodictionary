@@ -140,6 +140,7 @@ export default function MunicipalitiesPage() {
             )
             const acc = progress ? getPrefectureAccuracy(progress, pref.code) : 0
             const isMastered = progress?.masteredPrefectures.includes(pref.code)
+            const bestScore = progress?.bestFullScores?.[pref.code]
 
             return (
               <Link
@@ -153,14 +154,21 @@ export default function MunicipalitiesPage() {
               >
                 <div className="flex items-center justify-between">
                   <span className="font-medium text-slate-800 text-sm">{pref.name}</span>
-                  {isMastered && <span className="text-green-500 text-xs">✓</span>}
+                  <div className="flex items-center gap-1.5">
+                    {bestScore != null && (
+                      <span className={`text-[10px] font-bold ${bestScore >= 80 ? 'text-green-500' : bestScore >= 60 ? 'text-yellow-500' : 'text-red-400'}`}>
+                        {bestScore}%
+                      </span>
+                    )}
+                    {isMastered && <span className="text-green-500 text-xs">✓</span>}
+                  </div>
                 </div>
                 <div className="text-xs text-slate-500 mt-0.5">{muniCount}件</div>
-                {acc > 0 && (
+                {(acc > 0 || bestScore != null) && (
                   <div className="mt-1.5 h-1 bg-slate-100 rounded-full overflow-hidden">
                     <div
-                      className={`h-full rounded-full ${isMastered ? 'bg-green-400' : acc >= 60 ? 'bg-yellow-400' : 'bg-red-400'}`}
-                      style={{ width: `${isMastered ? 100 : acc}%` }}
+                      className={`h-full rounded-full ${isMastered || (bestScore != null && bestScore >= 80) ? 'bg-green-400' : (bestScore ?? acc) >= 60 ? 'bg-yellow-400' : 'bg-red-400'}`}
+                      style={{ width: `${isMastered ? 100 : bestScore ?? acc}%` }}
                     />
                   </div>
                 )}

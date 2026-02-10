@@ -27,6 +27,7 @@ interface MunicipalityQuizProps {
   questionCount: number
   filterPrefecture?: string
   filterRegion?: string
+  isFullQuiz?: boolean
   onComplete?: (correct: number, total: number) => void
   onBack?: () => void
 }
@@ -210,6 +211,7 @@ export default function MunicipalityQuiz({
   questionCount,
   filterPrefecture,
   filterRegion,
+  isFullQuiz,
   onComplete,
   onBack,
 }: MunicipalityQuizProps) {
@@ -302,7 +304,7 @@ export default function MunicipalityQuiz({
       setAnimState('idle')
     } else {
       setIsComplete(true)
-      recordMunicipalityQuiz(correctCount, questions.length, filterPrefecture)
+      recordMunicipalityQuiz(correctCount, questions.length, filterPrefecture, isFullQuiz)
       onComplete?.(correctCount, questions.length)
     }
   }, [currentIndex, questions.length, correctCount, filterPrefecture, onComplete])

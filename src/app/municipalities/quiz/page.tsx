@@ -92,6 +92,7 @@ function QuizPageInner() {
           questionCount={questionCount}
           filterPrefecture={selectedPref || undefined}
           filterRegion={selectedRegion || undefined}
+          isFullQuiz={questionCount === maxMunis}
           onComplete={() => {
             setProgress(getMunicipalityProgress())
           }}

@@ -71,6 +71,7 @@ export interface MunicipalityProgress {
   correctAnswers: number
   prefectureScores: { [prefCode: string]: { correct: number; total: number } }
   masteredPrefectures: string[]
+  bestFullScores?: { [prefCode: string]: number }
   lastQuizDate: string
 }
 
