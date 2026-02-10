@@ -441,7 +441,7 @@ export default function MunicipalityQuiz({
                 }
                 size="full"
                 zoomable={true}
-                defaultScale={0.65}
+                defaultScale={0.45}
               />
             )}
           </div>

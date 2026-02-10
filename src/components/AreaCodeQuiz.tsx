@@ -190,7 +190,7 @@ export default function AreaCodeQuiz({ areaCodes, questionCount, filterRegion, c
             showLabels={isAnswered}
             size="full"
             zoomable={true}
-            defaultScale={0.65}
+            defaultScale={0.45}
           />
         </div>
 
