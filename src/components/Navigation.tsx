@@ -14,11 +14,14 @@ const closeMenuOnMobile = () => {
   }
 }
 
-const mainItems = [
+const dataItems = [
   { href: '/municipalities', icon: '🗺️', label: '市区町村' },
   { href: '/roads', icon: '🛣️', label: '国道' },
   { href: '/rivers', icon: '🏞️', label: '河川' },
   { href: '/area-codes', icon: '📞', label: '市外局番' },
+]
+
+const curriculumItems = [
   { href: '/quiz', icon: '🎯', label: 'クイズ' },
   { href: '/learn', icon: '📖', label: '学習' },
 ]
@@ -36,7 +39,7 @@ export default function Navigation() {
 
   const isActive = (href: string) => pathname === href || pathname.startsWith(href + '/')
 
-  const renderSection = (title: string, items: typeof mainItems) => (
+  const renderSection = (title: string, items: typeof dataItems) => (
     <div className="border-t border-white/10 mt-3 pt-3">
       <p className="px-3 text-[10px] text-slate-500 uppercase tracking-wider mb-2">{title}</p>
       <ul className="space-y-1">
@@ -68,7 +71,7 @@ export default function Navigation() {
     >
       <div className="p-3">
         <ul className="space-y-1">
-          {mainItems.map((item) => (
+          {dataItems.map((item) => (
             <li key={item.href}>
               <Link
                 href={item.href}
@@ -86,6 +89,7 @@ export default function Navigation() {
           ))}
         </ul>
 
+        {renderSection('カリキュラム', curriculumItems)}
         {renderSection('リファレンス', referenceItems)}
       </div>
     </nav>
