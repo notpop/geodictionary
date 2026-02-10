@@ -22,6 +22,7 @@ interface JapanMapProps {
   prefectureAnnotations?: Record<string, string>
   className?: string
   zoomable?: boolean
+  defaultScale?: number // 0.0〜1.0, 小さいほどズーム (default: 1.0 = 全体表示)
 }
 
 // Parse the original viewBox
@@ -77,12 +78,20 @@ export default function JapanMap({
   prefectureAnnotations,
   className = '',
   zoomable = false,
+  defaultScale = 1.0,
 }: JapanMapProps) {
   const [hoveredCode, setHoveredCode] = useState<string | null>(null)
   const [hoveredName, setHoveredName] = useState<string>('')
 
   // Zoom/pan state (viewBox)
-  const [vb, setVb] = useState({ x: VB_X, y: VB_Y, w: VB_W, h: VB_H })
+  const initVb = (() => {
+    if (defaultScale >= 1) return { x: VB_X, y: VB_Y, w: VB_W, h: VB_H }
+    const s = clamp(defaultScale, 0.15, 1)
+    const newW = VB_W * s
+    const newH = VB_H * s
+    return { x: VB_X + (VB_W - newW) / 2, y: VB_Y + (VB_H - newH) / 2, w: newW, h: newH }
+  })()
+  const [vb, setVb] = useState(initVb)
   const vbRef = useRef(vb)
   vbRef.current = vb
   const svgRef = useRef<SVGSVGElement>(null)
