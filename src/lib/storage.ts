@@ -98,7 +98,16 @@ export function getMunicipalityProgress(): MunicipalityProgress {
   const stored = localStorage.getItem(MUNICIPALITY_KEY)
   if (!stored) return getDefaultMunicipalityProgress()
   try {
-    return JSON.parse(stored)
+    const progress: MunicipalityProgress = JSON.parse(stored)
+    // Reconcile masteredPrefectures from bestFullScores
+    if (progress.bestFullScores) {
+      for (const [prefCode, score] of Object.entries(progress.bestFullScores)) {
+        if (score >= 80 && !progress.masteredPrefectures.includes(prefCode)) {
+          progress.masteredPrefectures.push(prefCode)
+        }
+      }
+    }
+    return progress
   } catch {
     return getDefaultMunicipalityProgress()
   }
