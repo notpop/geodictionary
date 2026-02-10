@@ -62,29 +62,19 @@ export default function PrefectureDetail({ prefecture, prevPrefecture, nextPrefe
     return map
   }, [allEntries])
 
-  // GeoJSONのcode → 親市名マッピング（区のラベルに「北区（堺市）」のように表示）
+  // GeoJSONのcode → 親市名マッピング（同名区のラベルに「北区（堺市）」のように表示）
   const parentMap = useMemo(() => {
     if (!geoJson) return {}
     const map: Record<string, string> = {}
-    // ward名 → 親市名の配列
-    const wardToParents: Record<string, string[]> = {}
-    for (const m of prefecture.municipalities) {
-      if (m.wards) {
-        for (const w of m.wards) {
-          if (!wardToParents[w.name]) wardToParents[w.name] = []
-          wardToParents[w.name].push(m.name)
-        }
-      }
-    }
     for (const feat of geoJson.features) {
-      const name = feat.properties?.name
       const code = feat.properties?.code
-      if (name && code && wardToParents[name]) {
-        map[code] = wardToParents[name][0]
+      const parent = feat.properties?.parent
+      if (code && parent) {
+        map[code] = parent
       }
     }
     return map
-  }, [geoJson, prefecture])
+  }, [geoJson])
 
   const filteredEntries = useMemo(() => {
     let entries = allEntries
