@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import JapanMap from './JapanMap'
 import PrefectureLeafletMap from './PrefectureLeafletMap'
 import { useGeoJson } from '@/lib/useGeoJson'
@@ -12,7 +12,8 @@ interface QuizQuestion {
   reading: string
   correctPrefCode: string
   correctPrefName: string
-  correctMuniName: string // for intra-pref: same as municipalityName
+  correctMuniName: string
+  correctCode?: string // GeoJSON code for code-based matching
   lat: number
   lng: number
   options: string[]
@@ -76,7 +77,6 @@ function generateNationalQuestions(
     : prefectures
   const entries = collectEntries(targetPrefs)
   const picked = shuffle(entries).slice(0, count)
-  // Options come from the same scope (region or all)
   const allPrefs = targetPrefs.map((p) => ({ code: p.code, name: p.name }))
 
   return picked.map((entry) => {
@@ -97,23 +97,95 @@ function generateNationalQuestions(
   })
 }
 
+type GeoEntry = {
+  name: string
+  code: string
+  reading: string
+  parent?: string
+  displayName: string
+}
+
 function generateIntraPrefQuestions(
   prefectures: MunicipalityPrefecture[],
   count: number,
-  prefCode: string
+  prefCode: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  geoJson?: any
 ): QuizQuestion[] {
   const pref = prefectures.find((p) => p.code === prefCode)
   if (!pref) return []
 
+  // If GeoJSON available, use it for code-based matching with ward expansion
+  if (geoJson) {
+    const features = geoJson.features || []
+
+    // Build reading + parent lookup from municipalities.json
+    const readingLookup: Record<string, string> = {}
+    const parentLookup: Record<string, string> = {}
+    for (const m of pref.municipalities) {
+      readingLookup[m.name] = m.reading
+      if (m.type === 'designated_city' && m.wards) {
+        for (const w of m.wards) {
+          readingLookup[w.name] = w.reading
+          parentLookup[w.name] = m.name
+        }
+      }
+    }
+
+    // Check which names have duplicates in GeoJSON
+    const nameCounts: Record<string, number> = {}
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    for (const f of features) {
+      const n = f.properties?.name
+      if (n) nameCounts[n] = (nameCounts[n] || 0) + 1
+    }
+
+    // Build entries from GeoJSON features
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const entries: GeoEntry[] = features.map((f: any) => {
+      const name = f.properties?.name
+      const code = f.properties?.code
+      if (!name || !code) return null
+      const parent = parentLookup[name]
+      const hasDuplicate = (nameCounts[name] || 0) > 1
+      return {
+        name,
+        code,
+        reading: readingLookup[name] || '',
+        parent,
+        displayName: parent && hasDuplicate ? `${name}（${parent}）` : name,
+      }
+    }).filter(Boolean) as GeoEntry[]
+
+    const picked = shuffle(entries).slice(0, count)
+
+    return picked.map((entry) => {
+      const wrong = shuffle(entries.filter((e) => e.code !== entry.code)).slice(0, 3)
+      const opts = shuffle([entry, ...wrong])
+      return {
+        municipalityName: entry.displayName,
+        reading: entry.reading,
+        correctPrefCode: prefCode,
+        correctPrefName: pref.name,
+        correctMuniName: entry.name,
+        correctCode: entry.code,
+        lat: 0,
+        lng: 0,
+        options: opts.map((o) => o.displayName),
+        optionCodes: opts.map((o) => o.code),
+        isIntraPref: true,
+      }
+    })
+  }
+
+  // Fallback: no GeoJSON, use municipalities only (name-based matching)
   const munis = pref.municipalities.map((m) => ({
     name: m.name,
     reading: m.reading,
     lat: m.lat,
     lng: m.lng,
   }))
-
   const picked = shuffle(munis).slice(0, count)
-
   return picked.map((entry) => {
     const wrong = shuffle(munis.filter((m) => m.name !== entry.name)).slice(0, 3)
     const opts = shuffle([entry, ...wrong])
@@ -126,7 +198,7 @@ function generateIntraPrefQuestions(
       lat: entry.lat,
       lng: entry.lng,
       options: opts.map((o) => o.name),
-      optionCodes: opts.map((o) => o.name), // use name as identifier for intra-pref
+      optionCodes: opts.map((o) => o.name),
       isIntraPref: true,
     }
   })
@@ -152,30 +224,57 @@ export default function MunicipalityQuiz({
   const isIntraPref = !!filterPrefecture
   const { data: geoJson } = useGeoJson(isIntraPref ? filterPrefecture : null)
 
+  // Build readingMap from municipalities data for label display
+  const readingMap = useMemo(() => {
+    if (!filterPrefecture) return undefined
+    const pref = prefectures.find((p) => p.code === filterPrefecture)
+    if (!pref) return undefined
+    const map: Record<string, string> = {}
+    for (const m of pref.municipalities) {
+      map[m.name] = m.reading
+      if (m.wards) {
+        for (const w of m.wards) {
+          map[w.name] = w.reading
+        }
+      }
+    }
+    return map
+  }, [prefectures, filterPrefecture])
+
+  // Generate questions - for intra-pref, wait for GeoJSON
   useEffect(() => {
-    const q = isIntraPref
-      ? generateIntraPrefQuestions(prefectures, questionCount, filterPrefecture!)
-      : generateNationalQuestions(prefectures, questionCount, filterRegion)
-    setQuestions(q)
-  }, [prefectures, questionCount, filterPrefecture, filterRegion, isIntraPref])
+    if (isIntraPref) {
+      if (!geoJson) return // Wait for GeoJSON to load
+      const q = generateIntraPrefQuestions(prefectures, questionCount, filterPrefecture!, geoJson)
+      setQuestions(q)
+    } else {
+      const q = generateNationalQuestions(prefectures, questionCount, filterRegion)
+      setQuestions(q)
+    }
+  }, [prefectures, questionCount, filterPrefecture, filterRegion, isIntraPref, geoJson])
 
   const currentQuestion = questions[currentIndex]
   const progress = questions.length > 0 ? ((currentIndex + 1) / questions.length) * 100 : 0
 
+  // For matching: use code if available, otherwise name
   const correctId = currentQuestion
     ? isIntraPref
-      ? currentQuestion.correctMuniName
+      ? (currentQuestion.correctCode || currentQuestion.correctMuniName)
       : currentQuestion.correctPrefCode
     : ''
   const isCorrect = selectedAnswer === correctId
 
   const handleAnswer = useCallback(
-    (answer: string) => {
+    (answer: string, code?: string) => {
       if (isAnswered || !currentQuestion) return
-      setSelectedAnswer(answer)
+      // For intra-pref with code-based matching, use code as the answer
+      const answerValue = isIntraPref && currentQuestion.correctCode && code ? code : answer
+      setSelectedAnswer(answerValue)
       setIsAnswered(true)
-      const cId = isIntraPref ? currentQuestion.correctMuniName : currentQuestion.correctPrefCode
-      const correct = answer === cId
+      const cId = isIntraPref
+        ? (currentQuestion.correctCode || currentQuestion.correctMuniName)
+        : currentQuestion.correctPrefCode
+      const correct = answerValue === cId
       if (correct) {
         setCorrectCount((prev) => prev + 1)
         setAnimState('correct')
@@ -185,6 +284,14 @@ export default function MunicipalityQuiz({
       setTimeout(() => setAnimState('idle'), 600)
     },
     [isAnswered, currentQuestion, isIntraPref]
+  )
+
+  // Wrapper for map click that passes both name and code
+  const handleMapClick = useCallback(
+    (name: string, code?: string) => {
+      handleAnswer(name, code)
+    },
+    [handleAnswer]
   )
 
   const handleNext = useCallback(() => {
@@ -202,7 +309,7 @@ export default function MunicipalityQuiz({
 
   const handleRetry = useCallback(() => {
     const q = isIntraPref
-      ? generateIntraPrefQuestions(prefectures, questionCount, filterPrefecture!)
+      ? generateIntraPrefQuestions(prefectures, questionCount, filterPrefecture!, geoJson)
       : generateNationalQuestions(prefectures, questionCount, filterRegion)
     setQuestions(q)
     setCurrentIndex(0)
@@ -211,7 +318,7 @@ export default function MunicipalityQuiz({
     setCorrectCount(0)
     setIsComplete(false)
     setAnimState('idle')
-  }, [prefectures, questionCount, filterPrefecture, filterRegion, isIntraPref])
+  }, [prefectures, questionCount, filterPrefecture, filterRegion, isIntraPref, geoJson])
 
   if (questions.length === 0) {
     return <div className="text-center py-12 text-slate-500">問題を生成中...</div>
@@ -301,9 +408,11 @@ export default function MunicipalityQuiz({
               <PrefectureLeafletMap
                 geojson={geoJson}
                 interactive={!isAnswered}
-                onFeatureClick={!isAnswered ? handleAnswer : undefined}
-                highlightedName={isAnswered ? currentQuestion.correctMuniName : null}
-                wrongName={isAnswered && !isCorrect ? selectedAnswer : null}
+                onFeatureClick={!isAnswered ? handleMapClick : undefined}
+                highlightedCode={isAnswered ? (currentQuestion.correctCode || null) : null}
+                highlightedName={isAnswered && !currentQuestion.correctCode ? currentQuestion.correctMuniName : null}
+                wrongCode={isAnswered && !isCorrect ? selectedAnswer : null}
+                readingMap={readingMap}
                 className="h-full rounded-xl overflow-hidden"
               />
             ) : (
@@ -374,8 +483,10 @@ export default function MunicipalityQuiz({
                   <PrefectureLeafletMap
                     geojson={geoJson}
                     interactive={false}
-                    highlightedName={currentQuestion.correctMuniName}
-                    wrongName={!isCorrect ? selectedAnswer : null}
+                    highlightedCode={currentQuestion.correctCode || null}
+                    highlightedName={!currentQuestion.correctCode ? currentQuestion.correctMuniName : null}
+                    wrongCode={!isCorrect ? selectedAnswer : null}
+                    readingMap={readingMap}
                     className="h-full rounded-xl overflow-hidden"
                   />
                 ) : (
@@ -395,7 +506,7 @@ export default function MunicipalityQuiz({
         {mode === 'map_click' && isAnswered && (
           <div className="text-center flex-shrink-0">
             <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
-              {isCorrect ? '正解!' : `不正解 → ${isIntraPref ? currentQuestion.correctMuniName : currentQuestion.correctPrefName}`}
+              {isCorrect ? '正解!' : `不正解 → ${isIntraPref ? currentQuestion.municipalityName : currentQuestion.correctPrefName}`}
             </span>
           </div>
         )}

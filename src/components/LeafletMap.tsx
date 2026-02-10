@@ -7,11 +7,14 @@ import 'leaflet/dist/leaflet.css'
 interface LeafletMapProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   geojson: any
-  onFeatureClick?: (name: string) => void
+  onFeatureClick?: (name: string, code?: string) => void
   highlightedName?: string | null
+  highlightedCode?: string | null
   wrongName?: string | null
+  wrongCode?: string | null
   interactive?: boolean
   showLabels?: boolean
+  readingMap?: Record<string, string>
   className?: string
 }
 
@@ -19,9 +22,12 @@ export default function LeafletMap({
   geojson,
   onFeatureClick,
   highlightedName,
+  highlightedCode,
   wrongName,
+  wrongCode,
   interactive = true,
   showLabels = false,
+  readingMap,
   className = '',
 }: LeafletMapProps) {
   const mapRef = useRef<L.Map | null>(null)
@@ -32,10 +38,13 @@ export default function LeafletMap({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (feature: any) => {
       const name = feature?.properties?.name
-      if (name === highlightedName) {
+      const code = feature?.properties?.code
+      const isHighlighted = highlightedCode ? code === highlightedCode : name === highlightedName
+      const isWrong = wrongCode ? code === wrongCode : name === wrongName
+      if (isHighlighted) {
         return { fillColor: '#22c55e', fillOpacity: 0.6, color: '#16a34a', weight: 2 }
       }
-      if (name === wrongName) {
+      if (isWrong) {
         return { fillColor: '#ef4444', fillOpacity: 0.6, color: '#dc2626', weight: 2 }
       }
       return {
@@ -45,7 +54,7 @@ export default function LeafletMap({
         weight: 1.5,
       }
     },
-    [highlightedName, wrongName, showLabels]
+    [highlightedName, highlightedCode, wrongName, wrongCode, showLabels]
   )
 
   // Initialize map
@@ -91,12 +100,15 @@ export default function LeafletMap({
       onEachFeature: (feature, lyr) => {
         if (interactive && onFeatureClick) {
           lyr.on('click', () => {
-            onFeatureClick(feature.properties.name)
+            onFeatureClick(feature.properties.name, feature.properties.code)
           })
         }
         // Add Japanese labels from GeoJSON properties
         if (showLabels && feature.properties?.name) {
-          lyr.bindTooltip(feature.properties.name, {
+          const name = feature.properties.name
+          const reading = readingMap?.[name]
+          const label = reading ? `${name}<br><span style="font-size:0.7em;opacity:0.7">${reading}</span>` : name
+          lyr.bindTooltip(label, {
             permanent: true,
             direction: 'center',
             className: 'leaflet-municipality-label',
@@ -110,18 +122,17 @@ export default function LeafletMap({
     const bounds = layer.getBounds()
     if (bounds.isValid()) {
       map.invalidateSize()
-      map.fitBounds(bounds, { padding: [20, 20], maxZoom: 16 })
+      map.fitBounds(bounds, { padding: [8, 8], maxZoom: 16 })
       // Re-fit after layout settles (fixes expanded overlay sizing)
-      // Use multiple retries with increasing delays for reliability
       const retryFit = () => {
         map.invalidateSize()
-        map.fitBounds(bounds, { padding: [20, 20], maxZoom: 16 })
+        map.fitBounds(bounds, { padding: [8, 8], maxZoom: 16 })
       }
       requestAnimationFrame(retryFit)
       setTimeout(retryFit, 100)
       setTimeout(retryFit, 300)
     }
-  }, [geojson, getStyle, interactive, onFeatureClick, showLabels])
+  }, [geojson, getStyle, interactive, onFeatureClick, showLabels, readingMap])
 
   // Update styles when highlight changes
   useEffect(() => {

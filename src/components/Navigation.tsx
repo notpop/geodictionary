@@ -18,6 +18,7 @@ const mainNavItems = [
   { href: '/municipalities', icon: '🗺️', label: '市区町村' },
   { href: '/roads', icon: '🛣️', label: '国道' },
   { href: '/rivers', icon: '🏞️', label: '河川' },
+  { href: '/area-codes', icon: '📞', label: '市外局番' },
   { href: '/learn', icon: '📖', label: '学習' },
   { href: '/quiz', icon: '🎯', label: 'クイズ' },
   { href: '/images', icon: '🖼️', label: '画像' },

@@ -9,7 +9,6 @@ import type { MunicipalityPrefecture } from '@/lib/types'
 
 interface PrefectureDetailProps {
   prefecture: MunicipalityPrefecture
-  onStartQuiz?: () => void
   prevPrefecture?: { name: string; nameEn: string } | null
   nextPrefecture?: { name: string; nameEn: string } | null
 }
@@ -45,7 +44,7 @@ function getAllEntries(pref: MunicipalityPrefecture): { name: string; reading: s
   return entries
 }
 
-export default function PrefectureDetail({ prefecture, onStartQuiz, prevPrefecture, nextPrefecture }: PrefectureDetailProps) {
+export default function PrefectureDetail({ prefecture, prevPrefecture, nextPrefecture }: PrefectureDetailProps) {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedType, setSelectedType] = useState<string>('all')
   const [highlightedMuni, setHighlightedMuni] = useState<string | null>(null)
@@ -54,6 +53,14 @@ export default function PrefectureDetail({ prefecture, onStartQuiz, prevPrefectu
   const { data: geoJson } = useGeoJson(prefecture.code)
 
   const allEntries = useMemo(() => getAllEntries(prefecture), [prefecture])
+
+  const readingMap = useMemo(() => {
+    const map: Record<string, string> = {}
+    for (const e of allEntries) {
+      map[e.name] = e.reading
+    }
+    return map
+  }, [allEntries])
 
   const filteredEntries = useMemo(() => {
     let entries = allEntries
@@ -130,6 +137,7 @@ export default function PrefectureDetail({ prefecture, onStartQuiz, prevPrefectu
                 interactive={false}
                 highlightedName={highlightedMuni}
                 showLabels={showLabels}
+                readingMap={readingMap}
                 className="h-44 rounded-xl overflow-hidden"
               />
             ) : (
@@ -188,6 +196,7 @@ export default function PrefectureDetail({ prefecture, onStartQuiz, prevPrefectu
               interactive={false}
               highlightedName={highlightedMuni}
               showLabels={showLabels}
+              readingMap={readingMap}
               className="w-full h-full"
             />
           </div>
@@ -269,16 +278,14 @@ export default function PrefectureDetail({ prefecture, onStartQuiz, prevPrefectu
       </div>
 
       {/* Quiz CTA */}
-      {onStartQuiz && (
-        <div className="sticky bottom-4 pt-4">
-          <button
-            onClick={onStartQuiz}
-            className="w-full py-4 bg-gradient-to-r from-primary to-blue-600 text-white rounded-2xl font-bold text-lg shadow-lg active:scale-[0.98] transition-transform"
-          >
-            {prefecture.name}を地図クイズする
-          </button>
-        </div>
-      )}
+      <div className="sticky bottom-4 pt-4">
+        <Link
+          href={`/municipalities/quiz?pref=${prefecture.code}&mode=map`}
+          className="block w-full py-4 bg-gradient-to-r from-primary to-blue-600 text-white rounded-2xl font-bold text-lg shadow-lg active:scale-[0.98] transition-transform text-center"
+        >
+          {prefecture.name}をクイズする
+        </Link>
+      </div>
     </div>
   )
 }

@@ -210,6 +210,8 @@ body {
   text-shadow: 0 0 3px #fff, 0 0 3px #fff, 0 0 3px #fff;
   white-space: nowrap;
   padding: 0 !important;
+  text-align: center;
+  line-height: 1.3;
 }
 
 /* Standalone PWA - safe area handled by Header + main paddingTop */

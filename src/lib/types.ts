@@ -123,3 +123,18 @@ export interface RiverProgress {
   masteredRivers: string[]
   lastQuizDate: string
 }
+
+// 市外局番関連
+export interface AreaCode {
+  code: string
+  city: string
+  prefCode: string
+  prefName: string
+  region: string
+}
+
+export interface AreaCodeProgress {
+  quizzesTaken: number
+  correctAnswers: number
+  lastQuizDate: string
+}

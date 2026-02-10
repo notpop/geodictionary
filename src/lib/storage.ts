@@ -89,7 +89,7 @@ export function getLevelName(level: number): string {
 }
 
 // 市区町村学習の進捗管理
-import type { MunicipalityProgress, RoadProgress, RiverProgress } from './types'
+import type { MunicipalityProgress, RoadProgress, RiverProgress, AreaCodeProgress } from './types'
 
 const MUNICIPALITY_KEY = 'geoguessr-municipality-progress'
 
@@ -229,6 +229,39 @@ export function recordRiverQuiz(correct: number, total: number): void {
 }
 
 export function getRiverAccuracy(progress: RiverProgress): number {
+  if (progress.quizzesTaken === 0) return 0
+  return Math.round((progress.correctAnswers / progress.quizzesTaken) * 100)
+}
+
+// ========== 市外局番進捗 ==========
+const AREA_CODE_KEY = 'geoguessr-area-code-progress'
+
+export function getAreaCodeProgress(): AreaCodeProgress {
+  if (typeof window === 'undefined') return getDefaultAreaCodeProgress()
+  const raw = localStorage.getItem(AREA_CODE_KEY)
+  if (!raw) return getDefaultAreaCodeProgress()
+  return JSON.parse(raw)
+}
+
+function getDefaultAreaCodeProgress(): AreaCodeProgress {
+  return {
+    quizzesTaken: 0,
+    correctAnswers: 0,
+    lastQuizDate: new Date().toISOString(),
+  }
+}
+
+export function recordAreaCodeQuiz(correct: number, total: number): void {
+  const progress = getAreaCodeProgress()
+  progress.quizzesTaken += total
+  progress.correctAnswers += correct
+  progress.lastQuizDate = new Date().toISOString()
+  if (typeof window !== 'undefined') {
+    localStorage.setItem(AREA_CODE_KEY, JSON.stringify(progress))
+  }
+}
+
+export function getAreaCodeAccuracy(progress: AreaCodeProgress): number {
   if (progress.quizzesTaken === 0) return 0
   return Math.round((progress.correctAnswers / progress.quizzesTaken) * 100)
 }
