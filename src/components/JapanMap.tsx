@@ -94,6 +94,7 @@ export default function JapanMap({
   const [vb, setVb] = useState(initVb)
   const vbRef = useRef(vb)
   vbRef.current = vb
+  const wrapperRef = useRef<HTMLDivElement>(null)
   const svgRef = useRef<SVGSVGElement>(null)
   const touchRef = useRef<{
     startDist: number
@@ -309,22 +310,25 @@ export default function JapanMap({
       dragRef.current.dragging = false
     }
 
+    const wrapper = wrapperRef.current
+
     svg.addEventListener('touchstart', onTouchStart, { passive: false })
     svg.addEventListener('touchmove', onTouchMove, { passive: false })
     svg.addEventListener('touchend', onTouchEnd)
-    svg.addEventListener('wheel', onWheel, { passive: false })
     svg.addEventListener('mousedown', onMouseDown)
     window.addEventListener('mousemove', onMouseMove)
     window.addEventListener('mouseup', onMouseUp)
+    // Wheel on wrapper to catch scroll even outside SVG area
+    wrapper?.addEventListener('wheel', onWheel, { passive: false })
 
     return () => {
       svg.removeEventListener('touchstart', onTouchStart)
       svg.removeEventListener('touchmove', onTouchMove)
       svg.removeEventListener('touchend', onTouchEnd)
-      svg.removeEventListener('wheel', onWheel)
       svg.removeEventListener('mousedown', onMouseDown)
       window.removeEventListener('mousemove', onMouseMove)
       window.removeEventListener('mouseup', onMouseUp)
+      wrapper?.removeEventListener('wheel', onWheel)
     }
   }, [zoomable, screenToSvg, zoomTo, resetZoom])
 
@@ -354,7 +358,7 @@ export default function JapanMap({
     : mapData.viewBox
 
   return (
-    <div className={`relative ${sizeClasses[size]} mx-auto ${className}`}>
+    <div ref={wrapperRef} className={`relative ${sizeClasses[size]} mx-auto ${zoomable ? 'h-full' : ''} ${className}`}>
       {/* Tooltip */}
       {hoveredName && interactive && (
         <div className="absolute top-2 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-sm px-3 py-1 rounded-full z-10 pointer-events-none animate-fade-in">
@@ -372,7 +376,7 @@ export default function JapanMap({
       <svg
         ref={svgRef}
         viewBox={viewBox}
-        className="w-full h-auto gpu"
+        className={`w-full gpu ${zoomable ? 'h-full' : 'h-auto'}`}
         style={{ touchAction: zoomable ? 'none' : 'manipulation' }}
       >
         {/* Prefecture paths */}
