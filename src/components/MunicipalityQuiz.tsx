@@ -218,6 +218,7 @@ export default function MunicipalityQuiz({
   const [questions, setQuestions] = useState<QuizQuestion[]>([])
   const [currentIndex, setCurrentIndex] = useState(0)
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
+  const [selectedAnswerName, setSelectedAnswerName] = useState<string | null>(null)
   const [isAnswered, setIsAnswered] = useState(false)
   const [correctCount, setCorrectCount] = useState(0)
   const [isComplete, setIsComplete] = useState(false)
@@ -267,11 +268,12 @@ export default function MunicipalityQuiz({
   const isCorrect = selectedAnswer === correctId
 
   const handleAnswer = useCallback(
-    (answer: string, code?: string) => {
+    (answer: string, code?: string, clickedName?: string) => {
       if (isAnswered || !currentQuestion) return
       // For intra-pref with code-based matching, use code as the answer
       const answerValue = isIntraPref && currentQuestion.correctCode && code ? code : answer
       setSelectedAnswer(answerValue)
+      setSelectedAnswerName(clickedName || answer)
       setIsAnswered(true)
       const cId = isIntraPref
         ? (currentQuestion.correctCode || currentQuestion.correctMuniName)
@@ -291,7 +293,7 @@ export default function MunicipalityQuiz({
   // Wrapper for map click that passes both name and code
   const handleMapClick = useCallback(
     (name: string, code?: string) => {
-      handleAnswer(name, code)
+      handleAnswer(name, code, name)
     },
     [handleAnswer]
   )
@@ -300,6 +302,7 @@ export default function MunicipalityQuiz({
     if (currentIndex < questions.length - 1) {
       setCurrentIndex((prev) => prev + 1)
       setSelectedAnswer(null)
+      setSelectedAnswerName(null)
       setIsAnswered(false)
       setAnimState('idle')
     } else {
@@ -420,7 +423,10 @@ export default function MunicipalityQuiz({
             ) : (
               <JapanMap
                 interactive={!isAnswered}
-                onPrefectureClick={!isAnswered ? handleAnswer : undefined}
+                onPrefectureClick={!isAnswered ? (code: string) => {
+                  const pName = prefectures.find(p => p.code === code)?.name || code
+                  handleAnswer(code, undefined, pName)
+                } : undefined}
                 correctPrefecture={isAnswered ? currentQuestion.correctPrefCode : undefined}
                 wrongPrefecture={isAnswered && !isCorrect ? (selectedAnswer || undefined) : undefined}
                 markers={
@@ -507,9 +513,17 @@ export default function MunicipalityQuiz({
         {/* Answer feedback for map click */}
         {mode === 'map_click' && isAnswered && (
           <div className="text-center flex-shrink-0">
-            <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
-              {isCorrect ? '正解!' : `不正解 → ${isIntraPref ? currentQuestion.municipalityName : currentQuestion.correctPrefName}`}
-            </span>
+            {isCorrect ? (
+              <span className="inline-block px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-700">
+                正解!
+              </span>
+            ) : (
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-700">
+                <span>{selectedAnswerName}</span>
+                <span className="text-red-400">→</span>
+                <span className="font-bold">{isIntraPref ? currentQuestion.municipalityName : currentQuestion.correctPrefName}</span>
+              </div>
+            )}
           </div>
         )}
       </div>
