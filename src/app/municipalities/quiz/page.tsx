@@ -29,12 +29,15 @@ function QuizPageInner() {
   useEffect(() => {
     if (selectedPref) {
       const pref = prefectures.find((p) => p.code === selectedPref)
-      if (pref && questionCount > pref.municipalities.length) {
-        setQuestionCount(Math.min(10, pref.municipalities.length))
+      if (pref) {
+        const count = getEntryCount(pref)
+        if (questionCount > count) {
+          setQuestionCount(Math.min(10, count))
+        }
       }
     } else if (selectedRegion) {
       const rPrefs = prefectures.filter((p) => p.region === selectedRegion)
-      const rMax = rPrefs.reduce((s, p) => s + p.municipalities.length, 0)
+      const rMax = rPrefs.reduce((s, p) => s + getEntryCount(p), 0)
       if (questionCount > rMax) {
         setQuestionCount(Math.min(20, rMax))
       }
@@ -42,6 +45,19 @@ function QuizPageInner() {
   }, [selectedPref, selectedRegion]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const prefectures = municipalityData.prefectures
+
+  // 政令指定都市の区を展開した実際のクイズ対象数を計算
+  const getEntryCount = (pref: typeof prefectures[0]) => {
+    let count = 0
+    for (const m of pref.municipalities) {
+      if (m.type === 'designated_city' && m.wards && m.wards.length > 0) {
+        count += m.wards.length
+      } else {
+        count += 1
+      }
+    }
+    return count
+  }
 
   const regions = [
     { id: '北海道', label: '北海道' },
@@ -54,14 +70,14 @@ function QuizPageInner() {
     { id: '九州', label: '九州' },
   ]
 
-  // 選択中の範囲の市区町村数を計算
+  // 選択中の範囲の市区町村数を計算（区展開済み）
   const selectedPrefData = selectedPref ? prefectures.find((p) => p.code === selectedPref) : null
   const regionPrefs = selectedRegion ? prefectures.filter((p) => p.region === selectedRegion) : null
   const maxMunis = selectedPrefData
-    ? selectedPrefData.municipalities.length
+    ? getEntryCount(selectedPrefData)
     : regionPrefs
-    ? regionPrefs.reduce((sum, p) => sum + p.municipalities.length, 0)
-    : 1900
+    ? regionPrefs.reduce((sum, p) => sum + getEntryCount(p), 0)
+    : prefectures.reduce((sum, p) => sum + getEntryCount(p), 0)
 
   // 出題数の選択肢を動的に生成
   const countOptions = [10, 20, 50].filter((n) => n <= maxMunis)

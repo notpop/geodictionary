@@ -153,7 +153,7 @@ function generateIntraPrefQuestions(
         code,
         reading: readingLookup[name] || '',
         parent,
-        displayName: parent && hasDuplicate ? `${name}（${parent}）` : name,
+        displayName: parent ? `${name}（${parent}）` : name,
       }
     }).filter(Boolean) as GeoEntry[]
 
