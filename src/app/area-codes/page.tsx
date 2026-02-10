@@ -24,6 +24,20 @@ export default function AreaCodesPage() {
     return { [selected.prefCode]: '#3b82f6' }
   }, [selected])
 
+  // Build prefCode → area codes annotation for map labels
+  const prefAnnotations = useMemo(() => {
+    const map: Record<string, string[]> = {}
+    for (const ac of areaCodes) {
+      if (!map[ac.prefCode]) map[ac.prefCode] = []
+      map[ac.prefCode].push(ac.code)
+    }
+    const result: Record<string, string> = {}
+    for (const [code, codes] of Object.entries(map)) {
+      result[code] = codes.slice(0, 2).join('/')
+    }
+    return result
+  }, [areaCodes])
+
   return (
     <div className="animate-fade-in w-full max-w-full" style={{ overflowX: 'clip' }}>
       {/* Map - sticky */}
@@ -33,7 +47,8 @@ export default function AreaCodesPage() {
       >
         <JapanMap
           prefectureColors={highlightColors}
-          showLabels={!!selected}
+          showLabels={true}
+          prefectureAnnotations={prefAnnotations}
           size="full"
           zoomable={true}
         />

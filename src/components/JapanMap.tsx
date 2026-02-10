@@ -19,6 +19,7 @@ interface JapanMapProps {
   prefectureColors?: Record<string, string>
   size?: 'sm' | 'md' | 'lg' | 'full'
   showLabels?: boolean
+  prefectureAnnotations?: Record<string, string>
   className?: string
   zoomable?: boolean
 }
@@ -73,6 +74,7 @@ export default function JapanMap({
   prefectureColors,
   size = 'md',
   showLabels = false,
+  prefectureAnnotations,
   className = '',
   zoomable = false,
 }: JapanMapProps) {
@@ -358,20 +360,36 @@ export default function JapanMap({
 
         {/* Prefecture labels */}
         {showLabels &&
-          mapData.prefectures.map((pref) => (
-            <text
-              key={`label-${pref.code}`}
-              x={pref.labelX}
-              y={pref.labelY}
-              textAnchor="middle"
-              className="pointer-events-none"
-              fill="#475569"
-              fontSize={isZoomed ? Math.max(6, 10 * (vb.w / VB_W)) : 10}
-              fontWeight="500"
-            >
-              {pref.name}
-            </text>
-          ))}
+          mapData.prefectures.map((pref) => {
+            const annotation = prefectureAnnotations?.[pref.code]
+            const baseFontSize = isZoomed ? Math.max(6, 10 * (vb.w / VB_W)) : 10
+            return (
+              <text
+                key={`label-${pref.code}`}
+                x={pref.labelX}
+                y={annotation ? pref.labelY - baseFontSize * 0.3 : pref.labelY}
+                textAnchor="middle"
+                className="pointer-events-none"
+                fill="#475569"
+                fontSize={baseFontSize}
+                fontWeight="500"
+              >
+                {pref.name}
+                {annotation && (
+                  <tspan
+                    x={pref.labelX}
+                    dy={baseFontSize * 1.1}
+                    fontSize={baseFontSize * 0.75}
+                    fontWeight="700"
+                    fill="#1e40af"
+                    fontFamily="monospace"
+                  >
+                    {annotation}
+                  </tspan>
+                )}
+              </text>
+            )
+          })}
 
         {/* Markers */}
         {svgMarkers.map((m) => (
