@@ -137,20 +137,18 @@ export function recordMunicipalityQuiz(
     progress.prefectureScores[prefCode].correct += correct
     progress.prefectureScores[prefCode].total += total
 
-    const score = progress.prefectureScores[prefCode]
-    const accuracy = score.correct / score.total
-    if (score.total >= 10 && accuracy >= 0.8 && !progress.masteredPrefectures.includes(prefCode)) {
-      progress.masteredPrefectures.push(prefCode)
+    // ベストスコアを記録（全問・部分問わず）
+    if (!progress.bestFullScores) progress.bestFullScores = {}
+    const pct = Math.round((correct / total) * 100)
+    const prev = progress.bestFullScores[prefCode] ?? 0
+    if (pct > prev) {
+      progress.bestFullScores[prefCode] = pct
     }
 
-    // 全問モードのベストスコアを記録
-    if (isFullQuiz) {
-      if (!progress.bestFullScores) progress.bestFullScores = {}
-      const pct = Math.round((correct / total) * 100)
-      const prev = progress.bestFullScores[prefCode] ?? 0
-      if (pct > prev) {
-        progress.bestFullScores[prefCode] = pct
-      }
+    // 習得判定：ベストスコア80%以上で習得
+    const bestPct = progress.bestFullScores[prefCode] ?? 0
+    if (bestPct >= 80 && !progress.masteredPrefectures.includes(prefCode)) {
+      progress.masteredPrefectures.push(prefCode)
     }
   }
 
@@ -163,6 +161,9 @@ export function getMunicipalityAccuracy(progress: MunicipalityProgress): number 
 }
 
 export function getPrefectureAccuracy(progress: MunicipalityProgress, prefCode: string): number {
+  // ベストスコアがあればそちらを優先
+  const best = progress.bestFullScores?.[prefCode]
+  if (best !== undefined) return best
   const score = progress.prefectureScores[prefCode]
   if (!score || score.total === 0) return 0
   return Math.round((score.correct / score.total) * 100)
