@@ -14,17 +14,13 @@ const closeMenuOnMobile = () => {
   }
 }
 
-const mapItems = [
+const mainItems = [
   { href: '/municipalities', icon: '🗺️', label: '市区町村' },
   { href: '/roads', icon: '🛣️', label: '国道' },
   { href: '/rivers', icon: '🏞️', label: '河川' },
   { href: '/area-codes', icon: '📞', label: '市外局番' },
-]
-
-const studyItems = [
   { href: '/quiz', icon: '🎯', label: 'クイズ' },
   { href: '/learn', icon: '📖', label: '学習' },
-  { href: '/images', icon: '🖼️', label: '画像' },
 ]
 
 const referenceItems = [
@@ -32,6 +28,7 @@ const referenceItems = [
   { href: '/regions', icon: '🗾', label: '地域別' },
   { href: '/infrastructure', icon: '🔌', label: 'インフラ' },
   { href: '/power-companies', icon: '⚡', label: '電柱' },
+  { href: '/images', icon: '🖼️', label: '画像' },
 ]
 
 export default function Navigation() {
@@ -39,7 +36,7 @@ export default function Navigation() {
 
   const isActive = (href: string) => pathname === href || pathname.startsWith(href + '/')
 
-  const renderSection = (title: string, items: typeof mapItems) => (
+  const renderSection = (title: string, items: typeof mainItems) => (
     <div className="border-t border-white/10 mt-3 pt-3">
       <p className="px-3 text-[10px] text-slate-500 uppercase tracking-wider mb-2">{title}</p>
       <ul className="space-y-1">
@@ -70,9 +67,8 @@ export default function Navigation() {
       style={{ top: 'calc(3.5rem + env(safe-area-inset-top, 0px))' }}
     >
       <div className="p-3">
-        {/* 地図データ — メインコンテンツ */}
         <ul className="space-y-1">
-          {mapItems.map((item) => (
+          {mainItems.map((item) => (
             <li key={item.href}>
               <Link
                 href={item.href}
@@ -90,7 +86,6 @@ export default function Navigation() {
           ))}
         </ul>
 
-        {renderSection('練習', studyItems)}
         {renderSection('リファレンス', referenceItems)}
       </div>
     </nav>
