@@ -247,13 +247,16 @@ export default function MunicipalityQuiz({
   }, [prefectures, filterPrefecture])
 
   // Generate questions - for intra-pref, wait for GeoJSON
-  // クイズ中はページスクロール無効化
+  // クイズ中はページスクロール無効化（html/body/main全て）
   useEffect(() => {
+    const main = document.querySelector('main') as HTMLElement | null
     document.documentElement.style.overflow = 'hidden'
     document.body.style.overflow = 'hidden'
+    if (main) main.style.overflow = 'hidden'
     return () => {
       document.documentElement.style.overflow = ''
       document.body.style.overflow = ''
+      if (main) main.style.overflow = ''
     }
   }, [])
 
