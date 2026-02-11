@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback, useMemo, useRef, useEffect } from 'react'
+import React, { useState, useCallback, useMemo, useRef, useEffect } from 'react'
 import mapData from '@/data/japan-map-paths.json'
 
 interface Marker {
@@ -155,12 +155,20 @@ export default function JapanMap({
     setVb({ x: VB_X, y: VB_Y, w: VB_W, h: VB_H })
   }, [])
 
+  // Mouse wheel zoom via React handler (no addEventListener needed)
+  const handleWheel = useCallback((e: React.WheelEvent) => {
+    if (!zoomable) return
+    e.stopPropagation()
+    const svgPt = screenToSvg(e.clientX, e.clientY)
+    const factor = e.deltaY > 0 ? 1.15 : 0.85
+    zoomTo(factor, svgPt.x, svgPt.y)
+  }, [zoomable, screenToSvg, zoomTo])
+
   // Touch/mouse handlers for zoom/pan (uses refs to avoid stale closures)
   useEffect(() => {
     if (!zoomable) return
     const svg = svgRef.current
-    const wrapper = wrapperRef.current
-    if (!svg || !wrapper) return
+    if (!svg) return
 
     const getTouchDist = (t: TouchList) => {
       const dx = t[1].clientX - t[0].clientX
@@ -265,14 +273,6 @@ export default function JapanMap({
       }
     }
 
-    // Mouse wheel zoom (directly on wrapper element)
-    const onWheel = (e: WheelEvent) => {
-      e.preventDefault()
-      const svgPt = screenToSvg(e.clientX, e.clientY)
-      const factor = e.deltaY > 0 ? 1.15 : 0.85
-      zoomTo(factor, svgPt.x, svgPt.y)
-    }
-
     // Mouse drag pan
     const onMouseDown = (e: MouseEvent) => {
       if (e.button !== 0) return // left click only
@@ -317,7 +317,6 @@ export default function JapanMap({
     svg.addEventListener('mousedown', onMouseDown)
     window.addEventListener('mousemove', onMouseMove)
     window.addEventListener('mouseup', onMouseUp)
-    wrapper.addEventListener('wheel', onWheel, { passive: false })
 
     return () => {
       svg.removeEventListener('touchstart', onTouchStart)
@@ -326,7 +325,6 @@ export default function JapanMap({
       svg.removeEventListener('mousedown', onMouseDown)
       window.removeEventListener('mousemove', onMouseMove)
       window.removeEventListener('mouseup', onMouseUp)
-      wrapper.removeEventListener('wheel', onWheel)
     }
   }, [zoomable, screenToSvg, zoomTo, resetZoom])
 
@@ -356,7 +354,7 @@ export default function JapanMap({
     : mapData.viewBox
 
   return (
-    <div ref={wrapperRef} className={`relative ${sizeClasses[size]} mx-auto ${zoomable ? 'h-full' : ''} ${className}`}>
+    <div ref={wrapperRef} onWheel={handleWheel} className={`relative ${sizeClasses[size]} mx-auto ${zoomable ? 'h-full' : ''} ${className}`}>
       {/* Tooltip */}
       {hoveredName && interactive && (
         <div className="absolute top-2 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-sm px-3 py-1 rounded-full z-10 pointer-events-none animate-fade-in">
