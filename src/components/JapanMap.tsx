@@ -264,8 +264,10 @@ export default function JapanMap({
       }
     }
 
-    // Mouse wheel zoom
+    // Mouse wheel zoom (document-level to reliably intercept scroll)
+    const wrapper = wrapperRef.current
     const onWheel = (e: WheelEvent) => {
+      if (!wrapper?.contains(e.target as Node)) return
       e.preventDefault()
       const svgPt = screenToSvg(e.clientX, e.clientY)
       const factor = e.deltaY > 0 ? 1.15 : 0.85
@@ -310,16 +312,13 @@ export default function JapanMap({
       dragRef.current.dragging = false
     }
 
-    const wrapper = wrapperRef.current
-
     svg.addEventListener('touchstart', onTouchStart, { passive: false })
     svg.addEventListener('touchmove', onTouchMove, { passive: false })
     svg.addEventListener('touchend', onTouchEnd)
     svg.addEventListener('mousedown', onMouseDown)
     window.addEventListener('mousemove', onMouseMove)
     window.addEventListener('mouseup', onMouseUp)
-    // Wheel on wrapper to catch scroll even outside SVG area
-    wrapper?.addEventListener('wheel', onWheel, { passive: false })
+    document.addEventListener('wheel', onWheel, { passive: false })
 
     return () => {
       svg.removeEventListener('touchstart', onTouchStart)
@@ -328,7 +327,7 @@ export default function JapanMap({
       svg.removeEventListener('mousedown', onMouseDown)
       window.removeEventListener('mousemove', onMouseMove)
       window.removeEventListener('mouseup', onMouseUp)
-      wrapper?.removeEventListener('wheel', onWheel)
+      document.removeEventListener('wheel', onWheel)
     }
   }, [zoomable, screenToSvg, zoomTo, resetZoom])
 
