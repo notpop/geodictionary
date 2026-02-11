@@ -155,11 +155,12 @@ export default function JapanMap({
     setVb({ x: VB_X, y: VB_Y, w: VB_W, h: VB_H })
   }, [])
 
-  // Touch handlers for zoom/pan (uses refs to avoid stale closures)
+  // Touch/mouse handlers for zoom/pan (uses refs to avoid stale closures)
   useEffect(() => {
     if (!zoomable) return
     const svg = svgRef.current
-    if (!svg) return
+    const wrapper = wrapperRef.current
+    if (!svg || !wrapper) return
 
     const getTouchDist = (t: TouchList) => {
       const dx = t[1].clientX - t[0].clientX
@@ -264,14 +265,9 @@ export default function JapanMap({
       }
     }
 
-    // Mouse wheel zoom (capture phase on document to intercept before scroll containers)
+    // Mouse wheel zoom (directly on wrapper element)
     const onWheel = (e: WheelEvent) => {
-      const w = wrapperRef.current
-      if (!w) return
-      const rect = w.getBoundingClientRect()
-      if (e.clientX < rect.left || e.clientX > rect.right || e.clientY < rect.top || e.clientY > rect.bottom) return
       e.preventDefault()
-      e.stopPropagation()
       const svgPt = screenToSvg(e.clientX, e.clientY)
       const factor = e.deltaY > 0 ? 1.15 : 0.85
       zoomTo(factor, svgPt.x, svgPt.y)
@@ -321,7 +317,7 @@ export default function JapanMap({
     svg.addEventListener('mousedown', onMouseDown)
     window.addEventListener('mousemove', onMouseMove)
     window.addEventListener('mouseup', onMouseUp)
-    document.addEventListener('wheel', onWheel, { passive: false, capture: true })
+    wrapper.addEventListener('wheel', onWheel, { passive: false })
 
     return () => {
       svg.removeEventListener('touchstart', onTouchStart)
@@ -330,7 +326,7 @@ export default function JapanMap({
       svg.removeEventListener('mousedown', onMouseDown)
       window.removeEventListener('mousemove', onMouseMove)
       window.removeEventListener('mouseup', onMouseUp)
-      document.removeEventListener('wheel', onWheel, { capture: true })
+      wrapper.removeEventListener('wheel', onWheel)
     }
   }, [zoomable, screenToSvg, zoomTo, resetZoom])
 
