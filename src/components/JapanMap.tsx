@@ -264,11 +264,14 @@ export default function JapanMap({
       }
     }
 
-    // Mouse wheel zoom (document-level to reliably intercept scroll)
-    const wrapper = wrapperRef.current
+    // Mouse wheel zoom (capture phase on document to intercept before scroll containers)
     const onWheel = (e: WheelEvent) => {
-      if (!wrapper?.contains(e.target as Node)) return
+      const w = wrapperRef.current
+      if (!w) return
+      const rect = w.getBoundingClientRect()
+      if (e.clientX < rect.left || e.clientX > rect.right || e.clientY < rect.top || e.clientY > rect.bottom) return
       e.preventDefault()
+      e.stopPropagation()
       const svgPt = screenToSvg(e.clientX, e.clientY)
       const factor = e.deltaY > 0 ? 1.15 : 0.85
       zoomTo(factor, svgPt.x, svgPt.y)
@@ -318,7 +321,7 @@ export default function JapanMap({
     svg.addEventListener('mousedown', onMouseDown)
     window.addEventListener('mousemove', onMouseMove)
     window.addEventListener('mouseup', onMouseUp)
-    document.addEventListener('wheel', onWheel, { passive: false })
+    document.addEventListener('wheel', onWheel, { passive: false, capture: true })
 
     return () => {
       svg.removeEventListener('touchstart', onTouchStart)
@@ -327,7 +330,7 @@ export default function JapanMap({
       svg.removeEventListener('mousedown', onMouseDown)
       window.removeEventListener('mousemove', onMouseMove)
       window.removeEventListener('mouseup', onMouseUp)
-      document.removeEventListener('wheel', onWheel)
+      document.removeEventListener('wheel', onWheel, { capture: true })
     }
   }, [zoomable, screenToSvg, zoomTo, resetZoom])
 
