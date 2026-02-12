@@ -5,7 +5,7 @@ import { createPortal } from 'react-dom'
 import Link from 'next/link'
 import PrefectureLeafletMap from './PrefectureLeafletMap'
 import { useGeoJson } from '@/lib/useGeoJson'
-import { useOazaMeta } from '@/lib/useOazaGeoJson'
+import { useOazaMeta, usePrefectureOaza } from '@/lib/useOazaGeoJson'
 import type { MunicipalityPrefecture } from '@/lib/types'
 
 interface PrefectureDetailProps {
@@ -50,6 +50,7 @@ export default function PrefectureDetail({ prefecture, prevPrefecture, nextPrefe
   const [selectedType, setSelectedType] = useState<string>('all')
   const [highlightedMuni, setHighlightedMuni] = useState<string | null>(null)
   const [showLabels, setShowLabels] = useState(false)
+  const [showOaza, setShowOaza] = useState(false)
   const [mapExpanded, setMapExpanded] = useState(false)
   const { data: geoJson } = useGeoJson(prefecture.code)
   const { data: oazaMeta } = useOazaMeta()
@@ -106,6 +107,16 @@ export default function PrefectureDetail({ prefecture, prevPrefecture, nextPrefe
     return map
   }, [geoJson])
 
+  const allMuniCodes = useMemo(() => Object.values(muniNameToCode), [muniNameToCode])
+  const { data: oazaGeoJson, loading: oazaLoading, progress: oazaProgress } = usePrefectureOaza(
+    showOaza ? prefecture.code : null,
+    allMuniCodes
+  )
+
+  // 大字モードON時の実際の表示用GeoJSON
+  const mapGeoJson = showOaza && oazaGeoJson ? oazaGeoJson : geoJson
+  const mapShowLabels = showOaza ? true : showLabels
+
   const filteredEntries = useMemo(() => {
     let entries = allEntries
     if (selectedType !== 'all') {
@@ -157,15 +168,28 @@ export default function PrefectureDetail({ prefecture, prevPrefecture, nextPrefe
             </Link>
           ) : <div className="w-5" />}
         </div>
-        <button
-          onClick={() => setShowLabels(!showLabels)}
-          className="flex items-center gap-1.5 active:scale-[0.96] transition-transform"
-        >
-          <span className="text-xs text-slate-500">ラベル</span>
-          <div className={`relative w-9 h-5 rounded-full transition-colors ${showLabels ? 'bg-primary' : 'bg-slate-300'}`}>
-            <div className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${showLabels ? 'translate-x-4' : 'translate-x-0.5'}`} />
-          </div>
-        </button>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setShowOaza(!showOaza)}
+            className="flex items-center gap-1.5 active:scale-[0.96] transition-transform"
+          >
+            <span className="text-xs text-slate-500">
+              {oazaLoading ? `大字 ${oazaProgress.loaded}/${oazaProgress.total}` : '大字'}
+            </span>
+            <div className={`relative w-9 h-5 rounded-full transition-colors ${showOaza ? 'bg-amber-500' : 'bg-slate-300'}`}>
+              <div className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${showOaza ? 'translate-x-4' : 'translate-x-0.5'}`} />
+            </div>
+          </button>
+          <button
+            onClick={() => setShowLabels(!showLabels)}
+            className="flex items-center gap-1.5 active:scale-[0.96] transition-transform"
+          >
+            <span className="text-xs text-slate-500">ラベル</span>
+            <div className={`relative w-9 h-5 rounded-full transition-colors ${showLabels ? 'bg-primary' : 'bg-slate-300'}`}>
+              <div className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${showLabels ? 'translate-x-4' : 'translate-x-0.5'}`} />
+            </div>
+          </button>
+        </div>
       </div>
 
       {/* Map - sticky, with expand button outside Leaflet's stacking context */}
@@ -175,19 +199,21 @@ export default function PrefectureDetail({ prefecture, prevPrefecture, nextPrefe
       >
         <div className="relative">
           <div className="bg-white rounded-xl shadow-sm overflow-hidden" style={{ position: 'relative', zIndex: 0 }}>
-            {geoJson ? (
+            {mapGeoJson ? (
               <PrefectureLeafletMap
-                geojson={geoJson}
+                geojson={mapGeoJson}
                 interactive={false}
-                highlightedName={highlightedMuni}
-                showLabels={showLabels}
-                readingMap={readingMap}
-                parentMap={parentMap}
+                highlightedName={showOaza ? null : highlightedMuni}
+                showLabels={mapShowLabels}
+                readingMap={showOaza ? undefined : readingMap}
+                parentMap={showOaza ? undefined : parentMap}
                 className="h-44 rounded-xl overflow-hidden"
               />
             ) : (
               <div className="h-44 bg-slate-100 flex items-center justify-center">
-                <span className="text-slate-400 text-sm">地図を読み込み中...</span>
+                <span className="text-slate-400 text-sm">
+                  {oazaLoading ? `大字データを読み込み中... ${oazaProgress.loaded}/${oazaProgress.total}` : '地図を読み込み中...'}
+                </span>
               </div>
             )}
           </div>
@@ -208,7 +234,7 @@ export default function PrefectureDetail({ prefecture, prevPrefecture, nextPrefe
       </div>
 
       {/* Expanded map overlay - rendered via Portal to escape transform containing block */}
-      {mapExpanded && geoJson && createPortal(
+      {mapExpanded && mapGeoJson && createPortal(
         <div className="fixed inset-0 z-[9999] bg-slate-900 flex flex-col" style={{ height: '100dvh' }}>
           {/* Dark control bar */}
           <div
@@ -224,25 +250,36 @@ export default function PrefectureDetail({ prefecture, prevPrefecture, nextPrefe
               </svg>
               <span className="text-sm font-medium">{prefecture.name}</span>
             </button>
-            <button
-              onClick={() => setShowLabels(!showLabels)}
-              className="flex items-center gap-2 active:opacity-70 transition-opacity"
-            >
-              <span className="text-xs text-slate-400">ラベル</span>
-              <div className={`relative w-9 h-5 rounded-full transition-colors ${showLabels ? 'bg-primary' : 'bg-slate-600'}`}>
-                <div className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${showLabels ? 'translate-x-4' : 'translate-x-0.5'}`} />
-              </div>
-            </button>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setShowOaza(!showOaza)}
+                className="flex items-center gap-2 active:opacity-70 transition-opacity"
+              >
+                <span className="text-xs text-slate-400">大字</span>
+                <div className={`relative w-9 h-5 rounded-full transition-colors ${showOaza ? 'bg-amber-500' : 'bg-slate-600'}`}>
+                  <div className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${showOaza ? 'translate-x-4' : 'translate-x-0.5'}`} />
+                </div>
+              </button>
+              <button
+                onClick={() => setShowLabels(!showLabels)}
+                className="flex items-center gap-2 active:opacity-70 transition-opacity"
+              >
+                <span className="text-xs text-slate-400">ラベル</span>
+                <div className={`relative w-9 h-5 rounded-full transition-colors ${showLabels ? 'bg-primary' : 'bg-slate-600'}`}>
+                  <div className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${showLabels ? 'translate-x-4' : 'translate-x-0.5'}`} />
+                </div>
+              </button>
+            </div>
           </div>
           {/* Map fills remaining space */}
           <div className="flex-1 min-h-0">
             <PrefectureLeafletMap
-              geojson={geoJson}
+              geojson={mapGeoJson}
               interactive={false}
-              highlightedName={highlightedMuni}
-              showLabels={showLabels}
-              readingMap={readingMap}
-              parentMap={parentMap}
+              highlightedName={showOaza ? null : highlightedMuni}
+              showLabels={mapShowLabels}
+              readingMap={showOaza ? undefined : readingMap}
+              parentMap={showOaza ? undefined : parentMap}
               className="w-full h-full"
             />
           </div>
