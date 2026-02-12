@@ -5,6 +5,7 @@ import { createPortal } from 'react-dom'
 import Link from 'next/link'
 import PrefectureLeafletMap from './PrefectureLeafletMap'
 import { useGeoJson } from '@/lib/useGeoJson'
+import { useOazaMeta } from '@/lib/useOazaGeoJson'
 import type { MunicipalityPrefecture } from '@/lib/types'
 
 interface PrefectureDetailProps {
@@ -51,6 +52,7 @@ export default function PrefectureDetail({ prefecture, prevPrefecture, nextPrefe
   const [showLabels, setShowLabels] = useState(false)
   const [mapExpanded, setMapExpanded] = useState(false)
   const { data: geoJson } = useGeoJson(prefecture.code)
+  const { data: oazaMeta } = useOazaMeta()
 
   const allEntries = useMemo(() => getAllEntries(prefecture), [prefecture])
 
@@ -89,6 +91,20 @@ export default function PrefectureDetail({ prefecture, prevPrefecture, nextPrefe
     }
     return map
   }, [geoJson, prefecture])
+
+  // 市区町村名 → GeoJSON 5桁コードのマッピング
+  const muniNameToCode = useMemo(() => {
+    if (!geoJson) return {}
+    const map: Record<string, string> = {}
+    for (const feat of geoJson.features) {
+      const code = feat.properties?.code
+      const name = feat.properties?.name
+      if (code && name) {
+        map[name] = code
+      }
+    }
+    return map
+  }, [geoJson])
 
   const filteredEntries = useMemo(() => {
     let entries = allEntries
@@ -281,30 +297,44 @@ export default function PrefectureDetail({ prefecture, prevPrefecture, nextPrefe
 
       {/* Municipality list */}
       <div className="space-y-1.5">
-        {filteredEntries.map((entry, i) => (
-          <button
-            key={`${entry.name}-${i}`}
-            className={`w-full text-left px-4 py-3 bg-white rounded-xl border transition-all active:scale-[0.98] ${
-              highlightedMuni === entry.name
-                ? 'border-primary bg-primary/5 shadow-sm'
-                : 'border-slate-100'
-            }`}
-            onClick={() => setHighlightedMuni(highlightedMuni === entry.name ? null : entry.name)}
-          >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                {entry.parent && (
-                  <span className="text-xs text-slate-400">{entry.parent}</span>
-                )}
-                <span className="font-medium text-slate-800">{entry.name}</span>
-                <span className="text-xs text-slate-400">{entry.reading}</span>
-              </div>
-              <span className={`text-xs px-2 py-0.5 rounded-full ${typeColors[entry.type] || 'bg-slate-100 text-slate-600'}`}>
-                {typeLabels[entry.type] || entry.type}
-              </span>
+        {filteredEntries.map((entry, i) => {
+          const muniCode = muniNameToCode[entry.name]
+          const oazaCount = muniCode ? oazaMeta?.[muniCode] : undefined
+          const showOaza = oazaCount !== undefined && oazaCount >= 4
+          return (
+            <div key={`${entry.name}-${i}`} className="flex items-stretch gap-1.5">
+              <button
+                className={`flex-1 text-left px-4 py-3 bg-white rounded-xl border transition-all active:scale-[0.98] ${
+                  highlightedMuni === entry.name
+                    ? 'border-primary bg-primary/5 shadow-sm'
+                    : 'border-slate-100'
+                }`}
+                onClick={() => setHighlightedMuni(highlightedMuni === entry.name ? null : entry.name)}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    {entry.parent && (
+                      <span className="text-xs text-slate-400">{entry.parent}</span>
+                    )}
+                    <span className="font-medium text-slate-800">{entry.name}</span>
+                    <span className="text-xs text-slate-400">{entry.reading}</span>
+                  </div>
+                  <span className={`text-xs px-2 py-0.5 rounded-full ${typeColors[entry.type] || 'bg-slate-100 text-slate-600'}`}>
+                    {typeLabels[entry.type] || entry.type}
+                  </span>
+                </div>
+              </button>
+              {showOaza && (
+                <Link
+                  href={`/municipalities/quiz?level=oaza&muni=${muniCode}&name=${encodeURIComponent(entry.name)}`}
+                  className="flex items-center px-2.5 bg-amber-50 hover:bg-amber-100 border border-amber-200 rounded-xl text-amber-700 text-xs font-medium active:scale-[0.98] transition-all whitespace-nowrap"
+                >
+                  {oazaCount}区域
+                </Link>
+              )}
             </div>
-          </button>
-        ))}
+          )
+        })}
       </div>
 
       {/* Quiz CTA */}

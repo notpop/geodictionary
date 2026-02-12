@@ -287,6 +287,32 @@ export function getAreaCodeAccuracy(progress: AreaCodeProgress): number {
   return Math.round((progress.correctAnswers / progress.quizzesTaken) * 100)
 }
 
+// ========== 大字・町クイズ進捗 ==========
+const OAZA_KEY = 'geoguessr-oaza-progress'
+
+interface OazaProgress {
+  quizzesTaken: number
+  correctAnswers: number
+  lastQuizDate: string
+}
+
+export function getOazaProgress(): OazaProgress {
+  if (typeof window === 'undefined') return { quizzesTaken: 0, correctAnswers: 0, lastQuizDate: new Date().toISOString() }
+  const raw = localStorage.getItem(OAZA_KEY)
+  if (!raw) return { quizzesTaken: 0, correctAnswers: 0, lastQuizDate: new Date().toISOString() }
+  return JSON.parse(raw)
+}
+
+export function recordOazaQuiz(correct: number, total: number): void {
+  const progress = getOazaProgress()
+  progress.quizzesTaken += total
+  progress.correctAnswers += correct
+  progress.lastQuizDate = new Date().toISOString()
+  if (typeof window !== 'undefined') {
+    localStorage.setItem(OAZA_KEY, JSON.stringify(progress))
+  }
+}
+
 // ========== クイズクリア記録（全クイズ共通） ==========
 const QUIZ_CLEARS_KEY = 'geoguessr-quiz-clears'
 

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'geojp-v15'
+const CACHE_NAME = 'geojp-v16'
 const STATIC_ASSETS = [
   '/',
   '/municipalities',
@@ -31,7 +31,7 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url)
 
   // Cache-first for GeoJSON boundary data (rarely changes)
-  if (url.pathname.startsWith('/data/geojson/')) {
+  if (url.pathname.startsWith('/data/geojson/') || url.pathname.startsWith('/data/oaza/')) {
     event.respondWith(
       caches.match(event.request).then((cached) => {
         if (cached) return cached
