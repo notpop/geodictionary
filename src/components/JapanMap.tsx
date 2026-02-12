@@ -373,8 +373,8 @@ export default function JapanMap({
       <svg
         ref={svgRef}
         viewBox={viewBox}
-        className={`w-full gpu ${zoomable ? 'h-full' : 'h-auto'}`}
-        style={{ touchAction: zoomable ? 'none' : 'manipulation' }}
+        className={`w-full ${zoomable ? 'h-full' : 'h-auto'}`}
+        style={{ touchAction: zoomable ? 'none' : 'manipulation', shapeRendering: 'geometricPrecision' }}
       >
         {/* Prefecture paths */}
         {mapData.prefectures.map((pref) => (

@@ -183,9 +183,8 @@ body {
 .delay-400 { animation-delay: 400ms; }
 .delay-500 { animation-delay: 500ms; }
 
-/* SVG map styles - GPU accelerated */
+/* SVG map styles */
 .prefecture-path {
-  transform: translateZ(0);
 }
 
 .map-marker {

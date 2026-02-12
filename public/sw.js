@@ -1,4 +1,4 @@
-const CACHE_NAME = 'geojp-v14'
+const CACHE_NAME = 'geojp-v15'
 const STATIC_ASSETS = [
   '/',
   '/municipalities',
