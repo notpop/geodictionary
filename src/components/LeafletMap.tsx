@@ -96,6 +96,7 @@ export default function LeafletMap({
     const map = L.map(containerRef.current, {
       zoomControl: false,
       scrollWheelZoom: true,
+      wheelPxPerZoomLevel: 120,
       dragging: true,
       touchZoom: true,
       doubleClickZoom: true,
