@@ -28,7 +28,7 @@ export default function Home() {
     <>
       <style>{`html,body{background:#0f172a!important;overflow:hidden!important}`}</style>
       <div
-        className={`fixed left-0 right-0 bottom-0 grid grid-cols-4 gap-[2px] bg-slate-900 ${zenMaru.className}`}
+        className={`fixed left-0 md:left-64 right-0 bottom-0 grid grid-cols-4 gap-[2px] bg-slate-900 ${zenMaru.className}`}
         style={{
           top: 'calc(3.5rem + env(safe-area-inset-top, 0px))',
           gridTemplateRows: 'repeat(5, 1fr)',
