@@ -39,6 +39,9 @@ interface LeafletMapProps {
   className?: string
 }
 
+// Above this threshold, use Canvas rendering + viewport-only labels
+const LARGE_DATASET = 200
+
 export default function LeafletMap({
   geojson,
   onFeatureClick,
@@ -55,6 +58,8 @@ export default function LeafletMap({
   const mapRef = useRef<L.Map | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const geojsonLayerRef = useRef<L.GeoJSON | null>(null)
+  const labelLayerRef = useRef<L.LayerGroup | null>(null)
+  const moveHandlerRef = useRef<(() => void) | null>(null)
 
   const getStyle = useCallback(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -101,6 +106,7 @@ export default function LeafletMap({
       touchZoom: true,
       doubleClickZoom: true,
       attributionControl: false,
+      preferCanvas: true,
       center: [36.5, 137.5],
       zoom: 5,
     })
@@ -124,9 +130,21 @@ export default function LeafletMap({
     const map = mapRef.current
     if (!map || !geojson) return
 
+    // Cleanup previous layers and handlers
     if (geojsonLayerRef.current) {
       geojsonLayerRef.current.remove()
     }
+    if (labelLayerRef.current) {
+      labelLayerRef.current.remove()
+      labelLayerRef.current = null
+    }
+    if (moveHandlerRef.current) {
+      map.off('moveend', moveHandlerRef.current)
+      moveHandlerRef.current = null
+    }
+
+    const featureCount = geojson.features?.length || 0
+    const isLarge = featureCount > LARGE_DATASET
 
     const layer = L.geoJSON(geojson, {
       style: getStyle,
@@ -136,8 +154,8 @@ export default function LeafletMap({
             onFeatureClick(feature.properties.name, feature.properties.code)
           })
         }
-        // Add Japanese labels from GeoJSON properties
-        if (showLabels && feature.properties?.name) {
+        // Small datasets: permanent labels as before
+        if (showLabels && !isLarge && feature.properties?.name) {
           const name = feature.properties.name
           const parent = parentMap?.[feature.properties.code]
           const reading = readingMap?.[name]
@@ -156,11 +174,45 @@ export default function LeafletMap({
 
     geojsonLayerRef.current = layer
 
+    // Large datasets with labels: viewport-only label management
+    if (showLabels && isLarge) {
+      const labelGroup = L.layerGroup().addTo(map)
+      labelLayerRef.current = labelGroup
+
+      const updateVisibleLabels = () => {
+        labelGroup.clearLayers()
+        const zoom = map.getZoom()
+        if (zoom < 10) return // Too zoomed out, skip labels
+
+        const viewBounds = map.getBounds()
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        layer.eachLayer((lyr: any) => {
+          const feature = lyr.feature
+          if (!feature?.properties?.name) return
+          const center = lyr.getBounds?.()?.getCenter?.()
+          if (!center || !viewBounds.contains(center)) return
+
+          L.tooltip({
+            permanent: true,
+            direction: 'center',
+            className: 'leaflet-municipality-label',
+          })
+            .setLatLng(center)
+            .setContent(feature.properties.name)
+            .addTo(labelGroup)
+        })
+      }
+
+      map.on('moveend', updateVisibleLabels)
+      moveHandlerRef.current = updateVisibleLabels
+      // Initial label render after fitBounds settles
+      setTimeout(updateVisibleLabels, 400)
+    }
+
     const bounds = layer.getBounds()
     if (bounds.isValid()) {
       map.invalidateSize()
       map.fitBounds(bounds, { padding: [8, 8], maxZoom: 16 })
-      // Re-fit after layout settles (fixes expanded overlay sizing)
       const retryFit = () => {
         map.invalidateSize()
         map.fitBounds(bounds, { padding: [8, 8], maxZoom: 16 })
