@@ -264,9 +264,10 @@ export default function JapanMap({
       }
     }
 
-    // Mouse wheel zoom (native listener on SVG for preventDefault support)
+    // Mouse wheel zoom
     const onWheel = (e: WheelEvent) => {
       e.preventDefault()
+      e.stopPropagation()
       const svgPt = screenToSvg(e.clientX, e.clientY)
       const factor = e.deltaY > 0 ? 1.15 : 0.85
       zoomTo(factor, svgPt.x, svgPt.y)
@@ -310,10 +311,13 @@ export default function JapanMap({
       dragRef.current.dragging = false
     }
 
+    const wrapper = wrapperRef.current
+
     svg.addEventListener('touchstart', onTouchStart, { passive: false })
     svg.addEventListener('touchmove', onTouchMove, { passive: false })
     svg.addEventListener('touchend', onTouchEnd)
-    svg.addEventListener('wheel', onWheel, { passive: false })
+    // Wheel on wrapper (capture phase) to catch all scroll events within map area
+    if (wrapper) wrapper.addEventListener('wheel', onWheel, { passive: false, capture: true })
     svg.addEventListener('mousedown', onMouseDown)
     window.addEventListener('mousemove', onMouseMove)
     window.addEventListener('mouseup', onMouseUp)
@@ -322,7 +326,7 @@ export default function JapanMap({
       svg.removeEventListener('touchstart', onTouchStart)
       svg.removeEventListener('touchmove', onTouchMove)
       svg.removeEventListener('touchend', onTouchEnd)
-      svg.removeEventListener('wheel', onWheel)
+      if (wrapper) wrapper.removeEventListener('wheel', onWheel, { capture: true })
       svg.removeEventListener('mousedown', onMouseDown)
       window.removeEventListener('mousemove', onMouseMove)
       window.removeEventListener('mouseup', onMouseUp)
