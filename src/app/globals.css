@@ -185,13 +185,7 @@ body {
 
 /* SVG map styles - GPU accelerated */
 .prefecture-path {
-  transition: fill 0.15s ease-out, stroke 0.15s ease-out;
   transform: translateZ(0);
-  cursor: pointer;
-}
-
-.prefecture-path:active {
-  animation: tap-bounce 0.15s ease-in-out;
 }
 
 .map-marker {
